@@ -11,7 +11,7 @@ export type Props = {
 };
 
 const StyledButtonWrapper = styled.TouchableOpacity`
-  width: 335px;
+  width: 100%;
   height: 60px;
   padding: ${({ theme: { space } }) => space.l};
   border-radius: ${({ theme: { space } }) => space.s};

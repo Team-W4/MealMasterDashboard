@@ -2,9 +2,9 @@ import React from 'react';
 import styled from '../../styled';
 
 const StyledProfileImage = styled.Image`
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
 `;
 
 // TODO: #API profile retrieval API here

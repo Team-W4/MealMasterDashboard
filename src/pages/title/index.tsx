@@ -9,7 +9,7 @@ export type Props = {
 };
 
 const TitleBar = ({ title }: Props): JSX.Element => (
-  <Box flexDirection="row" px="xxl" mb="s">
+  <Box mb="s" mt="50px" mx="xxxl" flexDirection="row">
     <Box flexGrow={1}>
       <Title mb="xxs">{title}</Title>
       <Today />

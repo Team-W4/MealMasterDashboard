@@ -1,4 +1,4 @@
-import styled from '../../styled';
+import styled from '../../../styled';
 
 const StyledImage = styled.Image`
   height: 100px;

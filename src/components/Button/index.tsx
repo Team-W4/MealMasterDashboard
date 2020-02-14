@@ -7,9 +7,9 @@ export type Props = SWProps & {
   onPress?: () => void;
 };
 
-const Button = ({ title, onPress }: Props): JSX.Element => {
+const Button = ({ title, onPress, ...props }: Props): JSX.Element => {
   return (
-    <StyledButtonWrapper onPress={onPress}>
+    <StyledButtonWrapper onPress={onPress} {...props}>
       <StyledLabel>{title}</StyledLabel>
     </StyledButtonWrapper>
   );
