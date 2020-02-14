@@ -1,4 +1,4 @@
-import {ThemeInterface} from './theme';
+import { ThemeInterface } from './theme';
 import * as styledComponents from 'styled-components/native';
 
 type StyledComponents = styledComponents.ReactNativeThemedStyledComponentsModule<
@@ -12,6 +12,6 @@ const {
   withTheme,
 } = styledComponents as StyledComponents;
 
-export {css, ThemeProvider, withTheme};
+export { css, ThemeProvider, withTheme };
 
 export default styled;

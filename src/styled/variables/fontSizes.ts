@@ -6,6 +6,7 @@ const fontSizes = {
   brilliant:    '4px',
   brevier:      '8px',
   pica:         '16px',
+  bourgeois:    '24px',
   primer:       '32px',
   paragon:      '64px',
 };

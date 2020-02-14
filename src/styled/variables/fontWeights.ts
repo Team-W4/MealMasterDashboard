@@ -1,11 +1,11 @@
 /* eslint-disable prettier/prettier */
 
 const fontWeights = {
-  extraLight: '300',
-  light:      '400',
-  medium:     '4500',
+  extraLight: '100',
+  light:      '300',
+  medium:     '400',
   normal:     '500',
-  bold:       '600',
+  bold:       '900',
 };
 
 export type FontWeightNames = typeof fontWeights;
