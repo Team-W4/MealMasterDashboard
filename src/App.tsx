@@ -1,8 +1,11 @@
 import React from 'react';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 import { default as StyledTheme } from './styled/theme';
 import styled, { ThemeProvider } from './styled';
 import TitleBar from './pages/title';
 import ScrollList from './pages/list';
+import RootReducer from './reducers';
 
 const Container = styled.View`
   flex: 1;
@@ -40,14 +43,18 @@ const RecipeList = [
   },
 ];
 
+const store = createStore(RootReducer);
+
 const App = (): JSX.Element => {
   return (
-    <ThemeProvider theme={StyledTheme}>
-      <Container>
-        <TitleBar title="Good Morning!" />
-        <ScrollList items={RecipeList} />
-      </Container>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={StyledTheme}>
+        <Container>
+          <TitleBar title="Good Morning!" />
+          <ScrollList items={RecipeList} />
+        </Container>
+      </ThemeProvider>
+    </Provider>
   );
 };
 
