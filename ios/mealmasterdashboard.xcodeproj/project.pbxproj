@@ -19,6 +19,7 @@
 		2DCD954D1E0B4F2C00145EB5 /* mealmasterdashboardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* mealmasterdashboardTests.m */; };
 		7314FE0A84CCFB1506187C93 /* libPods-mealmasterdashboard-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63A57DA7EC860AA2C1E5A198 /* libPods-mealmasterdashboard-tvOS.a */; };
 		78D37537BA0FAD93C4D9255E /* libPods-mealmasterdashboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5DE9F51DF6737B6115FD398 /* libPods-mealmasterdashboard.a */; };
+		97A4EA5A23F5F1840087C534 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 97A4EA5923F5F1830087C534 /* Fonts */; };
 		E91F8D235C977AD5B8217AA5 /* libPods-mealmasterdashboard-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 161A4F54B6180EF88291197F /* libPods-mealmasterdashboard-tvOSTests.a */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 		531B6C17AB1E379C48EF4676 /* Pods-mealmasterdashboard-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mealmasterdashboard-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-mealmasterdashboard-tvOSTests/Pods-mealmasterdashboard-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		63A57DA7EC860AA2C1E5A198 /* libPods-mealmasterdashboard-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mealmasterdashboard-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		87B2301893C5CA6FE584F506 /* Pods-mealmasterdashboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mealmasterdashboard.release.xcconfig"; path = "Target Support Files/Pods-mealmasterdashboard/Pods-mealmasterdashboard.release.xcconfig"; sourceTree = "<group>"; };
+		97A4EA5923F5F1830087C534 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		B8B6F10E2B207BE91938C33B /* Pods-mealmasterdashboardTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mealmasterdashboardTests.release.xcconfig"; path = "Target Support Files/Pods-mealmasterdashboardTests/Pods-mealmasterdashboardTests.release.xcconfig"; sourceTree = "<group>"; };
 		C8F9578290E9DDB4BB3D96B8 /* libPods-mealmasterdashboardTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mealmasterdashboardTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE135AE824927B088CEEC70A /* Pods-mealmasterdashboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mealmasterdashboard.debug.xcconfig"; path = "Target Support Files/Pods-mealmasterdashboard/Pods-mealmasterdashboard.debug.xcconfig"; sourceTree = "<group>"; };
@@ -161,7 +163,6 @@
 				2622EC55C74BD4714DBEA50C /* Pods-mealmasterdashboardTests.debug.xcconfig */,
 				B8B6F10E2B207BE91938C33B /* Pods-mealmasterdashboardTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -175,6 +176,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				97A4EA5923F5F1830087C534 /* Fonts */,
 				13B07FAE1A68108700A75B9A /* mealmasterdashboard */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* mealmasterdashboardTests */,
@@ -308,6 +310,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -336,6 +339,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97A4EA5A23F5F1840087C534 /* Fonts in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
