@@ -8,6 +8,7 @@ enum textColorEnum {
   error,
   success,
   secondary,
+  tertiary,
   link,
 }
 
@@ -40,6 +41,9 @@ const textColors = variant({
     },
     secondary: {
       color: 'manateegray',
+    },
+    tertiary: {
+      color: 'silver',
     },
     link: {
       color: 'anakiwablue',

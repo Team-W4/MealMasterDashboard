@@ -19,7 +19,14 @@ const ScrollList = ({ items }: Props) => (
   <StyledScrollList>
     {items.map((item, index) => (
       <Box key={index} mb="xl">
-        <ImageCard title={item.title} tag={item.tags[0]} imageURI={item.uri} />
+        <ImageCard
+          title={item.title}
+          tag={item.tags[0]}
+          imageURI={item.uri}
+          duration={item.duration}
+          difficulty={item.difficulty}
+          quantity={item.quantity}
+        />
       </Box>
     ))}
   </StyledScrollList>

@@ -1,13 +1,14 @@
 import React from 'react';
+import { NativeSyntheticEvent, NativeTouchEvent } from 'react-native';
 import StyledButtonWrapper, { Props as SWProps } from './StyledButtonWrapper';
 import StyledLabel from './StyledButtonLabel';
 
 export type Props = SWProps & {
   title?: string;
-  onPress?: () => void;
+  onPress?: (ev: NativeSyntheticEvent<NativeTouchEvent>) => void;
 };
 
-const Button = ({ title, onPress, ...props }: Props): JSX.Element => {
+const Button: React.FC<Props> = ({ title, onPress, ...props }) => {
   return (
     <StyledButtonWrapper onPress={onPress} {...props}>
       <StyledLabel>{title}</StyledLabel>

@@ -6,6 +6,7 @@ const colors = {
   white:        '#FFFFFF',
   black:        '#000000',
   neoncarrot:   '#FF8C2B',
+  orange:       '#FF6B24',
   athensgray:   '#F3F3F5',
   manateegray:  '#8F909F',
   silver:       '#C9C9C9',
@@ -23,6 +24,7 @@ enum SemanticColorFields {
   shadow,
   primary,
   secondary,
+  active,
 }
 
 export type SemanticColors = {
@@ -35,6 +37,7 @@ export const DefaultSemanticColors: SemanticColors = {
   shadow: colors.silver,
   primary: colors.neoncarrot,
   secondary: colors.manateegray,
+  active: colors.orange,
 };
 
 export type ColorNames = typeof colors;

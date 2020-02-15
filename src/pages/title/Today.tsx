@@ -8,7 +8,7 @@ const weekdays = [
   'Wednesday',
   'Thursday',
   'Friday',
-  'Satday',
+  'Saturday',
 ];
 
 const months = [
@@ -26,7 +26,7 @@ const months = [
   'Dec',
 ];
 
-const Today = (): JSX.Element => {
+const Today: React.FC = () => {
   const today = new Date();
   console.log(today);
   const weekday = weekdays[today.getDay()];
