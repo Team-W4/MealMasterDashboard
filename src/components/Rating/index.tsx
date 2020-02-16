@@ -22,7 +22,7 @@ const Rating: React.FC<Props> = ({ value, ...props }) => (
   <StyledRatingWrapper {...props}>
     <Row alignItems="center" px="s">
       <Text mr="xs" size="h2" variant="inverted">
-        {value}
+        {value.toFixed(1)}
       </Text>
       <RankedText size="h1" variant="inverted">
         {'•'.repeat(Math.round(value))}

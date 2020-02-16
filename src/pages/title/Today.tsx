@@ -28,7 +28,6 @@ const months = [
 
 const Today: React.FC = () => {
   const today = new Date();
-  console.log(today);
   const weekday = weekdays[today.getDay()];
   const date = today.getDate();
   const month = months[today.getMonth()];

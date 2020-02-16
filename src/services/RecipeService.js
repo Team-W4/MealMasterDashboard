@@ -3,7 +3,7 @@ import * as routes from '../constants/routes';
 
 class RecipeService {
   getRecipesByUser = userId => {
-    const route = `${routes.RECIPE}/${userId}`;
+    const route = `${routes.USER}/${userId}${routes.RECIPE}`;
     return getHelper(route);
   };
 

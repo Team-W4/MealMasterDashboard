@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '../../styled';
-import ImageCard from '../../components/Cards/ImageCard';
+import RecipeCard from '../recipes/components/RecipeCard';
 import Box from '../../components/Containers/Box';
 
 export type Props = {
@@ -19,7 +19,7 @@ const ScrollList = ({ items }: Props) => (
   <StyledScrollList>
     {items.map((item, index) => (
       <Box key={index} mb="xl">
-        <ImageCard
+        <RecipeCard
           title={item.title}
           tag={item.tags[0]}
           imageURI={item.uri}
