@@ -4,7 +4,7 @@ import { createReducer } from '../utils';
 const initialState = {
   profile: {},
   users: [],
-  user: {},
+  userDetails: {},
   isFetching: false,
 };
 
@@ -24,7 +24,7 @@ const UserReducer = createReducer(initialState, {
   [actionTypes.RECEIVE_USER]: (state, { user }) => ({
     ...state,
     isFetching: false,
-    user,
+    userDetails: user,
   }),
   [actionTypes.RECEIVE_USERS]: (state, { users }) => ({
     ...state,
