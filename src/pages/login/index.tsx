@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
 import styled from '../../styled';
 import Text from '../../components/Texts/Text';
-import Heading from '../../components/Texts/Heading';
 import Box from '../../components/Containers/Box';
 import Input from '../../components/Inputs/Input';
 import Back from '../../components/Icons/Back';
 
+const LoginView = styled.KeyboardAvoidingView`
+  flex: 1;
+  width: 100%;
+  padding-left: ${({ theme: { space } }) => space.xxxl};
+  padding-right: ${({ theme: { space } }) => space.xxxl};
+`;
+
 const LoginButton = styled.TouchableOpacity`
   position: absolute;
-  bottom: 50px;
-  right: ${({ theme: { space } }) => space.xxl};
+  bottom: 30px;
+  right: 0;
   width: 80px;
   height: 80px;
   border-radius: 40px;
@@ -32,44 +38,58 @@ const LoginPage: React.FC<Props> = ({ registerMode }) => {
   const [newPassword, setNewPassword] = useState('');
 
   const handleLogin = () => {
-    if (!registerMode || password === newPassword) {
+    if (
+      password &&
+      password.length > 0 &&
+      (!registerMode || password === newPassword)
+    ) {
       //TODO: #API Login API here;
       alert(`${email}+${password}`);
     }
   };
 
   return (
-    <Box height="100%" justifyContent="center" px="xxl">
-      <Text size="large" mb="xxxl">
-        {registerMode ? 'Sign Up' : 'Log In'}
-      </Text>
-      <Heading>Email</Heading>
-      <Input value={email} onChangeText={e => setEmail(e)} />
-      <Heading mt="xxxl">Password</Heading>
-      <Input
-        secureTextEntry
-        value={password}
-        onChangeText={e => setPassword(e)}
-      />
-      {registerMode && (
-        <>
-          <Heading mt="xxxl">Confirm Password</Heading>
+    <LoginView behavior="padding" enabled>
+      <Box position="relative" flexGrow={1} justifyContent="center">
+        <Box mb="l">
+          <Text size="large" mb="xxxl">
+            {registerMode ? 'Sign Up' : 'Log In'}
+          </Text>
+          <Input
+            mb="l"
+            title="Email"
+            value={email}
+            onChangeText={e => setEmail(e)}
+          />
+        </Box>
+        <Box mb="l">
           <Input
             secureTextEntry
-            value={newPassword}
-            onChangeText={e => setNewPassword(e)}
+            title="Password"
+            value={password}
+            onChangeText={e => setPassword(e)}
           />
-        </>
-      )}
-      <LoginButton onPress={handleLogin}>
-        <LoginIcon size="large" />
-      </LoginButton>
-    </Box>
+        </Box>
+        {registerMode && (
+          <Box mb="l">
+            <Input
+              secureTextEntry
+              title="Confirm Password"
+              value={newPassword}
+              onChangeText={e => setNewPassword(e)}
+            />
+          </Box>
+        )}
+        <LoginButton onPress={handleLogin}>
+          <LoginIcon size="large" />
+        </LoginButton>
+      </Box>
+    </LoginView>
   );
 };
 
 LoginPage.defaultProps = {
-  registerMode: false,
+  registerMode: true,
 };
 
 export default LoginPage;

@@ -4,7 +4,6 @@ enum inputColorEnum {
   normal,
   disabled,
   active,
-  readOnly,
   error,
   warning,
 }
@@ -26,9 +25,6 @@ const inputColors = variant({
     },
     active: {
       borderColor: 'anakiwablue',
-    },
-    readOnly: {
-      borderColor: 'manateegray',
     },
     error: {
       borderColor: 'persimmonred',

@@ -13,6 +13,8 @@ import Test from './components/Test';
 const Container = styled.View`
   flex: 1;
   position: relative;
+  align-items: center;
+  justify-content: center;
   background-color: ${({ theme }) => theme.semanticColors.background};
 `;
 
