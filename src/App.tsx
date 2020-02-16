@@ -1,11 +1,14 @@
 import React from 'react';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 import { default as StyledTheme } from './styled/theme';
 import styled, { ThemeProvider } from './styled';
 import TitleBar from './pages/title';
 import ScrollList from './pages/list';
 import RootReducer from './reducers';
+
+import Test from './components/Test';
 
 const Container = styled.View`
   flex: 1;
@@ -43,16 +46,17 @@ const RecipeList = [
   },
 ];
 
-const store = createStore(RootReducer);
+const store = createStore(RootReducer, applyMiddleware(thunk));
 
 const App = (): JSX.Element => {
   return (
     <Provider store={store}>
       <ThemeProvider theme={StyledTheme}>
-        <Container>
+        {/* <Container>
           <TitleBar title="Good Morning!" />
           <ScrollList items={RecipeList} />
-        </Container>
+        </Container> */}
+        <Test />
       </ThemeProvider>
     </Provider>
   );
