@@ -8,7 +8,9 @@ class RecipeService {
   };
 
   searchRecipes = searchTerms => {
-    const route = `${routes.RECIPE}${routes.SEARCH}/${searchTerms}`;
+    const route = `${routes.RECIPE}${routes.SEARCH}?${
+      routes.SEARCHTERMS
+    }=${searchTerms}`;
     return getHelper(route);
   };
 

@@ -40,7 +40,9 @@ class UserService {
   };
 
   searchUsers = searchTerms => {
-    const route = `${routes.USER}${routes.SEARCH}/${searchTerms}`;
+    const route = `${routes.USER}${routes.SEARCH}?${
+      routes.SEARCHTERMS
+    }=${searchTerms}`;
     return getHelper(route);
   };
 }
