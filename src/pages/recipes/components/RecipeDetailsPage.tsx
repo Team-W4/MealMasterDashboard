@@ -9,10 +9,10 @@ import ProfileImage from '../../../components/ProfileImage';
 import Rating from '../../../components/Rating';
 import Tag from '../../../components/Tag';
 import Subtitle from '../../../components/Texts/Subtitle';
-import Text from '../../../components/Texts/Text';
 import Title from '../../../components/Texts/Title';
 import Visual from '../../../components/Visual';
 import styled from '../../../styled';
+import Paragraph from '../../../components/Texts/Paragraph';
 
 const RecipeDetailsScroll = styled.ScrollView`
   flex: 1;
@@ -39,7 +39,6 @@ const CalorieLabel = styled(Label)`
 `;
 
 export type Props = FavProps & {
-  id: string | number;
   recipeDetails?: {
     rating?: number;
     name?: string;
@@ -51,7 +50,6 @@ export type Props = FavProps & {
 };
 
 const RecipeDetailsPage: React.FC<Props> = ({
-  id,
   recipeDetails: { rating, name, cookTime, ingredients, tags, instructions },
 }) => (
   <RecipeDetailsScroll>
@@ -82,16 +80,14 @@ const RecipeDetailsPage: React.FC<Props> = ({
     </Grid>
     {tags && (
       <TagList horizontal showsHorizontalScrollIndicator={false}>
-        {tags.map((tag, index) => (
-          <Box key={index} alignSelf="flex-start" mr="xs">
+        {tags.map((tag: { id: number; name: string; }) => (
+          <Box key={tag.id} alignSelf="flex-start" mr="xs">
             <Tag value={tag.name} />
           </Box>
         ))}
       </TagList>
     )}
-    <Text size="h2" px="xxxl">
-      {instructions}
-    </Text>
+    <Paragraph px="xxxl">{instructions}</Paragraph>
   </RecipeDetailsScroll>
 );
 
