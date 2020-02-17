@@ -24,13 +24,13 @@ const textSizes = variant({
     },
     h1: {
       fontSize: 'bourgeois',
-      fontWeight: 'light',
+      fontWeight: 'normal',
     },
     h2: {
       fontSize: 'pica',
-      fontWeight: 'extraLight',
+      fontWeight: 'light',
     },
-    large:{
+    large: {
       fontSize: 'paragon',
     },
     normal: {

@@ -1,10 +1,9 @@
 // Localhost just doesn't work
 // Put in your local IP to run locally.
-const LOCAL = 'http://192.168.56.1:8080';
+const LOCAL = '';
+const PROD = 'http://ec2-54-167-255-136.compute-1.amazonaws.com';
 
-const PROD = 'https://ec2-54-167-255-136.compute-1.amazonaws.com';
-
-export const HOSTNAME = LOCAL + '/api';
+export const HOSTNAME = PROD + '/api';
 
 export const SEARCH = '/search';
 

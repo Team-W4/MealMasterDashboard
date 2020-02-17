@@ -6,7 +6,8 @@ export const getHelper = route => {
     credentials: 'include',
   })
     .then(res => res.json())
-    .then(json => json.body);
+    .then(json => json.body)
+    .catch(e => console.log(e));
 };
 
 export const postHelper = (route, body) => {
