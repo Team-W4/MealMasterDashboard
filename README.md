@@ -9,13 +9,13 @@
 
 ## Contents
 
-- [Architecture Overview](#-⌨️-Architecture-Overview)
-- [Repository Structure](#-🎉-Repository-Structure)
-- [Environment Setup](#-📋-Environment-Setup)
-- [Development Process](#-🚀-Development-Process)
-- [More](#-👏-More)
+- [Architecture Overview](#-Architecture-Overview)
+- [Repository Structure](#-Repository-Structure)
+- [Environment Setup](#-Environment-Setup)
+- [Development Process](#-Development-Process)
+- [More](#-More)
 
-## ⌨️ Architecture Overview
+## 🍔 Architecture Overview
 
 Frameworks
 - **React Native** - https://facebook.github.io/react-native/
@@ -56,6 +56,7 @@ What's what?
   ```
   choco install -y nodejs.install python2 jdk8
   ```
+  And follow the guide to add env. variables
 
 [x]: https://apps.apple.com/us/app/xcode/id497799835?mt=12
 [a]: https://developer.android.com/studio
