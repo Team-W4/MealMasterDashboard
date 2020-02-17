@@ -4,6 +4,7 @@ import InputWrapper from './InputWrapper';
 import StyledInputWrapper, { Keys as SWKeys } from './StyledInputWrapper';
 import StyledInputField, { Props as SIProps } from './StyledInputField';
 import Heading from '../../Texts/Heading';
+import Text from '../../Texts/Text';
 
 export type Props = TextInputProps &
   SIProps & {
@@ -33,6 +34,13 @@ const Input: React.FC<Props> = ({ title, editable, error, size, ...props }) => {
           {...props}
         />
       </StyledInputWrapper>
+      {error && error.length > 0 ? (
+        <Text mt="xs" variant="error" size="normal">
+          {error}
+        </Text>
+      ) : (
+        <></>
+      )}
     </InputWrapper>
   );
 };

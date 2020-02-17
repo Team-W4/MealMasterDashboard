@@ -3,7 +3,7 @@ import Box from '../../../components/Containers/Box';
 import Grid, { Column } from '../../../components/Containers/Grid';
 import FavoriteButton, {
   Props as FavProps,
-} from '../../../components/FavoriteButton';
+} from '../../../components/Buttons/FavoriteButton';
 import Label from '../../../components/Label';
 import ProfileImage from '../../../components/ProfileImage';
 import Rating from '../../../components/Rating';

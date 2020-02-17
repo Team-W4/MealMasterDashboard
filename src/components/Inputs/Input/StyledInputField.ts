@@ -7,6 +7,7 @@ const StyledInputField = styled.TextInput.attrs(() => ({
   autoCorrect: false,
   autoCapitalize: 'none',
 }))<Props>`
+  font-family: 'SofiaProRegular';
   ${inputSizes}
 `;
 

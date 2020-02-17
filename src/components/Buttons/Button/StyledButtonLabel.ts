@@ -1,5 +1,5 @@
-import styled from '../../styled';
-import Text from '../Texts/Text';
+import styled from '../../../styled';
+import Text from '../../Texts/Text';
 
 const StyledLabel = styled(Text).attrs(() => ({
   variant: 'inverted',

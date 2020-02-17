@@ -8,6 +8,7 @@ import { View } from 'react-native';
 type Props = {
   id: number;
   recipeDetails: any;
+  getRecipeById: (id: number) => void;
 };
 
 type State = {};
@@ -15,7 +16,7 @@ type State = {};
 class RecipeDetailsContainer extends React.Component<Props, State> {
   public componentDidMount(): void {
     const { id } = this.props;
-    this.props.actions.getRecipeById(id);
+    this.props.getRecipeById(id);
   }
 
   public render(): JSX.Element {
@@ -34,9 +35,13 @@ const mapStateToProps = (state: any) => ({
   recipeDetails: state.recipe.recipeDetails,
 });
 
-const mapDispatchToProps = (dispatch: any) => ({
-  actions: bindActionCreators(recipeActions, dispatch),
-});
+const mapDispatchToProps = (dispatch: any) =>
+  bindActionCreators(
+    {
+      getRecipeById: recipeActions.getRecipeById,
+    },
+    dispatch,
+  );
 
 export default connect(
   mapStateToProps,

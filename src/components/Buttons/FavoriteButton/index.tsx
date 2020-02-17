@@ -1,5 +1,5 @@
 import React from 'react';
-import FavoriteIcon from '../Icons/Favorite';
+import FavoriteIcon from '../../Icons/Favorite';
 import StyledRoundedButton from './StyledRoundedButton';
 
 export type Props = {

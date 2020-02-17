@@ -30,7 +30,8 @@ export const logout = () => dispatch => {
   UserService.logout().then(() => dispatch({ type: actionTypes.LOGOUT }));
 };
 
-export const register = (email, password) => _dispatch => {
+//TODO: adds response && errors here
+export const register = (email, password) => dispatch => {
   UserService.register(email, password);
 };
 

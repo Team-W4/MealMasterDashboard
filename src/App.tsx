@@ -5,8 +5,7 @@ import thunk from 'redux-thunk';
 import RootReducer from './reducers';
 import { default as StyledTheme } from './styled/theme';
 import styled, { ThemeProvider } from './styled';
-import RecipeListPage from './pages/recipes/containers/RecipeListPage';
-import RecipeDetailsContainer from './pages/recipes/containers/RecipeDetailsContainer';
+import LoginPage from './pages/login/containers/LoginPageContainer';
 
 const Container = styled.View`
   flex: 1;
@@ -23,7 +22,7 @@ const App = (): JSX.Element => {
     <Provider store={store}>
       <ThemeProvider theme={StyledTheme}>
         <Container>
-          <RecipeDetailsContainer id={5} />
+          <LoginPage />
         </Container>
       </ThemeProvider>
     </Provider>
