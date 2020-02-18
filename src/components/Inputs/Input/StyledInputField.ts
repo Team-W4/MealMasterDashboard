@@ -1,7 +1,8 @@
 import styled from '../../../styled';
 import inputSizes, { InputSizeProps } from '../inputSizes';
+import textColors, { TextColorProps } from '../../Texts/textColors';
 
-export type Props = InputSizeProps;
+export type Props = InputSizeProps & TextColorProps;
 
 const StyledInputField = styled.TextInput.attrs(() => ({
   autoCorrect: false,
@@ -9,6 +10,7 @@ const StyledInputField = styled.TextInput.attrs(() => ({
 }))<Props>`
   font-family: 'SofiaProRegular';
   ${inputSizes}
+  ${textColors}
 `;
 
 export default StyledInputField;

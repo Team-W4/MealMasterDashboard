@@ -3,11 +3,11 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { recipeActions } from '../../../actions';
 import RecipeDetailsPage from '../components/RecipeDetailsPage';
-import { View } from 'react-native';
 
 type Props = {
-  id: number;
-  recipeDetails: any;
+  navigation: any;
+  route: any;
+  recipeDetails?: any;
   getRecipeById: (id: number) => void;
 };
 
@@ -15,18 +15,30 @@ type State = {};
 
 class RecipeDetailsContainer extends React.Component<Props, State> {
   public componentDidMount(): void {
-    const { id } = this.props;
-    this.props.getRecipeById(id);
+    const {
+      route: {
+        params: { id },
+      },
+      getRecipeById,
+    } = this.props;
+    getRecipeById(id);
   }
 
   public render(): JSX.Element {
-    const { id, recipeDetails } = this.props;
+    const {
+      navigation,
+      route: {
+        params: { id },
+      },
+      recipeDetails,
+    } = this.props;
 
-    return true ? (
-      <RecipeDetailsPage id={id} recipeDetails={recipeDetails} />
-    ) : (
-      //TODO: Adds loading here
-      <View />
+    return (
+      <RecipeDetailsPage
+        id={id}
+        onBack={() => navigation.goBack()}
+        recipeDetails={recipeDetails}
+      />
     );
   }
 }

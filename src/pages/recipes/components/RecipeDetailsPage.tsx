@@ -4,6 +4,7 @@ import Grid, { Column } from '../../../components/Containers/Grid';
 import FavoriteButton, {
   Props as FavProps,
 } from '../../../components/Buttons/FavoriteButton';
+import IconButton from '../../../components/Buttons/IconButton';
 import Label from '../../../components/Label';
 import ProfileImage from '../../../components/ProfileImage';
 import Rating from '../../../components/Rating';
@@ -13,6 +14,7 @@ import Title from '../../../components/Texts/Title';
 import Visual from '../../../components/Visual';
 import styled from '../../../styled';
 import Paragraph from '../../../components/Texts/Paragraph';
+import BackIcon from '../../../components/Icons/Back';
 
 const RecipeDetailsScroll = styled.ScrollView`
   flex: 1;
@@ -39,6 +41,7 @@ const CalorieLabel = styled(Label)`
 `;
 
 export type Props = FavProps & {
+  onBack: () => void;
   recipeDetails?: {
     rating?: number;
     name?: string;
@@ -50,6 +53,7 @@ export type Props = FavProps & {
 };
 
 const RecipeDetailsPage: React.FC<Props> = ({
+  onBack,
   recipeDetails: { rating, name, cookTime, ingredients, tags, instructions },
 }) => (
   <RecipeDetailsScroll>
@@ -62,6 +66,11 @@ const RecipeDetailsPage: React.FC<Props> = ({
       />
       <SaveRecipeButton favorited={true} />
       <CalorieLabel value="650 kcal/serving" />
+      <Box position="absolute" top="50px" left="xxxl">
+        <IconButton onPress={onBack}>
+          <BackIcon size="large" variant="warning" />
+        </IconButton>
+      </Box>
     </Box>
     <Grid px="xxxl" mb="m">
       <Column>

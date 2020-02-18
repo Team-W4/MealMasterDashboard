@@ -1,6 +1,10 @@
 import styled from '../../../styled';
 
-const StyledCardWrapper = styled.TouchableOpacity`
+export type Props = {
+  onPress?: (ev: NativeSyntheticEvent<NativeTouchEvent>) => void;
+};
+
+const StyledCardWrapper = styled.TouchableOpacity<Props>`
   width: 100%;
   background-color: ${({ theme: { semanticColors } }) => semanticColors.background};
   border-radius: ${({ theme: { space } }) => space.s};

@@ -9,7 +9,7 @@ import Grid, { Column } from '../../../components/Containers/Grid';
 import { emailChecker } from '../../../utils';
 
 const ERROR_MSGS = {
-  emptyEmail: 'Enter your email.',
+  emptyEmail: 'Please enter your email.',
   invalidEmail: 'Please enter a valid email.',
   emailTaken: 'Email is already taken. Try another.',
   passwordTooShort: 'Use 8 characters or more for your password',
@@ -41,6 +41,7 @@ const SwitchModeButton = styled(TextButton)`
 `;
 
 type Props = {
+  navigation: any;
   onLogin: (email: string, password: string) => void;
   onRegister: (email: string, password: string) => void;
 };
@@ -51,8 +52,8 @@ const errorInitialState = {
   cfPassword: '',
 };
 
-const LoginPage: React.FC<Props> = ({ onLogin, onRegister }) => {
-  const [registerMode, setRegisterMode] = useState(true);
+const LoginPage: React.FC<Props> = ({ navigation, onLogin, onRegister }) => {
+  const [registerMode, setRegisterMode] = useState(false);
   const [errors, setErrors] = useState(errorInitialState);
 
   const [email, setEmail] = useState('');
@@ -60,11 +61,6 @@ const LoginPage: React.FC<Props> = ({ onLogin, onRegister }) => {
   const [newPassword, setNewPassword] = useState('');
 
   const handleSubmit = () => {
-    if (!registerMode && password && password.length > 0) {
-      onLogin(email, password);
-      return;
-    }
-
     if (!email || email.length === 0) {
       setErrors({ ...errorInitialState, email: ERROR_MSGS.emptyEmail });
       return;
@@ -83,23 +79,29 @@ const LoginPage: React.FC<Props> = ({ onLogin, onRegister }) => {
       return;
     }
 
-    const passwordMatched =
-      password &&
-      password.length > 0 &&
-      newPassword &&
-      newPassword.length > 0 &&
-      password === newPassword;
+    if (registerMode) {
+      const passwordMatched =
+        password &&
+        password.length > 0 &&
+        newPassword &&
+        newPassword.length > 0 &&
+        password === newPassword;
 
-    if (!passwordMatched) {
-      setErrors({
-        ...errorInitialState,
-        cfPassword: ERROR_MSGS.passwordsDontMatch,
-      });
-      return;
+      if (!passwordMatched) {
+        setErrors({
+          ...errorInitialState,
+          cfPassword: ERROR_MSGS.passwordsDontMatch,
+        });
+        return;
+      }
     }
 
     setErrors({ ...errorInitialState });
-    onRegister(email, password);
+    if (!registerMode) {
+      onLogin(email, password);
+    } else {
+      onRegister(email, password);
+    }
   };
 
   return (

@@ -7,7 +7,9 @@ import QuantityIcon from '../../../components/Icons/Quantity';
 import UtensilsIcon from '../../../components/Icons/Utensils';
 import Heading from '../../../components/Texts/Heading';
 import Subtitle from '../../../components/Texts/Subtitle';
-import StyledCardWrapper from '../../../components/Cards/Card/StyledCardWrapper';
+import StyledCardWrapper, {
+  Props as SWProps,
+} from '../../../components/Cards/Card/StyledCardWrapper';
 
 const StyledImage = styled.Image`
   height: 100px;
@@ -15,7 +17,7 @@ const StyledImage = styled.Image`
   border-top-left-radius: ${({ theme: { space } }) => space.s};
 `;
 
-export type Props = {
+export type Props = SWProps & {
   imageURI?: string;
   title?: string;
   tag?: string;
@@ -31,9 +33,10 @@ const RecipeCard: React.FC<Props> = ({
   duration,
   difficulty,
   quantity,
+  ...props
 }) => {
   return (
-    <StyledCardWrapper>
+    <StyledCardWrapper {...props}>
       <StyledImage source={{ uri: imageURI }} />
       <Box px="m" py="s">
         {tag && <Subtitle mb="xs">{tag}</Subtitle>}

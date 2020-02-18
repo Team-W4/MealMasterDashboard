@@ -3,8 +3,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import styled from '../../../styled';
 import { recipeActions } from '../../../actions';
-import RecipeCard from '../components/RecipeCard';
 import Box from '../../../components/Containers/Box';
+import RecipeCard from '../components/RecipeCard';
 
 const StyledScrollList = styled.ScrollView`
   padding-top: ${({ theme: { space } }) => space.m}
@@ -15,25 +15,24 @@ const StyledScrollList = styled.ScrollView`
 `;
 
 export type Props = {
+  navigation: any;
   userId: number;
   recipes: Array<any>;
+  getRecipesByUser: (id: number) => void;
 };
 
-export type States = {
-};
-
-class RecipeListPage extends React.Component<Props, States> {
+class RecipeListPage extends React.Component<Props> {
   public componentDidMount(): void {
     const { userId } = this.props;
-    this.props.actions.getRecipesByUser(userId);
+    this.props.getRecipesByUser(userId);
   }
 
   public render(): JSX.Element {
-    const { recipes } = this.props;
+    const { recipes, navigation } = this.props;
 
     return (
       <StyledScrollList>
-        {recipes.map((item, index) => (
+        {(recipes || []).map((item, index) => (
           <Box key={index} mb="xl">
             <RecipeCard
               title={item.name}
@@ -43,6 +42,9 @@ class RecipeListPage extends React.Component<Props, States> {
               duration={item.cookTime}
               // difficulty={item.difficulty}
               quantity={item.yield}
+              onPress={() =>
+                navigation.navigate('RecipeDetails', { id: item.id })
+              }
             />
           </Box>
         ))}
@@ -52,12 +54,17 @@ class RecipeListPage extends React.Component<Props, States> {
 }
 
 const mapStateToProps = (state: any) => ({
+  userId: state.user.profile.id,
   recipes: state.recipe.recipes,
 });
 
-const mapDispatchToProps = (dispatch: any) => ({
-  actions: bindActionCreators(recipeActions, dispatch),
-});
+const mapDispatchToProps = (dispatch: any) =>
+  bindActionCreators(
+    {
+      getRecipesByUser: recipeActions.getRecipesByUser,
+    },
+    dispatch,
+  );
 
 export default connect(
   mapStateToProps,
