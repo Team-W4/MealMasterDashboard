@@ -4,6 +4,7 @@ import InputWrapper from './InputWrapper';
 import StyledInputWrapper, { Keys as SWKeys } from './StyledInputWrapper';
 import StyledInputField, { Props as SIProps } from './StyledInputField';
 import Heading from '../../Texts/Heading';
+import Text from '../../Texts/Text';
 
 export type Props = TextInputProps &
   SIProps & {
@@ -11,7 +12,14 @@ export type Props = TextInputProps &
     error?: string;
   };
 
-const Input: React.FC<Props> = ({ title, editable, error, size, ...props }) => {
+const Input: React.FC<Props> = ({
+  title,
+  variant,
+  editable,
+  error,
+  size,
+  ...props
+}) => {
   const [focused, setFocused] = useState(false);
 
   let inputState: SWKeys = 'normal';
@@ -23,9 +31,10 @@ const Input: React.FC<Props> = ({ title, editable, error, size, ...props }) => {
 
   return (
     <InputWrapper>
-      <Heading>{title}</Heading>
+      <Heading variant={variant}>{title}</Heading>
       <StyledInputWrapper variant={inputState}>
         <StyledInputField
+          variant={variant}
           size={size}
           editable={editable}
           onFocus={() => setFocused(true)}
@@ -33,6 +42,13 @@ const Input: React.FC<Props> = ({ title, editable, error, size, ...props }) => {
           {...props}
         />
       </StyledInputWrapper>
+      {error && error.length > 0 ? (
+        <Text mt="xs" variant="error" size="normal">
+          {error}
+        </Text>
+      ) : (
+        <></>
+      )}
     </InputWrapper>
   );
 };

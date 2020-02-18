@@ -1,20 +1,13 @@
 import React from 'react';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import RootReducer from './reducers';
+import { ThemeProvider } from './styled';
 import { default as StyledTheme } from './styled/theme';
-import styled, { ThemeProvider } from './styled';
-import RecipeListPage from './pages/recipes/containers/RecipeListPage';
-import RecipeDetailsContainer from './pages/recipes/containers/RecipeDetailsContainer';
-
-const Container = styled.View`
-  flex: 1;
-  position: relative;
-  align-items: center;
-  justify-content: center;
-  background-color: ${({ theme }) => theme.semanticColors.background};
-`;
+import AuthNavigator from './pages/navigator/AuthNavigator';
+import { navigationRef } from './pages/navigator/RootNavigator';
 
 const store = createStore(RootReducer, applyMiddleware(thunk));
 
@@ -22,9 +15,18 @@ const App = (): JSX.Element => {
   return (
     <Provider store={store}>
       <ThemeProvider theme={StyledTheme}>
-        <Container>
-          <RecipeDetailsContainer id={5} />
-        </Container>
+        <NavigationContainer
+          ref={navigationRef}
+          theme={{
+            ...DefaultTheme,
+            colors: {
+              ...DefaultTheme.colors,
+              background: StyledTheme.semanticColors.background,
+            },
+          }}
+        >
+          <AuthNavigator />
+        </NavigationContainer>
       </ThemeProvider>
     </Provider>
   );

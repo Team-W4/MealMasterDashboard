@@ -1,18 +1,19 @@
 import React from 'react';
+import styled from '../../../styled';
+import FavoriteIcon from '../../../components/Icons/Favorite';
+import BackIcon from '../../../components/Icons/Back';
+import ShareIcon from '../../../components/Icons/Share';
 import Box from '../../../components/Containers/Box';
 import Grid, { Column } from '../../../components/Containers/Grid';
-import FavoriteButton, {
-  Props as FavProps,
-} from '../../../components/FavoriteButton';
+import IconButton from '../../../components/Buttons/IconButton';
 import Label from '../../../components/Label';
 import ProfileImage from '../../../components/ProfileImage';
 import Rating from '../../../components/Rating';
 import Tag from '../../../components/Tag';
-import Subtitle from '../../../components/Texts/Subtitle';
 import Title from '../../../components/Texts/Title';
-import Visual from '../../../components/Visual';
-import styled from '../../../styled';
+import Subtitle from '../../../components/Texts/Subtitle';
 import Paragraph from '../../../components/Texts/Paragraph';
+import Visual from '../../../components/Visual';
 
 const RecipeDetailsScroll = styled.ScrollView`
   flex: 1;
@@ -26,19 +27,16 @@ const TagList = styled.ScrollView`
   margin-bottom: ${({ theme: { space } }) => space.m};
 `;
 
-const SaveRecipeButton = styled(FavoriteButton)`
-  position: absolute;
-  bottom: -25px;
-  right: ${({ theme: { space } }) => space.xxxl};
-`;
-
 const CalorieLabel = styled(Label)`
   position: absolute;
   bottom: 0;
   left: 0;
 `;
 
-export type Props = FavProps & {
+export type Props = {
+  onFavorite: () => void;
+  onBack: () => void;
+  onShare: () => void;
   recipeDetails?: {
     rating?: number;
     name?: string;
@@ -50,17 +48,34 @@ export type Props = FavProps & {
 };
 
 const RecipeDetailsPage: React.FC<Props> = ({
+  onFavorite,
+  onBack,
+  onShare,
   recipeDetails: { rating, name, cookTime, ingredients, tags, instructions },
 }) => (
   <RecipeDetailsScroll>
-    <Box mb="xxl">
+    <Box position="relative" mb="xxl">
       <Visual
         source={{
           uri:
-            'https://cdn-image.realsimple.com/sites/default/files/styles/rs_medium_image/public/1513804165/sesame-beet-salad.jpg?itok=3MZd4xPb&1513804974',
+            'https://tmbidigitalassetsazure.blob.core.windows.net/secure/RMS/attachments/37/1200x1200/Peanut-Butter-and-Jelly-French-Toast_EXPS_BMZ19_526_B12_04_10b.jpg',
         }}
       />
-      <SaveRecipeButton favorited={true} />
+      <Box position="absolute" right="xxxl" bottom="-25px">
+        <IconButton onPress={onFavorite}>
+          <FavoriteIcon variant="warning" />
+        </IconButton>
+      </Box>
+      <Box position="absolute" left="xxxl" top="50px">
+        <IconButton rounded flat size="small" onPress={onBack}>
+          <BackIcon size="small" variant="warning" />
+        </IconButton>
+      </Box>
+      <Box position="absolute" right="xxxl" top="50px">
+        <IconButton rounded flat size="small" onPress={onShare}>
+          <ShareIcon size="small" variant="warning" />
+        </IconButton>
+      </Box>
       <CalorieLabel value="650 kcal/serving" />
     </Box>
     <Grid px="xxxl" mb="m">
@@ -80,7 +95,7 @@ const RecipeDetailsPage: React.FC<Props> = ({
     </Grid>
     {tags && (
       <TagList horizontal showsHorizontalScrollIndicator={false}>
-        {tags.map((tag: { id: number; name: string; }) => (
+        {tags.map((tag: { id: number; name: string }) => (
           <Box key={tag.id} alignSelf="flex-start" mr="xs">
             <Tag value={tag.name} />
           </Box>
@@ -92,7 +107,6 @@ const RecipeDetailsPage: React.FC<Props> = ({
 );
 
 RecipeDetailsPage.defaultProps = {
-  favorited: true,
 };
 
 export default RecipeDetailsPage;

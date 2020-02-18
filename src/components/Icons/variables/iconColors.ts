@@ -9,6 +9,7 @@ enum iconColorEnum {
   secondary,
   tertiary,
   link,
+  active,
 }
 
 export type IconColorKeys = keyof typeof iconColorEnum;
@@ -26,6 +27,7 @@ const iconColors = {
   secondary: colors.manateegray,
   tertiary: colors.silver,
   link: colors.anakiwablue,
+  active: colors.orange,
 };
 
 export default iconColors;
