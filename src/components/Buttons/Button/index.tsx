@@ -8,12 +8,28 @@ export type Props = SWProps & {
   onPress?: (ev: NativeSyntheticEvent<NativeTouchEvent>) => void;
 };
 
-const Button: React.FC<Props> = ({ title, onPress, ...props }) => {
+const Button: React.FC<Props> = ({
+  title,
+  variant,
+  children,
+  onPress,
+  ...props
+}) => {
   return (
-    <StyledButtonWrapper onPress={onPress} {...props}>
-      <StyledLabel>{title}</StyledLabel>
+    <StyledButtonWrapper variant={variant} onPress={onPress} {...props}>
+      {title && (
+        <StyledLabel variant={variant === 'normal' ? 'warning' : 'inverted'}>
+          {title}
+        </StyledLabel>
+      )}
+      {children}
     </StyledButtonWrapper>
   );
+};
+
+Button.defaultProps = {
+  variant: 'normal',
+  size: 'normal',
 };
 
 export default Button;

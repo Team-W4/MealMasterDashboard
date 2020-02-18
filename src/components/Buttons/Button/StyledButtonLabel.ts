@@ -1,9 +1,7 @@
 import styled from '../../../styled';
 import Text from '../../Texts/Text';
 
-const StyledLabel = styled(Text).attrs(() => ({
-  variant: 'inverted',
-}))`
+const StyledLabel = styled(Text)`
   text-align: center;
 `;
 

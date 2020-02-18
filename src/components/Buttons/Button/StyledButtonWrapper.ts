@@ -1,21 +1,29 @@
 import styled from '../../../styled';
+import buttonSizes, { ButtonSizeProps } from '../buttonSizes';
+import buttonColors, { ButtonColorProps } from '../buttonColors';
 
-enum Sizes {
-  small,
-  normal,
-  large,
-}
+export type Props = ButtonSizeProps &
+  ButtonColorProps & {
+    rounded?: boolean;
+    flat?: boolean;
+  };
 
-export type Props = {
-  size?: keyof typeof Sizes;
-};
-
-const StyledButtonWrapper = styled.TouchableOpacity`
+const StyledButtonWrapper = styled.TouchableOpacity<Props>`
+  ${buttonSizes}
+  ${buttonColors}
   width: 100%;
-  height: 60px;
-  padding: ${({ theme: { space } }) => space.l};
+  justify-content: center;
+  align-items: center;
   border-radius: ${({ theme: { space } }) => space.s};
-  background-color: ${({ theme: { semanticColors } }) => semanticColors.primary};
+  ${({ rounded, theme: { space } }) =>
+    `border-radius: ${rounded ? '100px' : space.s};`}
+  ${({ flat, theme: { semanticColors } }) =>
+    flat ? '' : `box-shadow: 0 15px 18px ${semanticColors.shadow}};`}
 `;
+
+StyledButtonWrapper.defaultProps = {
+  rounded: false,
+  flat: false,
+};
 
 export default StyledButtonWrapper;

@@ -1,13 +1,11 @@
 import styled from '../../../styled';
+import Button, { Props as ButtonProps } from '../Button';
 
-const IconButton = styled.TouchableOpacity`
-  width: 50px;
-  height: 50px;
-  border-radius: 25px;
-  justify-content: center;
-  align-items: center;
-  background-color: ${({ theme: { semanticColors } }) => semanticColors.background};
-  box-shadow: 0 15px 18px ${({ theme: { semanticColors } }) => semanticColors.shadow};
+export type Props = Omit<ButtonProps, 'title'>;
+
+const IconButton = styled(Button)<Props>`
+  aspect-ratio: 1;
+  border-radius: 100px;
 `;
 
 export default IconButton;
