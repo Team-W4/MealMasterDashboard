@@ -61,7 +61,7 @@ const RecipeDetailsPage: React.FC<Props> = ({
       <Visual
         source={{
           uri:
-            'https://cdn-image.realsimple.com/sites/default/files/styles/rs_medium_image/public/1513804165/sesame-beet-salad.jpg?itok=3MZd4xPb&1513804974',
+            'https://tmbidigitalassetsazure.blob.core.windows.net/secure/RMS/attachments/37/1200x1200/Peanut-Butter-and-Jelly-French-Toast_EXPS_BMZ19_526_B12_04_10b.jpg',
         }}
       />
       <SaveRecipeButton favorited={true} />

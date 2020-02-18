@@ -11,13 +11,11 @@
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.6",
-    "@react-navigation/bottom-tabs": "^5.0.5",
     "@react-navigation/material-bottom-tabs": "^5.0.5",
     "@react-navigation/native": "^5.0.5",
     "@react-navigation/stack": "^5.0.5",
     "@types/styled-components": "^4.4.3",
     "@types/styled-system": "^5.1.6",
-    "expo": "^36.0.2",
     "mem": "^6.0.1",
     "react": "16.9.0",
     "react-native": "0.61.5",
