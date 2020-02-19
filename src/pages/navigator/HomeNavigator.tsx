@@ -10,7 +10,7 @@ import HomePage from '../home';
 import SearchPage from '../search';
 import RecipesPage from '../recipes';
 import StockPage from '../stock';
-import { AuthStackParamList } from './AuthNavigator';
+import { AuthStackParamList } from './auth';
 
 export type HomeTabParamList = AuthStackParamList & {
   Home: undefined;

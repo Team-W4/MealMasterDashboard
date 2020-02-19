@@ -5,7 +5,9 @@ const initialState = {
   profile: {},
   users: [],
   userDetails: {},
+  userToken: null,
   isFetching: false,
+  isLoggedOut: false,
 };
 
 const UserReducer = createReducer(initialState, {
@@ -36,9 +38,16 @@ const UserReducer = createReducer(initialState, {
     isFetching: false,
     profile,
   }),
-  [actionTypes.LOGIN]: state => ({
+  [actionTypes.RESTORE_TOKEN]: (state, { token }) => ({
     ...state,
+    userToken: token,
+    isFetching: false,
+  }),
+  [actionTypes.LOGIN]: (state, { token }) => ({
+    ...state,
+    userToken: token,
     isFetching: true,
+    isLoggedOut: false,
   }),
   // May need to add Success and Failures for these
   [actionTypes.UPDATE_PROFILE]: state => ({
@@ -46,6 +55,8 @@ const UserReducer = createReducer(initialState, {
   }),
   [actionTypes.LOGOUT]: state => ({
     ...state,
+    userToken: null,
+    isLoggedOut: true,
   }),
   [actionTypes.REGISTER]: state => ({
     ...state,
