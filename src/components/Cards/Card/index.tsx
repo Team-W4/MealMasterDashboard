@@ -1,11 +1,11 @@
 import React from 'react';
-import StyledCardWrapper from './StyledCardWrapper';
 import Box from '../../Containers/Box';
 import Subtitle from '../../Texts/Subtitle';
 import Heading from '../../Texts/Heading';
 import Text from '../../Texts/Text';
+import StyledCardWrapper, { Props as SWProps } from './StyledCardWrapper';
 
-export type Props = {
+export type Props = SWProps & {
   title: string;
   tag?: string;
   subtitle?: string;

@@ -45,7 +45,7 @@ const RecipeCard: React.FC<Props> = ({
           <Row>
             <ClockIcon mr="xs" size="small" variant="tertiary" />
             <Subtitle>{`${duration || 0} min${
-              duration > 1 ? 's' : ''
+              Number(duration) > 1 ? 's' : ''
             }`}</Subtitle>
           </Row>
           <Row>
@@ -55,7 +55,7 @@ const RecipeCard: React.FC<Props> = ({
           <Row>
             <UtensilsIcon mr="xs" size="small" variant="tertiary" />
             <Subtitle>{`${quantity || 0} serving${
-              quantity > 1 ? 's' : ''
+              Number(quantity) > 1 ? 's' : ''
             }`}</Subtitle>
           </Row>
         </Grid>

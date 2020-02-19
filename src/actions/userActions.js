@@ -35,6 +35,9 @@ export const register = (email, password) => dispatch => {
   UserService.register(email, password);
 };
 
+export const restoreToken = userToken => dispatch =>
+  dispatch({ type: actionTypes.RESTORE_TOKEN, token: userToken });
+
 export const updateProfile = profileData => dispatch => {
   dispatch({ type: actionTypes.UPDATE_PROFILE });
 

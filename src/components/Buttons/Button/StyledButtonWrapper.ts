@@ -18,7 +18,12 @@ const StyledButtonWrapper = styled.TouchableOpacity<Props>`
   ${({ rounded, theme: { space } }) =>
     `border-radius: ${rounded ? '100px' : space.s};`}
   ${({ flat, theme: { semanticColors } }) =>
-    flat ? '' : `box-shadow: 0 15px 18px ${semanticColors.shadow}};`}
+    flat
+      ? ''
+      : `
+        box-shadow: 0 15px 18px ${semanticColors.shadow}};
+        elevation: 10;
+      `}
 `;
 
 StyledButtonWrapper.defaultProps = {

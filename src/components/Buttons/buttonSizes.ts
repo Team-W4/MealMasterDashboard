@@ -17,16 +17,16 @@ const buttonSizes = variant({
   prop: 'size',
   variants: {
     small: {
-      height: 25,
+      height: '25px',
     },
     normal: {
-      height: 50,
+      height: '50px',
     },
     large: {
-      height: 75,
+      height: '75px',
     },
     epic: {
-      height: 100,
+      height: '100px',
     },
   },
 });

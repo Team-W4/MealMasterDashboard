@@ -10,10 +10,18 @@ import HomePage from '../home';
 import SearchPage from '../search';
 import RecipesPage from '../recipes';
 import StockPage from '../stock';
+import { AuthStackParamList } from './AuthNavigator';
 
-const Tab = createMaterialBottomTabNavigator();
+export type HomeTabParamList = AuthStackParamList & {
+  Home: undefined;
+  Search: undefined;
+  Stocks: undefined;
+  Recipes: undefined;
+};
 
-const RootPage: React.FC = () => (
+const Tab = createMaterialBottomTabNavigator<HomeTabParamList>();
+
+const HomeNavigator: React.FC = () => (
   <>
     <TitlePage title="Good morning" />
     <Tab.Navigator initialRouteName="Home" shifting activeColor={colors.white}>
@@ -57,4 +65,4 @@ const RootPage: React.FC = () => (
   </>
 );
 
-export default RootPage;
+export default HomeNavigator;

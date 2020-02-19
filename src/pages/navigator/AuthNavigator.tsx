@@ -6,8 +6,17 @@ import LoadingPage from '../loading';
 import HomeNavigator from './HomeNavigator';
 import * as RootNavigator from './RootNavigator';
 import { RecipeDetailsPage } from '../recipes';
+import { StockDetailsPage } from '../stock';
 
-const Stack = createStackNavigator();
+export type AuthStackParamList = {
+  Login: undefined;
+  Loading: undefined;
+  Home: undefined;
+  RecipeDetails: { recipeId: number };
+  StockDetails: { stockId: number };
+};
+
+const Stack = createStackNavigator<AuthStackParamList>();
 
 export type Props = {
   loading?: boolean;
@@ -27,6 +36,7 @@ const AuthNavigator: React.FC<Props> = ({ loading, authenticated }) => {
       <Stack.Screen name="Loading" component={LoadingPage} />
       <Stack.Screen name="Home" component={HomeNavigator} />
       <Stack.Screen name="RecipeDetails" component={RecipeDetailsPage} />
+      <Stack.Screen name="StockDetails" component={StockDetailsPage} />
     </Stack.Navigator>
   );
 };

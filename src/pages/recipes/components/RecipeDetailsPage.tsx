@@ -34,9 +34,9 @@ const CalorieLabel = styled(Label)`
 `;
 
 export type Props = {
-  onFavorite: () => void;
+  onFavorite?: () => void;
+  onShare?: () => void;
   onBack: () => void;
-  onShare: () => void;
   recipeDetails?: {
     rating?: number;
     name?: string;
@@ -89,7 +89,7 @@ const RecipeDetailsPage: React.FC<Props> = ({
           ingredients.length) ||
           0} ingredients`}</Subtitle>
       </Column>
-      <Box justifyContent="center">
+      <Box ml="s" justifyContent="center">
         <ProfileImage />
       </Box>
     </Grid>

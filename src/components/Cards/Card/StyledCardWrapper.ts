@@ -1,4 +1,5 @@
 import styled from '../../../styled';
+import { NativeSyntheticEvent, NativeTouchEvent } from 'react-native';
 
 export type Props = {
   onPress?: (ev: NativeSyntheticEvent<NativeTouchEvent>) => void;
@@ -6,9 +7,12 @@ export type Props = {
 
 const StyledCardWrapper = styled.TouchableOpacity<Props>`
   width: 100%;
-  background-color: ${({ theme: { semanticColors } }) => semanticColors.background};
+  background-color: ${({ theme: { semanticColors } }) =>
+    semanticColors.background};
   border-radius: ${({ theme: { space } }) => space.s};
-  box-shadow: 0 15px 18px ${({ theme: { semanticColors } }) => semanticColors.shadow};
+  elevation: 10;
+  box-shadow: 0 15px 18px
+    ${({ theme: { semanticColors } }) => semanticColors.shadow};
 `;
 
 export default StyledCardWrapper;
