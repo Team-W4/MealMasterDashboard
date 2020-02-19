@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { stockActions } from '../../../actions';
-import { AuthStackParamList } from '../../navigator/AuthNavigator';
+import { AuthStackParamList } from '../../auths';
 import StockDetailsPage from '../components/StockDetailsPage';
 
 type Props = {

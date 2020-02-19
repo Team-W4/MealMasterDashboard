@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { recipeActions } from '../../../actions';
-import { AuthStackParamList } from '../../navigator/AuthNavigator';
+import { AuthStackParamList } from '../../auths';
 import RecipeDetailsPage from '../components/RecipeDetailsPage';
 
 type Props = {

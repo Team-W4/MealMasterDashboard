@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-community/async-storage';
 import { userActionTypes as actionTypes } from '../constants/actionTypes';
 import { UserService } from '../services';
 
@@ -18,15 +19,20 @@ export const getUserById = userId => dispatch => {
   UserService.getUserById(userId).then(user => dispatch(receiveUser(user)));
 };
 
-export const login = (email, password) => dispatch => {
+export const logIn = (email, password) => dispatch => {
   dispatch({ type: actionTypes.LOGIN });
 
-  UserService.login(email, password).then(profile =>
-    dispatch(receiveProfile(profile)),
-  );
+  UserService.login(email, password).then(async profile => {
+    try {
+      await AsyncStorage.setItem('userToken', `${profile.id}`);
+      dispatch(receiveProfile(profile));
+    } catch (error) {
+      console.log('Failed to store user token');
+    }
+  });
 };
 
-export const logout = () => dispatch => {
+export const logOut = () => dispatch => {
   UserService.logout().then(() => dispatch({ type: actionTypes.LOGOUT }));
 };
 
@@ -65,4 +71,5 @@ const receiveUser = user => ({
 const receiveProfile = profile => ({
   type: actionTypes.RECEIVE_PROFILE,
   profile,
+  userToken: `${profile.id}`,
 });

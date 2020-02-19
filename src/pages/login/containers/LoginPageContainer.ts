@@ -8,7 +8,7 @@ const mapStateToProps = () => ({});
 const mapDispatchToProps = (dispatch: any) =>
   bindActionCreators(
     {
-      onLogin: userActions.login,
+      onLogin: userActions.logIn,
       onRegister: userActions.register,
     },
     dispatch,
