@@ -7,6 +7,7 @@ import Input from '../../../components/Inputs/Input';
 import Back from '../../../components/Icons/Back';
 import Grid, { Column } from '../../../components/Containers/Grid';
 import { emailChecker } from '../../../utils';
+import IconButton from '../../../components/Buttons/IconButton';
 
 const ERROR_MSGS = {
   emptyEmail: 'Please enter your email.',
@@ -23,15 +24,6 @@ const LoginView = styled.KeyboardAvoidingView`
   padding-right: ${({ theme: { space } }) => space.xxxl};
 `;
 
-const LoginButton = styled.TouchableOpacity`
-  width: 80px;
-  height: 80px;
-  border-radius: 40px;
-  align-items: center;
-  justify-content: center;
-  background-color: ${({ theme: { colors } }) => colors.silver};
-`;
-
 const LoginIcon = styled(Back)`
   transform: rotate(180deg);
 `;
@@ -41,7 +33,6 @@ const SwitchModeButton = styled(TextButton)`
 `;
 
 type Props = {
-  navigation: any;
   onLogin: (email: string, password: string) => void;
   onRegister: (email: string, password: string) => void;
 };
@@ -52,7 +43,7 @@ const errorInitialState = {
   cfPassword: '',
 };
 
-const LoginPage: React.FC<Props> = ({ navigation, onLogin, onRegister }) => {
+const LoginPage: React.FC<Props> = ({ onLogin, onRegister }) => {
   const [registerMode, setRegisterMode] = useState(false);
   const [errors, setErrors] = useState(errorInitialState);
 
@@ -105,7 +96,7 @@ const LoginPage: React.FC<Props> = ({ navigation, onLogin, onRegister }) => {
   };
 
   return (
-    <LoginView behavior="padding" enabled>
+    <LoginView>
       <Box position="relative" flexGrow={1} justifyContent="center">
         <Box mb="l">
           <Text size="large" mb="xxxl">
@@ -146,9 +137,9 @@ const LoginPage: React.FC<Props> = ({ navigation, onLogin, onRegister }) => {
                 : "Don't have an account?"}
             </SwitchModeButton>
           </Column>
-          <LoginButton onPress={handleSubmit}>
+          <IconButton size="large" onPress={handleSubmit}>
             <LoginIcon size="large" />
-          </LoginButton>
+          </IconButton>
         </Grid>
       </Box>
     </LoginView>

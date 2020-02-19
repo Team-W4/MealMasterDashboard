@@ -1,14 +1,14 @@
 /* eslint-disable prettier/prettier */
 
 const lineHeights = {
-  american:     '1.4px',
-  saxon:        '2.8px',
-  brilliant:    '5.6px',
-  brevier:      '11.2px',
-  pica:         '22.4px',
-  bourgeois:    '33.6px',
-  primer:       '44.8px',
-  paragon:      '89.6px',
+  american:     '1px',
+  saxon:        '2px',
+  brilliant:    '4px',
+  brevier:      '8px',
+  pica:         '16px',
+  bourgeois:    '24px',
+  primer:       '32px',
+  paragon:      '64px',
 };
 
 export type LineHeightNames = typeof lineHeights;

@@ -1,41 +1,35 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
 import { recipeActions } from '../../../actions';
+import { AuthStackParamList } from '../../navigator/AuthNavigator';
 import RecipeDetailsPage from '../components/RecipeDetailsPage';
 
 type Props = {
-  navigation: any;
-  route: any;
+  navigation: StackNavigationProp<AuthStackParamList, 'RecipeDetails'>;
+  route: RouteProp<AuthStackParamList, 'RecipeDetails'>;
   recipeDetails?: any;
   getRecipeById: (id: number) => void;
 };
 
-type State = {};
-
-class RecipeDetailsContainer extends React.Component<Props, State> {
+class RecipeDetailsContainer extends React.Component<Props> {
   public componentDidMount(): void {
     const {
       route: {
-        params: { id },
+        params: { recipeId },
       },
       getRecipeById,
     } = this.props;
-    getRecipeById(id);
+    getRecipeById(recipeId);
   }
 
   public render(): JSX.Element {
-    const {
-      navigation,
-      route: {
-        params: { id },
-      },
-      recipeDetails,
-    } = this.props;
+    const { navigation, recipeDetails } = this.props;
 
     return (
       <RecipeDetailsPage
-        id={id}
         onBack={() => navigation.goBack()}
         recipeDetails={recipeDetails}
       />

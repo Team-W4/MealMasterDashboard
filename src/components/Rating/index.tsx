@@ -10,11 +10,7 @@ export type Props = {
   value: number;
 };
 
-const RankedText = styled(Text)`
-  line-height: 0;
-`;
-
-const UnrankedText = styled(RankedText)`
+const UnrankedText = styled(Text)`
   opacity: 0.25;
 `;
 
@@ -24,9 +20,9 @@ const Rating: React.FC<Props> = ({ value, ...props }) => (
       <Text mr="xs" size="h2" variant="inverted">
         {value.toFixed(1)}
       </Text>
-      <RankedText size="h1" variant="inverted">
+      <Text size="h1" variant="inverted">
         {'•'.repeat(Math.round(value))}
-      </RankedText>
+      </Text>
       <UnrankedText size="h1" variant="inverted">
         {'•'.repeat(MAX_RATING - Math.round(value))}
       </UnrankedText>

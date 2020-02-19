@@ -4,7 +4,7 @@ import Text from '../Text';
 const Paragraph = styled(Text).attrs(() => ({
   size: 'h2',
 }))`
-  line-height: ${({ theme: { lineHeights } }) => lineHeights.pica};
+  line-height: ${({ theme: { lineHeights } }) => lineHeights.bourgeois};
 `;
 
 export default Paragraph;

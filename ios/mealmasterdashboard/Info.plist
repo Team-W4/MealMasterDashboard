@@ -38,7 +38,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Fonts/SofiaProBold.ttf</string>
@@ -46,6 +46,11 @@
 		<string>Fonts/SofiaProRegular.ttf</string>
 		<string>Fonts/SofiaProLight.ttf</string>
 		<string>Fonts/SofiaProUltraLight.ttf</string>
+		<string>SofiaProBold.ttf</string>
+		<string>SofiaProLight.ttf</string>
+		<string>SofiaProMedium.ttf</string>
+		<string>SofiaProRegular.ttf</string>
+		<string>SofiaProUltraLight.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
