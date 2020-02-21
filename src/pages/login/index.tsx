@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react';
 import styled from '../../styled';
+import Grid, { Column } from '../../components/Containers/Grid';
 import Text from '../../components/Texts/Text';
 import TextButton from '../../components/Buttons/TextButton';
+import IconButton from '../../components/Buttons/IconButton';
 import Box from '../../components/Containers/Box';
 import Input from '../../components/Inputs/Input';
 import Back from '../../components/Icons/Back';
-import Grid, { Column } from '../../components/Containers/Grid';
 import { emailChecker } from '../../utils';
-import IconButton from '../../components/Buttons/IconButton';
 import { AuthContext } from '../auths';
 
 const ERROR_MSGS = {

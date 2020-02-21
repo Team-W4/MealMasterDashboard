@@ -22,6 +22,7 @@ class StockDetailsContainer extends React.Component<Props> {
       },
       getFoodStockById,
     } = this.props;
+    console.log(stockId);
     getFoodStockById(stockId);
   }
 
@@ -38,7 +39,7 @@ class StockDetailsContainer extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: any) => ({
-  stockDetails: state.stocks.stockDetails,
+  // stockDetails: state.stocks.foodStockDetails,
 });
 
 const mapDispatchToProps = (dispatch: any) =>

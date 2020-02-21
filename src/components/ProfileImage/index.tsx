@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from '../../styled';
+import { iconButtonSizes } from '../Buttons/IconButton';
+import { ButtonSizeProps } from '../Buttons/buttonSizes';
 
-export type Props = {
+export type Props = ButtonSizeProps & {
   rounded?: boolean;
   uri?: string;
 };
@@ -9,12 +11,13 @@ export type Props = {
 const StyledProfileImage = styled.Image<Props>`
   width: 50px;
   height: 50px;
-  border-radius: ${({ rounded, theme: { space } }) => rounded ? '25px' : space.s};
+  border-radius: ${({ rounded, theme: { space } }) =>
+    rounded ? '100px' : space.s};
 `;
 
 // TODO: #API profile retrieval API here
-const ProfileImage: React.FC<Props> = ({ rounded, uri }) => (
-  <StyledProfileImage rounded={rounded} source={{ uri }} />
+const ProfileImage: React.FC<Props> = ({ rounded, uri, ...props }) => (
+  <StyledProfileImage rounded={rounded} source={{ uri }} {...props} />
 );
 
 ProfileImage.defaultProps = {

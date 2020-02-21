@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 
 const colors = {
-  transparent:  '       ',
+  transparent:  'transparent',
   inherit:      '',
   white:        '#FFFFFF',
   black:        '#000000',

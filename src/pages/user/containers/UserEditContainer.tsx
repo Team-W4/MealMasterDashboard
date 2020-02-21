@@ -1,15 +1,17 @@
+
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userActions } from '../../../actions';
-import { connect } from 'react-redux';
-import LoginPage from '../components/LoginPage';
+import UserEditPage from '../components/UserEditPage';
 
-const mapStateToProps = () => ({});
+const mapStateToProps = (state: any) => ({
+  profile: state.user.profile,
+});
 
 const mapDispatchToProps = (dispatch: any) =>
   bindActionCreators(
     {
-      onLogin: userActions.logIn,
-      onRegister: userActions.register,
+      updateProfile: userActions.updateProfile,
     },
     dispatch,
   );
@@ -17,4 +19,4 @@ const mapDispatchToProps = (dispatch: any) =>
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(LoginPage);
+)(UserEditPage);

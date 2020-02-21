@@ -1,14 +1,16 @@
 import React, { createContext, useEffect, useMemo } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import AsyncStorage from '@react-native-community/async-storage';
 import { createStackNavigator } from '@react-navigation/stack';
+import { userActions } from '../../actions';
 import LoadingPage from '../loading';
 import LoginPage from '../login';
-import RecipeDetailsPage from '../recipes';
-import StockDetailsPage from '../stock';
+import { RecipeDetailsPage } from '../recipes';
+import { StockDetailsPage } from '../stock';
+import UserDetailsPage, { UserEditPage } from '../user';
 import HomeNavigator from '../navigator/HomeNavigator';
-import { bindActionCreators } from 'redux';
-import { userActions } from '../../actions';
-import { connect } from 'react-redux';
+import * as navigator from '../navigator/Navigator';
 
 export type AuthStackParamList = {
   Login: undefined;
@@ -16,16 +18,22 @@ export type AuthStackParamList = {
   Home: undefined;
   RecipeDetails: { recipeId: number };
   StockDetails: { stockId: number };
+  UserDetails: undefined;
+  UserEdit: undefined;
 };
 
 const Stack = createStackNavigator<AuthStackParamList>();
 
-export const AuthContext = createContext({});
+export const AuthContext = createContext({
+  logIn: () => {},
+  logOut: () => {},
+  register: () => {},
+});
 
 export type Props = {
-  logIn: () => void;
+  logIn: (email?: string, password?: string) => void;
   logOut: () => void;
-  register: () => void;
+  register: (email?: string, password?: string) => void;
   restoreToken: (token: string | null) => void;
   userToken: string | null;
   isLoading: boolean;
@@ -64,25 +72,31 @@ const AuthProvider: React.FC<Props> = ({
   ]);
 
   if (isLoading) {
-    return <LoadingPage />;
+    navigator.navigate('Loading');
+  } else {
+    navigator.navigate(userToken ? 'Home' : 'Login');
   }
 
   return (
     <AuthContext.Provider value={authContext}>
       <Stack.Navigator headerMode="none">
-        {!userToken ? (
-          <Stack.Screen
-            name="Login"
-            component={LoginPage}
-            options={{ animationTypeForReplace: isLoggedOut ? 'pop' : 'push' }}
-          />
-        ) : (
+        <Stack.Screen
+          name="Login"
+          component={LoginPage}
+          options={{ animationTypeForReplace: isLoggedOut ? 'pop' : 'push' }}
+        />
+        {userToken ? (
           <>
             <Stack.Screen name="Home" component={HomeNavigator} />
             <Stack.Screen name="RecipeDetails" component={RecipeDetailsPage} />
             <Stack.Screen name="StockDetails" component={StockDetailsPage} />
+            <Stack.Screen name="UserDetails" component={UserDetailsPage} />
+            <Stack.Screen name="UserEdit" component={UserEditPage} />
           </>
+        ) : (
+          <Stack.Screen name="Home" component={LoginPage}/>
         )}
+        <Stack.Screen name="Loading" component={LoadingPage} />
       </Stack.Navigator>
     </AuthContext.Provider>
   );
@@ -90,7 +104,7 @@ const AuthProvider: React.FC<Props> = ({
 
 const mapStateToProps = (state: any) => ({
   userToken: state.user.userToken,
-  isLoading: state.user.isLoading,
+  isLoading: state.user.isFetching,
   isLoggedOut: state.user.isLoggedOut,
 });
 

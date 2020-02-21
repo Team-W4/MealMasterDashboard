@@ -7,9 +7,7 @@ import QuantityIcon from '../../../components/Icons/Quantity';
 import UtensilsIcon from '../../../components/Icons/Utensils';
 import Heading from '../../../components/Texts/Heading';
 import Subtitle from '../../../components/Texts/Subtitle';
-import StyledCardWrapper, {
-  Props as SWProps,
-} from '../../../components/Cards/Card/StyledCardWrapper';
+import Card, { Props as CardProps } from '../../../components/Cards/Card';
 
 const StyledImage = styled.Image`
   height: 100px;
@@ -17,7 +15,7 @@ const StyledImage = styled.Image`
   border-top-left-radius: ${({ theme: { space } }) => space.s};
 `;
 
-export type Props = SWProps & {
+export type Props = CardProps & {
   imageURI?: string;
   title?: string;
   tag?: string;
@@ -36,7 +34,7 @@ const RecipeCard: React.FC<Props> = ({
   ...props
 }) => {
   return (
-    <StyledCardWrapper {...props}>
+    <Card {...props}>
       <StyledImage source={{ uri: imageURI }} />
       <Box px="m" py="s">
         {tag && <Subtitle mb="xs">{tag}</Subtitle>}
@@ -60,7 +58,7 @@ const RecipeCard: React.FC<Props> = ({
           </Row>
         </Grid>
       </Box>
-    </StyledCardWrapper>
+    </Card>
   );
 };
 
