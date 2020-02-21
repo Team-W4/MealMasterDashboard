@@ -43,6 +43,6 @@ export const stockActionTypes = {
 export const genericFoodActionTypes = {
   FETCH_FOODS: 'FETCH_FOODS',
   FETCH_FOOD: 'FETCH_FOOD',
-  RECEIVE_FOODS: 'RECEIVE_RECIPES',
-  RECEIVE_FOOD: 'RECEIVE_RECIPE',
+  RECEIVE_FOODS: 'RECEIVE_FOODS',
+  RECEIVE_FOOD: 'RECEIVE_FOOD',
 };
