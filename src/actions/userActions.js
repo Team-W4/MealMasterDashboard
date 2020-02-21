@@ -33,7 +33,14 @@ export const logIn = (email, password) => dispatch => {
 };
 
 export const logOut = () => dispatch => {
-  UserService.logout().then(() => dispatch({ type: actionTypes.LOGOUT }));
+  UserService.logout().then(async () => {
+    try {
+      await AsyncStorage.removeItem('userToken');
+      dispatch({ type: actionTypes.LOGOUT });
+    } catch (error) {
+      console.log('Failed to clear user token');
+    }
+  });
 };
 
 //TODO: adds response && errors here

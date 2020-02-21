@@ -1,14 +1,15 @@
 import React from 'react';
 import styled from '../../../styled';
-import StyledCardWrapper, {
-  Props as SWProps,
-} from '../../../components/Cards/Card/StyledCardWrapper';
+import Card, { Props as CardProps } from '../../../components/Cards/Card';
 import Box from '../../../components/Containers/Box';
-import Subtitle from '../../../components/Texts/Subtitle';
+import Text from '../../../components/Texts/Text';
 import Heading from '../../../components/Texts/Heading';
+import Subtitle from '../../../components/Texts/Subtitle';
 import Grid, { Row } from '../../../components/Containers/Grid';
 import ClockIcon from '../../../components/Icons/Clock';
 import QuantityIcon from '../../../components/Icons/Quantity';
+import { expiryLabelHelper } from '../expiryHelper';
+import StockListCardWrapper from './StockListCardWrapper';
 
 const StyledImage = styled.Image`
   height: 75px;
@@ -16,7 +17,7 @@ const StyledImage = styled.Image`
   border-top-left-radius: ${({ theme: { space } }) => space.s};
 `;
 
-export type Props = SWProps & {
+export type Props = CardProps & {
   imageURI?: string;
   title?: string;
   tag?: string;
@@ -24,39 +25,36 @@ export type Props = SWProps & {
   quantity?: string;
 };
 
-const expiryLabelHelper = (expiryTime: number): string => {
-  const days = Math.abs(expiryTime);
-  const plural = Math.abs(expiryTime) > 1 ? 'days' : 'day';
-  const suffix = expiryTime < 0 ? 'ago' : 'left';
-
-  return expiryTime === 0 ? 'Today' : `${days} ${plural} ${suffix}`;
-};
-
 const StockListCard: React.FC<Props> = ({
   imageURI,
-  title,
+  title = 'Linguine',
   tag,
   expiryTime,
   quantity,
   ...props
-}) => (
-  <StyledCardWrapper {...props}>
-    <StyledImage source={{ uri: imageURI }} />
-    <Box px="m" py="s">
-      {tag && <Subtitle mb="xs">{tag}</Subtitle>}
-      <Heading mb="xs">{title}</Heading>
-      <Grid>
-        <Row>
-          <ClockIcon mr="xs" size="small" variant="tertiary" />
-          <Subtitle>{expiryLabelHelper(Number(expiryTime))}</Subtitle>
-        </Row>
-        <Row>
-          <QuantityIcon mr="xs" size="small" variant="tertiary" />
-          <Subtitle>{`${quantity || 0}g`}</Subtitle>
-        </Row>
-      </Grid>
-    </Box>
-  </StyledCardWrapper>
-);
+}) => {
+  const expNumber = Number(2);
+  const stockVariant = expNumber > 2 ? 'tertiary' : (expNumber >= 0 ? 'warning' : 'error');
+
+  return (
+    <StockListCardWrapper shadowVariant={stockVariant} {...props}>
+      <StyledImage source={{ uri: imageURI }} />
+      <Box px="m" py="s">
+        {tag && <Subtitle mb="xs">{tag}</Subtitle>}
+        {title && <Heading mb="xs" variant={stockVariant}>{title}</Heading>}
+        <Grid>
+          <Row>
+            <ClockIcon variant={stockVariant} mr="xs" size="small" />
+            <Text variant={stockVariant}>{expiryLabelHelper(expNumber)}</Text>
+          </Row>
+          <Row>
+            <QuantityIcon variant={stockVariant} mr="xs" size="small" />
+            <Text size="h2" variant={stockVariant}>{`${quantity || 0}g`}</Text>
+          </Row>
+        </Grid>
+      </Box>
+    </StockListCardWrapper>
+  );
+}
 
 export default StockListCard;

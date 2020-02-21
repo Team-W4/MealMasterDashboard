@@ -1,4 +1,5 @@
 import React from 'react';
+import throttle from 'lodash.throttle';
 import Paragraph from '../../components/Texts/Paragraph';
 import styled from '../../styled';
 
@@ -45,7 +46,6 @@ const LOADING_MSGS = [
   'Follow the white rabbit',
   "Why don't you order a sandwich?",
   'While the satellite moves into position',
-  'keep calm and npm install',
   'The bits are flowing slowly today',
   "Dig on the 'X' for buried treasure... ARRR!",
   "It's still faster than you could draw it",
@@ -124,7 +124,6 @@ const LOADING_MSGS = [
   'Adults are just kids with money.',
   'I think I am, therefore, I am. I think.',
   'A kiss is like a fight, with mouths.',
-  'You don’t pay taxes—they take taxes.',
   'Coffee, Chocolate, Men. The richer the better!',
   'I am free of all prejudices. I hate everyone equally.',
   'May the forks be with you',
@@ -247,10 +246,12 @@ const LOADING_MSGS = [
   'Still faster than Windows update',
 ];
 
+const messageChoser = throttle(() => Math.floor((Math.random()) * LOADING_MSGS.length), 2000);
+
 const LoadingPage: React.FC = () => (
   <LoadingView>
     <Paragraph px="xxxl" textAlign="center" variant="inverted">
-      {LOADING_MSGS[Math.floor(Math.random() * LOADING_MSGS.length)]}...
+      {LOADING_MSGS[messageChoser()]}...
     </Paragraph>
   </LoadingView>
 );

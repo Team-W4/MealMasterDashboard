@@ -3,7 +3,7 @@ import styled from '../../../styled';
 import Button, { Props as ButtonProps } from '../Button';
 import { ButtonSizeProps } from '../buttonSizes';
 
-const iconButtonSizes = variant({
+export const iconButtonSizes = variant({
   prop: 'size',
   variants: {
     small: {

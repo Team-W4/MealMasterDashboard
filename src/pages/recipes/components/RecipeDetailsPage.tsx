@@ -33,16 +33,24 @@ const CalorieLabel = styled(Label)`
   left: 0;
 `;
 
+export type TagProps = {
+	id: number;
+	name: string
+};
+
+export type IngredientProps = {
+};
+
 export type Props = {
   onFavorite?: () => void;
   onShare?: () => void;
   onBack: () => void;
-  recipeDetails?: {
+  recipeDetails: {
     rating?: number;
     name?: string;
     cookTime?: string | number;
-    ingredients?: Array<any>;
-    tags?: Array<{ id: number; name: string }>;
+    ingredients?: Array<IngredientProps>;
+    tags?: Array<TagProps>;
     instructions: string;
   };
 };
@@ -67,18 +75,18 @@ const RecipeDetailsPage: React.FC<Props> = ({
         </IconButton>
       </Box>
       <Box position="absolute" left="xxxl" top="50px">
-        <IconButton rounded flat size="small" onPress={onBack}>
-          <BackIcon size="small" variant="warning" />
+        <IconButton rounded flat size="normal" onPress={onBack}>
+          <BackIcon size="normal" variant="warning" />
         </IconButton>
       </Box>
       <Box position="absolute" right="xxxl" top="50px">
-        <IconButton rounded flat size="small" onPress={onShare}>
-          <ShareIcon size="small" variant="warning" />
+        <IconButton rounded flat size="normal" onPress={onShare}>
+          <ShareIcon size="normal" variant="warning" />
         </IconButton>
       </Box>
       <CalorieLabel value="650 kcal/serving" />
     </Box>
-    <Grid px="xxxl" mb="m">
+    <Grid px="xxl" mb="m">
       <Column>
         {/*TODO: Adds rating */}
         <Rating value={4.3} />
@@ -95,14 +103,14 @@ const RecipeDetailsPage: React.FC<Props> = ({
     </Grid>
     {tags && (
       <TagList horizontal showsHorizontalScrollIndicator={false}>
-        {tags.map((tag: { id: number; name: string }) => (
+        {tags.map((tag: TagProps) => (
           <Box key={tag.id} alignSelf="flex-start" mr="xs">
             <Tag value={tag.name} />
           </Box>
         ))}
       </TagList>
     )}
-    <Paragraph px="xxxl">{instructions}</Paragraph>
+    <Paragraph px="xxl">{instructions}</Paragraph>
   </RecipeDetailsScroll>
 );
 

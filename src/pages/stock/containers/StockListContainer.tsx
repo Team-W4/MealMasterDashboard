@@ -29,12 +29,12 @@ class StockListPage extends React.Component<Props> {
           <Box key={index} mb="xl">
             <StockListCard
               imageURI="https://www.chiceats.com/sites/default/files/styles/image_1024x768/public/recipe/photo/homemade-pasta-recipe-1080x810@2x.jpg"
-              title={item.name}
-              tag={item.tags[0]}
-              expiryTime={item.expiryTime}
-              quantity={item.quantity}
+              // title={item.name}
+              // tag={(item.tags || [])[0].name}
+              // expiryTime={item.expiryTime}
+              // quantity={item.quantity}
               onPress={() =>
-                navigation.navigate('StockDetails', { stockId: item.id })
+                navigation.push('StockDetails', { stockId: item.id })
               }
             />
           </Box>

@@ -10,7 +10,7 @@ import HomePage from '../home';
 import SearchPage from '../search';
 import RecipesPage from '../recipes';
 import StockPage from '../stock';
-import { AuthStackParamList } from './auth';
+import { AuthStackParamList } from '../auths';
 
 export type HomeTabParamList = AuthStackParamList & {
   Home: undefined;
@@ -23,7 +23,7 @@ const Tab = createMaterialBottomTabNavigator<HomeTabParamList>();
 
 const HomeNavigator: React.FC = () => (
   <>
-    <TitlePage title="Good morning" />
+    <TitlePage title="Good Morning!" />
     <Tab.Navigator initialRouteName="Home" shifting activeColor={colors.white}>
       <Tab.Screen
         name="Home"
