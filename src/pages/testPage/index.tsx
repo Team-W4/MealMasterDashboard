@@ -1,3 +1,3 @@
-import GenericFood from 'GenericFood';
+import GenericFood from './GenericFood';
 
 export default GenericFood;

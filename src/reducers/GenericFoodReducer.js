@@ -7,7 +7,7 @@ const initialState = {
   isFetching: false,
 };
 
-const RecipeReducer = createReducer(initialState, {
+const GenericFoodReducer = createReducer(initialState, {
   [actionTypes.FETCH_FOOD]: state => ({
     ...state,
     isFetching: true,
@@ -28,4 +28,4 @@ const RecipeReducer = createReducer(initialState, {
   }),
 });
 
-export default RecipeReducer;
+export default GenericFoodReducer;
