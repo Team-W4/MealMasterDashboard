@@ -33,6 +33,12 @@ export const getStockItemById = stockItemId => dispatch => {
   );
 };
 
+export const clearStockDetails = () => dispatch =>
+  dispatch({ type: actionTypes.CLEAR_STOCK_DETAILS });
+
+export const clearStockItemDetails = () => dispatch =>
+  dispatch({ type: actionTypes.CLEAR_STOCK_ITEM_DETAILS });
+
 export const addToStock = (foodId, stockItem) => dispatch => {
   dispatch({ type: actionTypes.CREATE_STOCK_ITEM });
 

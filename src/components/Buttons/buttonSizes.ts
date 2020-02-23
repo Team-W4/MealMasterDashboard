@@ -20,7 +20,7 @@ const buttonSizes = variant({
       height: '25px',
     },
     normal: {
-      height: '50px',
+      height: '58px',
     },
     large: {
       height: '75px',

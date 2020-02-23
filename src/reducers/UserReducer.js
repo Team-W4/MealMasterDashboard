@@ -61,6 +61,10 @@ const UserReducer = createReducer(initialState, {
   [actionTypes.REGISTER]: state => ({
     ...state,
   }),
+  [actionTypes.CLEAR_USER_DETAILS]: state => ({
+    ...state,
+    userDetails: {},
+  }),
 });
 
 export default UserReducer;

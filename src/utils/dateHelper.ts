@@ -23,7 +23,7 @@ const months = [
   'Dec',
 ];
 
-const properDateHelper = (dateString: Date, showWeekday: boolean = true, showYear: boolean = true): string => {
+export const properDateHelper = (dateString: Date, showWeekday: boolean = true, showYear: boolean = true): string => {
   const weekday = weekdays[dateString.getDay()];
   const date = dateString.getDate();
   const month = months[dateString.getMonth()];
@@ -32,4 +32,6 @@ const properDateHelper = (dateString: Date, showWeekday: boolean = true, showYea
   return (showWeekday ? weekday + ' ' : '') + month + ' ' + date + (showYear ? ', ' + year : '');
 }
 
-export default properDateHelper;
+export const dateDifferenceHelper = (date1: Date, date2: Date) => (
+  Math.floor((date1.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24))
+);

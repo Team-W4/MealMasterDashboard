@@ -17,6 +17,9 @@ export const getRecipeById = recipeId => dispatch => {
   );
 };
 
+export const clearRecipeDetails = () => dispatch =>
+  dispatch({ type: actionTypes.CLEAR_RECIPE_DETAILS });
+
 export const getRecipesByUser = userId => dispatch => {
   dispatch({ type: actionTypes.FETCH_RECIPES });
 

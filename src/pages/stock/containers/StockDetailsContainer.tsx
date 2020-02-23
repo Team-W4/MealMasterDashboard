@@ -8,10 +8,11 @@ import { AuthStackParamList } from '../../auths';
 import StockDetailsPage from '../components/StockDetailsPage';
 
 type Props = {
+  stockDetails?: any;
   navigation: StackNavigationProp<AuthStackParamList, 'StockDetails'>;
   route: RouteProp<AuthStackParamList, 'StockDetails'>;
-  stockDetails?: any;
   getFoodStockById: (stockId: number) => void;
+  clearStockDetails: () => void;
 };
 
 class StockDetailsContainer extends React.Component<Props> {
@@ -22,16 +23,20 @@ class StockDetailsContainer extends React.Component<Props> {
       },
       getFoodStockById,
     } = this.props;
-    console.log(stockId);
+
     getFoodStockById(stockId);
   }
 
   public render(): JSX.Element {
-    const { navigation, stockDetails } = this.props;
+    const { navigation, stockDetails, clearStockDetails } = this.props;
 
     return (
       <StockDetailsPage
-        onBack={() => navigation.goBack()}
+        onBack={() => {
+          clearStockDetails();
+          navigation.pop(1);
+        }}
+        onAddEdit={(params?: any) => navigation.push('StockEdit', params)}
         stockDetails={stockDetails}
       />
     );
@@ -39,13 +44,14 @@ class StockDetailsContainer extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: any) => ({
-  // stockDetails: state.stocks.foodStockDetails,
+  stockDetails: state.stock.foodStockDetails,
 });
 
 const mapDispatchToProps = (dispatch: any) =>
   bindActionCreators(
     {
       getFoodStockById: stockActions.getFoodStockById,
+      clearStockDetails: stockActions.clearStockDetails,
     },
     dispatch,
   );

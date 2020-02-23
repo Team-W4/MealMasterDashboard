@@ -20,7 +20,7 @@ export const RECIPE = '/recipe';
 
 // Stock Routes
 export const STOCK = '/stock';
-export const STOCK_ITEM = '/stock_item';
+export const STOCK_ITEM = '/stockItem';
 
 // Food Routes
 export const FOOD = '/food';

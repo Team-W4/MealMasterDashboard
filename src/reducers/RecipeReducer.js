@@ -26,6 +26,10 @@ const RecipeReducer = createReducer(initialState, {
     isFetching: false,
     recipes,
   }),
+  [actionTypes.CLEAR_RECIPE_DETAILS]: state => ({
+    ...state,
+    recipeDetails: {},
+  }),
 });
 
 export default RecipeReducer;

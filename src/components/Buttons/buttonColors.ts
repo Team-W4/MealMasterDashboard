@@ -2,6 +2,7 @@ import { variant } from 'styled-system';
 
 enum buttonColorEnum {
   inherit,
+  transparent,
   normal,
   warning,
   active,
@@ -23,6 +24,9 @@ const buttonColors = variant({
   variants: {
     inherit: {
       backgroundColor: 'inherit',
+    },
+    transparent: {
+      backgroundColor: 'transparent',
     },
     normal: {
       backgroundColor: 'white',

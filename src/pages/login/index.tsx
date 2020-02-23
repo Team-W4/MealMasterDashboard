@@ -9,6 +9,8 @@ import Input from '../../components/Inputs/Input';
 import Back from '../../components/Icons/Back';
 import { emailChecker } from '../../utils';
 import { AuthContext } from '../auths';
+import MoreMenu from '../../components/MoreMenu';
+import Delete from '../../components/Icons/Delete';
 
 const ERROR_MSGS = {
   emptyEmail: 'Please enter your email.',
@@ -54,7 +56,7 @@ const LoginPage: React.FC = () => {
       return;
     }
 
-    if (!emailChecker(email)) {
+    if (!emailChecker(email.trim())) {
       setErrors({ ...errorInitialState, email: ERROR_MSGS.invalidEmail });
       return;
     }
@@ -86,15 +88,16 @@ const LoginPage: React.FC = () => {
 
     setErrors({ ...errorInitialState });
     if (!registerMode) {
-      logIn(email, password);
+      logIn(email.trim(), password.trim());
     } else {
-      register(email, password);
+      register(email.trim(), password.trim());
     }
   };
 
   return (
     <LoginView>
       <Box position="relative" flexGrow={1} justifyContent="center">
+      <MoreMenu items={[{ title: 'Rename', onPress: () => {}, icon: <Delete />}, { title: 'Delete', onPress: () => {}, icon: <Delete />}]}/>
         <Box mb="l">
           <Text size="large" mb="xxxl">
             {registerMode ? 'Sign Up' : 'Log In'}

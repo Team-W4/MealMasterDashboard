@@ -56,6 +56,14 @@ const StockReducer = createReducer(initialState, {
     ...state,
     isFetching: false,
   }),
+  [actionTypes.CLEAR_STOCK_DETAILS]: state => ({
+    ...state,
+    foodStockDetails: {},
+  }),
+  [actionTypes.CLEAR_STOCK_ITEM_DETAILS]: state => ({
+    ...state,
+    stockItemDetails: {},
+  }),
 });
 
 export default StockReducer;

@@ -13,7 +13,6 @@ const LoadingView = styled.View`
 `;
 
 const LOADING_MSGS = [
-  'Reticulating splines...',
   'Generating witty dialog...',
   'Swapping time and space...',
   'Spinning violently around the y-axis...',
