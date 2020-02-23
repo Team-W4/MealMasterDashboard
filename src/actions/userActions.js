@@ -59,6 +59,9 @@ export const updateProfile = profileData => dispatch => {
   );
 };
 
+export const clearUserDetails = () => dispatch =>
+  dispatch({ type: actionTypes.CLEAR_USER_DETAILS });
+
 export const deleteProfile = () => dispatch => {
   UserService.deleteProfile().then(() =>
     dispatch({ type: actionTypes.DELETE_PROFILE }),

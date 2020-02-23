@@ -8,10 +8,11 @@ import { AuthStackParamList } from '../../auths';
 import RecipeDetailsPage from '../components/RecipeDetailsPage';
 
 type Props = {
+  recipeDetails?: any;
   navigation: StackNavigationProp<AuthStackParamList, 'RecipeDetails'>;
   route: RouteProp<AuthStackParamList, 'RecipeDetails'>;
-  recipeDetails?: any;
   getRecipeById: (id: number) => void;
+  clearRecipeDetails: () => void;
 };
 
 class RecipeDetailsContainer extends React.Component<Props> {
@@ -26,11 +27,14 @@ class RecipeDetailsContainer extends React.Component<Props> {
   }
 
   public render(): JSX.Element {
-    const { navigation, recipeDetails } = this.props;
+    const { navigation, recipeDetails, clearRecipeDetails } = this.props;
 
     return (
       <RecipeDetailsPage
-        onBack={() => navigation.goBack()}
+        onBack={() => {
+          clearRecipeDetails();
+          navigation.pop(1);
+        }}
         recipeDetails={recipeDetails}
       />
     );
@@ -45,6 +49,7 @@ const mapDispatchToProps = (dispatch: any) =>
   bindActionCreators(
     {
       getRecipeById: recipeActions.getRecipeById,
+      clearRecipeDetails: recipeActions.clearRecipeDetails,
     },
     dispatch,
   );

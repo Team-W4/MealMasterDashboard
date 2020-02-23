@@ -27,7 +27,7 @@ class RecipeListPage extends React.Component<Props> {
     return (
       <ScrollList>
         {(recipes || []).map((item, index) => (
-          <Box key={index} mb="xl">
+          <Box key={index} px="l" mb="xl">
             <RecipeCard
               title={item.name}
               tag={(item.tags || [])[0].name}

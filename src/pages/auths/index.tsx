@@ -7,7 +7,7 @@ import { userActions } from '../../actions';
 import LoadingPage from '../loading';
 import LoginPage from '../login';
 import { RecipeDetailsPage } from '../recipes';
-import { StockDetailsPage } from '../stock';
+import { StockDetailsPage, StockEditPage } from '../stock';
 import UserDetailsPage, { UserEditPage } from '../user';
 import HomeNavigator from '../navigator/HomeNavigator';
 import * as navigator from '../navigator/Navigator';
@@ -18,21 +18,26 @@ export type AuthStackParamList = {
   Home: undefined;
   RecipeDetails: { recipeId: number };
   StockDetails: { stockId: number };
+  StockEdit: { stockItemId: number };
   UserDetails: undefined;
   UserEdit: undefined;
 };
 
 const Stack = createStackNavigator<AuthStackParamList>();
 
-export const AuthContext = createContext({
+export const AuthContext = createContext<{
+  logOut: () => void;
+  logIn: (email?: string, password?: string) => void;
+  register: (email?: string, password?: string) => void;
+}>({
   logIn: () => {},
   logOut: () => {},
   register: () => {},
 });
 
 export type Props = {
-  logIn: (email?: string, password?: string) => void;
   logOut: () => void;
+  logIn: (email?: string, password?: string) => void;
   register: (email?: string, password?: string) => void;
   restoreToken: (token: string | null) => void;
   userToken: string | null;
@@ -90,6 +95,7 @@ const AuthProvider: React.FC<Props> = ({
             <Stack.Screen name="Home" component={HomeNavigator} />
             <Stack.Screen name="RecipeDetails" component={RecipeDetailsPage} />
             <Stack.Screen name="StockDetails" component={StockDetailsPage} />
+            <Stack.Screen name="StockEdit" component={StockEditPage} />
             <Stack.Screen name="UserDetails" component={UserDetailsPage} />
             <Stack.Screen name="UserEdit" component={UserEditPage} />
           </>

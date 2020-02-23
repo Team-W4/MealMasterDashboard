@@ -100,7 +100,7 @@ const UserEditPage: React.FC<Props> = ({
         </Column>
         <Box mb="xxxl">
           <Button title="Save" variant="warning" onPress={() => {
-            navigation.goBack();
+            navigation.pop(1);
             updateProfile({
               ...profile,
               firstName,

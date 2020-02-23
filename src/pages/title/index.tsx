@@ -6,7 +6,7 @@ import Grid, { Column } from '../../components/Containers/Grid';
 import Title from '../../components/Texts/Title';
 import ProfileImage from '../../components/ProfileImage';
 import Subtitle from '../../components/Texts/Subtitle';
-import properDateHelper from '../../utils/properDateHelper';
+import { properDateHelper } from '../../utils/dateHelper';
 
 export type Props = {
   title: string;
