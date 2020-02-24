@@ -29,7 +29,7 @@ export const properDateHelper = (dateString: Date, showWeekday: boolean = true, 
   const month = months[dateString.getMonth()];
   const year = dateString.getFullYear();
 
-  return (showWeekday ? weekday + ' ' : '') + month + ' ' + date + (showYear ? ', ' + year : '');
+  return `${showWeekday ? weekday + ' ' : ''}${month} ${date} ${showYear ? ', ' + year : ''}`;
 }
 
 export const dateDifferenceHelper = (date1: Date, date2: Date) => (

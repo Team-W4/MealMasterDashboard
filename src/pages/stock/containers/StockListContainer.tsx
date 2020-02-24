@@ -26,7 +26,9 @@ class StockListPage extends React.Component<Props> {
 
     return (
       <ScrollList>
-        {(foodStocks || []).map((item, index) => (
+        {(foodStocks || [])
+        .sort((a, b) =>  new Date(a.nextExpiration).getTime() - new Date(b.nextExpiration).getTime())
+        .map((item, index) => (
           <Box key={index} px="l" mb="xl">
             <StockListCard
               imageURI="https://www.chiceats.com/sites/default/files/styles/image_1024x768/public/recipe/photo/homemade-pasta-recipe-1080x810@2x.jpg"

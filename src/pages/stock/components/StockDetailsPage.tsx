@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '../../../styled';
-import { StockItem, StockDetails } from '../../../constants/dataTypes';
+import { StockItem, StockDetails, Tag as TagType } from '../../../constants/dataTypes';
 import FavoriteIcon from '../../../components/Icons/Favorite';
 import BackIcon from '../../../components/Icons/Back';
 import ShareIcon from '../../../components/Icons/Share';
@@ -12,6 +12,7 @@ import Title from '../../../components/Texts/Title';
 import Subtitle from '../../../components/Texts/Subtitle';
 import Visual from '../../../components/Visual';
 import StockItemListCard from './StockItemListCard';
+import titleHelper from '../../../utils/titleHelper';
 
 const StockDetailsScroll = styled.ScrollView`
   flex: 1;
@@ -34,11 +35,11 @@ export type Props = {
 };
 
 const StockDetailsPage: React.FC<Props> = ({
-  onFavorite,
+  	onFavorite,
 	onShare,
   onBack,
 	onAddEdit,
-	stockDetails: { /*imageURI, title, tags,*/ stockItems },
+	stockDetails: { id, foodName, tags, stockItems },
 }) => {
 	const expireTag = true ? (
 		<Tag value="Expires Soon!" variant="soon" />
@@ -74,18 +75,18 @@ const StockDetailsPage: React.FC<Props> = ({
 				</Box>
 				<Box px="l">
 					<Subtitle mb="s">PRODUCE</Subtitle>
-					{true && (
+					{foodName && (
 						<Title mb="s">
-							{'Title'}
+							{titleHelper(foodName)}
 						</Title>
 					)}
 				</Box>
-				{true && (
+				{tags && (
 					<TagList horizontal showsHorizontalScrollIndicator={false}>
 						<Box mr="xs">
 							{expireTag}
 						</Box>
-						{[{ id: 1, name: 'organic' }, { id: 2, name: 'italian' }, { id: 3, name: 'handmade' }, { id: 4, name: 'gluten' }, { id: 5, name: 'flour' }, { id: 6, name: 'pasta' }].map((tag: TagProps) => (
+						{tags.map((tag: TagType) => (
 							<Box key={tag.id} alignSelf="flex-start" mr="xs">
 								<Tag value={tag.name} />
 							</Box>
@@ -94,10 +95,12 @@ const StockDetailsPage: React.FC<Props> = ({
 				)}
 				{stockItems && (
 					<>
-						{stockItems.map((stockItem: StockItem) => (
+						{stockItems
+						.sort((a, b) =>  new Date(a.expirationDate).getTime() - new Date(b.expirationDate).getTime())
+						.map((stockItem: StockItem) => (
 								<Box key={stockItem.id} px="l" mb="m">
 									<StockItemListCard
-										expiryTime={stockItem.expirationDate}
+										expirationDate={stockItem.expirationDate}
 										createdDate={stockItem.dateObtained}
 										quantity={stockItem.quantity}
 										onPress={() => onAddEdit({ stockItemId: stockItem.id })}
