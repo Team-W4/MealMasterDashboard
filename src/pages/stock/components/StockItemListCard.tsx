@@ -9,13 +9,16 @@ import { stockItemLabelHelper } from '../expiryHelper';
 import StockListCardWrapper, { Props as SWProps } from './StockListCardWrapper';
 
 export type Props = SWProps & {
-  expiryTime?: string;
+  expirationDate?: string;
   createdDate?: string;
   quantity?: number;
 };
 
-const StockItemListCard: React.FC<Props> = ({ expiryTime, createdDate, quantity, ...props }) => {
-  const expNumber = Number(expiryTime);
+const StockItemListCard: React.FC<Props> = ({ expirationDate, createdDate, quantity, ...props }) => {
+  const expDate = expirationDate ? new Date(expirationDate) : new Date();
+  const today = new Date();
+
+  const expNumber = dateDifferenceHelper(expDate, today);
   const addedDate = new Date(createdDate || '');
   const titleVariant = expNumber > 2 ? 'normal' : (expNumber >= 0 ? 'warning' : 'error');
   const stockVariant = expNumber > 2 ? 'tertiary' : (expNumber >= 0 ? 'warning' : 'error');

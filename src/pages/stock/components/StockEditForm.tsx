@@ -40,8 +40,7 @@ const StockEditForm: React.FC<Props> = ({
     ? new Date(stockItemDetails.dateObtained)
     : new Date()
   );
-  const [quantity, setQuantity] = useState(stockItemDetails && stockItemDetails.quantity);
-  console.log(quantity);
+  const [quantity, setQuantity] = useState(stockItemDetails && stockItemDetails.quantity.toString() || '');
 
   function onChange(e: any, selectedDate?: Date) {
     const currentDate = selectedDate || date;
@@ -83,6 +82,7 @@ const StockEditForm: React.FC<Props> = ({
     }
   }
 
+  console.log(quantity);
   return (
 		<Box width="100%" flexGrow={1} mt="200px">
       <Box px="xxxl">
