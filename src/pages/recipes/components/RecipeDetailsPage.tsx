@@ -112,7 +112,7 @@ const RecipeDetailsPage: React.FC<Props> = ({
             <ProfileImage />
           </Box>
         </Grid>
-        {tags && (
+        {tags && tags.length > 0 && (
           <TagList horizontal showsHorizontalScrollIndicator={false}>
             {tags.map((tag: TagProps) => (
               <Box key={tag.id} alignSelf="flex-start" mr="xs">
