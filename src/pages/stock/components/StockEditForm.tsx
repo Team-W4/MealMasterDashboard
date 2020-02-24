@@ -40,7 +40,11 @@ const StockEditForm: React.FC<Props> = ({
     ? new Date(stockItemDetails.dateObtained)
     : new Date()
   );
-  const [quantity, setQuantity] = useState(stockItemDetails && stockItemDetails.quantity.toString() || '');
+  const [quantity, setQuantity] = useState(
+    stockItemDetails && stockItemDetails.quantity
+    ? stockItemDetails.quantity.toString()
+    : '0'
+  );
 
   function onChange(e: any, selectedDate?: Date) {
     const currentDate = selectedDate || date;
@@ -74,7 +78,7 @@ const StockEditForm: React.FC<Props> = ({
     setErrors({ ...errorInitialState });
     if (stockItemDetails) {
       onUpdateStock({
-        quantity,
+        quantity: Number(quantity),
         dateObtained: date.toString(),
       });
     } else {

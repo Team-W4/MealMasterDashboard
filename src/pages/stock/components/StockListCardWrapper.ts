@@ -20,13 +20,13 @@ const StockListCardWrapper = styled(Card)<Props>`
     switch (shadowVariant) {
       case 'warning':
         return `
-          box-shadow: 0 0 18px;
+          box-shadow: 0 15px 18px;
           shadow-opacity: 0.5;
           shadow-color: ${colors.neoncarrot};
         `;
       case 'error':
         return `
-          box-shadow: 0 10px 18px;
+          box-shadow: 0 15px 18px;
           shadow-opacity: 0.75;
           shadow-color: ${colors.persimmonred};
         `;
