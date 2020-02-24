@@ -82,7 +82,6 @@ const StockEditForm: React.FC<Props> = ({
     }
   }
 
-  console.log(quantity);
   return (
 		<Box width="100%" flexGrow={1} mt="200px">
       <Box px="xxxl">
