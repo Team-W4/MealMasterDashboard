@@ -37,7 +37,9 @@ const RecipeCard: React.FC<Props> = ({
     <Card {...props}>
       <StyledImage source={{ uri: imageURI }} />
       <Box px="m" py="s">
-        {tag && <Subtitle mb="xs">{tag}</Subtitle>}
+        {tag && tag.length > 0 ? (
+          <Subtitle mb="xs">{tag}</Subtitle>
+        ) : (<></>)}
         <Heading mb="xs">{title}</Heading>
         <Grid>
           <Row>

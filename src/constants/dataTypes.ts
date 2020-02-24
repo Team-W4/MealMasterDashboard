@@ -33,7 +33,7 @@ export type StockDetails = Stock & {
   stockItems: Array<StockItem>;
 };
 
-export type RecipeGeneral = {
+export type Recipe = {
   id: number;
   tags: Array<Tag>;
 };
