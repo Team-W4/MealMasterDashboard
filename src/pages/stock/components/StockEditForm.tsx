@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Alert, Platform } from 'react-native';
 import { StockItem } from '../../../constants/dataTypes';
 import Box from '../../../components/Containers/Box';
@@ -35,16 +35,22 @@ const StockEditForm: React.FC<Props> = ({
 }) => {
   const [showDate, setShowDate] = useState(false);
   const [errors, setErrors] = useState(errorInitialState);
-  const [date, setDate] = useState(
-    stockItemDetails && stockItemDetails.dateObtained
-    ? new Date(stockItemDetails.dateObtained)
-    : new Date()
-  );
-  const [quantity, setQuantity] = useState(
-    stockItemDetails && stockItemDetails.quantity
-    ? stockItemDetails.quantity.toString()
-    : '0'
-  );
+  const [date, setDate] = useState(new Date());
+  const [quantity, setQuantity] = useState();
+
+  useEffect(() => {
+    if (stockItemDetails) {
+      const { quantity, dateObtained } = stockItemDetails;
+
+      if (quantity) {
+        setQuantity(quantity.toString());
+      }
+
+      if (dateObtained) {
+        setDate(new Date(dateObtained));
+      }
+    }
+  }, [stockItemDetails]);
 
   function onChange(e: any, selectedDate?: Date) {
     const currentDate = selectedDate || date;
@@ -82,7 +88,7 @@ const StockEditForm: React.FC<Props> = ({
         dateObtained: date.toString(),
       });
     } else {
-      
+
     }
   }
 
