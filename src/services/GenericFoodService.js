@@ -3,7 +3,9 @@ import * as routes from '../constants/routes';
 
 class GenericFoodService {
   searchGenericFood = searchTerms => {
-    const route = `${routes.FOOD}${routes.SEARCH}/${searchTerms}`;
+    const route = `${routes.FOOD}${routes.SEARCH}?${
+      routes.SEARCHTERMS
+    }=${searchTerms}`;
     return getHelper(route);
   };
 
