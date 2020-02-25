@@ -11,7 +11,7 @@ export type Props = {
 };
 
 const StyledModalWrapper = styled(Modal)`
-  justifycontent: flex-end;
+  justify-content: flex-end;
   margin: 0;
 `;
 
