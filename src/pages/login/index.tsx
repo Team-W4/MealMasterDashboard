@@ -94,51 +94,51 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-      <LoginView contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
-        <Box mb="l">
-          <Text size="large" mb="xxxl">
-            {registerMode ? 'Sign Up' : 'Log In'}
-          </Text>
-          <Input
-            title="Email"
-            error={errors.email || ''}
-            value={email}
-            onChangeText={e => setEmail(e)}
-          />
-        </Box>
+    <LoginView contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
+      <Box mb="l">
+        <Text size="large" mb="xxxl">
+          {registerMode ? 'Sign Up' : 'Log In'}
+        </Text>
+        <Input
+          title="Email"
+          error={errors.email || ''}
+          value={email}
+          onChangeText={e => setEmail(e)}
+        />
+      </Box>
+      <Box mb="l">
+        <Input
+          secureTextEntry
+          title="Password"
+          error={errors.password || ''}
+          value={password}
+          onChangeText={e => setPassword(e)}
+        />
+      </Box>
+      {registerMode && (
         <Box mb="l">
           <Input
             secureTextEntry
-            title="Password"
-            error={errors.password || ''}
-            value={password}
-            onChangeText={e => setPassword(e)}
+            title="Confirm Password"
+            error={errors.cfPassword || ''}
+            value={newPassword}
+            onChangeText={e => setNewPassword(e)}
           />
         </Box>
-        {registerMode && (
-          <Box mb="l">
-            <Input
-              secureTextEntry
-              title="Confirm Password"
-              error={errors.cfPassword || ''}
-              value={newPassword}
-              onChangeText={e => setNewPassword(e)}
-            />
-          </Box>
-        )}
-        <Grid mb="l" mr="s">
-          <Column justifyContent="center">
-            <SwitchModeButton onPress={() => setRegisterMode(!registerMode)}>
-              {registerMode
-                ? 'Already have an account?'
-                : "Don't have an account?"}
-            </SwitchModeButton>
-          </Column>
-          <IconButton size="large" onPress={handleSubmit}>
-            <LoginIcon size="large" />
-          </IconButton>
-        </Grid>
-      </LoginView>
+      )}
+      <Grid mb="l" mr="s">
+        <Column justifyContent="center">
+          <SwitchModeButton onPress={() => setRegisterMode(!registerMode)}>
+            {registerMode
+              ? 'Already have an account?'
+              : "Don't have an account?"}
+          </SwitchModeButton>
+        </Column>
+        <IconButton size="large" onPress={handleSubmit}>
+          <LoginIcon size="large" />
+        </IconButton>
+      </Grid>
+    </LoginView>
   );
 };
 
