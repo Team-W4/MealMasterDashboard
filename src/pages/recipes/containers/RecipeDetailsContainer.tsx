@@ -1,43 +1,41 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
 import { recipeActions } from '../../../actions';
+import { AuthStackParamList } from '../../auths/AuthStack';
 import RecipeDetailsPage from '../components/RecipeDetailsPage';
 
 type Props = {
-  navigation: any;
-  route: any;
   recipeDetails?: any;
+  navigation: StackNavigationProp<AuthStackParamList, 'RecipeDetails'>;
+  route: RouteProp<AuthStackParamList, 'RecipeDetails'>;
   getRecipeById: (id: number) => void;
+  clearRecipeDetails: () => void;
 };
 
-type State = {};
-
-class RecipeDetailsContainer extends React.Component<Props, State> {
+class RecipeDetailsContainer extends React.Component<Props> {
   public componentDidMount(): void {
     const {
       route: {
-        params: { id },
+        params: { recipeId },
       },
       getRecipeById,
     } = this.props;
-    getRecipeById(id);
+    getRecipeById(recipeId);
   }
 
   public render(): JSX.Element {
-    const {
-      navigation,
-      route: {
-        params: { id },
-      },
-      recipeDetails,
-    } = this.props;
+    const { navigation, recipeDetails, clearRecipeDetails } = this.props;
 
     return (
       <RecipeDetailsPage
-        id={id}
-        onBack={() => navigation.goBack()}
-        recipeDetails={recipeDetails}
+        onBack={ () => {
+          clearRecipeDetails();
+          navigation.pop(1);
+        } }
+        recipeDetails={ recipeDetails }
       />
     );
   }
@@ -47,10 +45,10 @@ const mapStateToProps = (state: any) => ({
   recipeDetails: state.recipe.recipeDetails,
 });
 
-const mapDispatchToProps = (dispatch: any) =>
-  bindActionCreators(
+const mapDispatchToProps = (dispatch: any) => bindActionCreators(
     {
       getRecipeById: recipeActions.getRecipeById,
+      clearRecipeDetails: recipeActions.clearRecipeDetails,
     },
     dispatch,
   );

@@ -31,15 +31,15 @@ const Input: React.FC<Props> = ({
 
   return (
     <InputWrapper>
-      <Heading variant={variant}>{title}</Heading>
-      <StyledInputWrapper variant={inputState}>
+      <Heading variant={ variant }>{title}</Heading>
+      <StyledInputWrapper variant={ inputState }>
         <StyledInputField
-          variant={variant}
-          size={size}
-          editable={editable}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
-          {...props}
+          variant={ variant }
+          size={ size }
+          editable={ editable }
+          onFocus={ () => setFocused(true) }
+          onBlur={ () => setFocused(false) }
+          { ...props }
         />
       </StyledInputWrapper>
       {error && error.length > 0 ? (

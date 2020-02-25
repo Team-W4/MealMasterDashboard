@@ -1,13 +1,14 @@
+/* eslint-disable no-undef */
 import { HOSTNAME } from '../constants/routes';
 
-export const getHelper = route => {
+export const getHelper = (route) => {
   const url = HOSTNAME + route;
   return fetch(url, {
     credentials: 'include',
   })
-    .then(res => res.json())
-    .then(json => json.body)
-    .catch(e => console.log(e));
+    .then((res) => res.json())
+    .then((json) => json.body)
+    .catch((e) => console.log(e));
 };
 
 export const postHelper = (route, body) => {
@@ -20,8 +21,8 @@ export const postHelper = (route, body) => {
       'content-type': 'application/json',
     },
   })
-    .then(res => res.json())
-    .then(json => json.body);
+    .then((res) => res.json())
+    .then((json) => json.body);
 };
 
 export const putHelper = (route, body) => {
@@ -34,16 +35,16 @@ export const putHelper = (route, body) => {
       'content-type': 'application/json',
     },
   })
-    .then(res => res.json())
-    .then(json => json.body);
+    .then((res) => res.json())
+    .then((json) => json.body);
 };
 
-export const deleteHelper = route => {
+export const deleteHelper = (route) => {
   const url = HOSTNAME + route;
   return fetch(url, {
     credentials: 'include',
     method: 'DELETE',
   })
-    .then(res => res.json())
-    .then(json => json.body);
+    .then((res) => res.json())
+    .then((json) => json.body);
 };

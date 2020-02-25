@@ -14,18 +14,16 @@ const Button: React.FC<Props> = ({
   children,
   onPress,
   ...props
-}) => {
-  return (
-    <StyledButtonWrapper variant={variant} onPress={onPress} {...props}>
-      {title && (
-        <StyledLabel variant={variant === 'normal' ? 'warning' : 'inverted'}>
-          {title}
-        </StyledLabel>
+}) => (
+  <StyledButtonWrapper variant={ variant } onPress={ onPress } { ...props }>
+    {title && (
+    <StyledLabel variant={ variant === 'normal' ? 'warning' : 'inverted' }>
+      {title}
+    </StyledLabel>
       )}
-      {children}
-    </StyledButtonWrapper>
+    {children}
+  </StyledButtonWrapper>
   );
-};
 
 Button.defaultProps = {
   variant: 'normal',

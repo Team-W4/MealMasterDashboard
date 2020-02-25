@@ -1,7 +1,7 @@
-/* eslint-disable prettier/prettier */
+/* eslint-disable key-spacing */
 
 const colors = {
-  transparent:  '       ',
+  transparent:  'transparent',
   inherit:      '',
   white:        '#FFFFFF',
   black:        '#000000',
@@ -33,7 +33,7 @@ export type SemanticColors = {
 
 export const DefaultSemanticColors: SemanticColors = {
   background: colors.white,
-  foreground: colors. athensgray,
+  foreground: colors.athensgray,
   shadow: colors.silver,
   primary: colors.neoncarrot,
   secondary: colors.manateegray,

@@ -1,8 +1,17 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 import styled from '../../../styled';
-import StyledCardWrapper, {
-  Props as SWProps,
-} from '../../../components/Cards/Card/StyledCardWrapper';
+import { titleHelper, dateDifferenceHelper, dateParser } from '../../../utils';
+import { expiryLabelHelper } from '../expiryHelper';
+import { Props as CardProps } from '../../../components/Cards/Card';
+import Box from '../../../components/Containers/Box';
+import Text from '../../../components/Texts/Text';
+import Heading from '../../../components/Texts/Heading';
+import Subtitle from '../../../components/Texts/Subtitle';
+import Grid, { Row } from '../../../components/Containers/Grid';
+import ClockIcon from '../../../components/Icons/Clock';
+import QuantityIcon from '../../../components/Icons/Quantity';
+import StockListCardWrapper from './StockListCardWrapper';
 
 const StyledImage = styled.Image`
   height: 75px;
@@ -10,25 +19,55 @@ const StyledImage = styled.Image`
   border-top-left-radius: ${({ theme: { space } }) => space.s};
 `;
 
-export type Props = SWProps & {
+export type Props = CardProps & {
   imageURI?: string;
   title?: string;
   tag?: string;
-  expiryTime?: string;
-  quantity?: string;
+  nextExpiration?: string;
+  quantity?: number;
 };
 
 const StockListCard: React.FC<Props> = ({
   imageURI,
   title,
   tag,
-  expiryTime,
+  nextExpiration,
   quantity,
   ...props
-}) => (
-  <StyledCardWrapper {...props}>
-    <StyledImage source={{ uri: imageURI }} />
-  </StyledCardWrapper>
-);
+}) => {
+  const expDate = dateParser(nextExpiration);
+  const today = new Date();
+
+  const expNumber = dateDifferenceHelper(expDate, today);
+  const titleVariant = expNumber > 2 ? 'normal' : expNumber >= 0 ? 'warning' : 'error';
+  const stockVariant = expNumber > 2 ? 'tertiary' : expNumber >= 0 ? 'warning' : 'error';
+
+  return (
+    <StockListCardWrapper shadowVariant={ stockVariant } { ...props }>
+      <StyledImage source={{ uri: imageURI }} />
+      <Box p="m">
+        {tag && <Subtitle mb="s">{tag}</Subtitle>}
+        {title && (
+          <Heading mb="s" variant={ titleVariant }>
+            {titleHelper(title)}
+          </Heading>
+        )}
+        <Grid>
+          <Row>
+            <ClockIcon variant={ stockVariant } mr="xs" size="small" />
+            <Text variant={ stockVariant }>{expiryLabelHelper(expNumber)}</Text>
+          </Row>
+          <Row>
+            <QuantityIcon variant={ stockVariant } mr="xs" size="small" />
+            <Text size="h2" variant={ stockVariant }>
+              {`${quantity
+              || 0} servings`}
+            </Text>
+          </Row>
+        </Grid>
+      </Box>
+    </StockListCardWrapper>
+  );
+};
 
 export default StockListCard;

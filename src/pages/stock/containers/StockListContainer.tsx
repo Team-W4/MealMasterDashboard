@@ -1,59 +1,75 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs';
+import { dateParser } from '../../../utils';
 import { stockActions } from '../../../actions';
+import { HomeTabParamList } from '../../navigator/HomeTab';
+import { Stock } from '../../../constants/dataTypes';
 import Box from '../../../components/Containers/Box';
 import StockListCard from '../components/StockListCard';
 import ScrollList from '../../../components/ScrollList';
 
 export type Props = {
-  navigation: any;
-  userId: number;
-  stocks: Array<any>;
-  getStockByUserId: (id: number) => void;
+  navigation: MaterialBottomTabNavigationProp<HomeTabParamList, 'Stocks'>;
+  foodStocks: Array<Stock>;
+  getAllStock: () => void;
 };
 
 class StockListPage extends React.Component<Props> {
+  private willFocusSubscription!: () => void;
+
   public componentDidMount(): void {
-    const { userId } = this.props;
-    this.props.getStockByUserId(userId);
+    const { navigation } = this.props;
+
+    this.refresh();
+    this.willFocusSubscription = navigation.addListener('focus', () => this.refresh());
+  }
+
+  public componentWillUnmount(): void {
+    const { navigation } = this.props;
+    navigation.removeListener('focus', this.willFocusSubscription);
+  }
+
+  public refresh(): void {
+    const { getAllStock } = this.props;
+    getAllStock();
   }
 
   public render(): JSX.Element {
-    const { stocks, navigation } = this.props;
+    const { foodStocks, navigation } = this.props;
 
     return (
       <ScrollList>
-        {(stocks || []).map((item, index) => (
-          <Box key={index} mb="xl">
-            <
-              title={item.name}
-              tag={item.tags[0].name}
-              // TODO: Adds image & difficulty
-              imageURI="https://tmbidigitalassetsazure.blob.core.windows.net/secure/RMS/attachments/37/1200x1200/Peanut-Butter-and-Jelly-French-Toast_EXPS_BMZ19_526_B12_04_10b.jpg"
-              duration={item.cookTime}
-              difficulty="Easy"
-              quantity={item.yield}
-              onPress={() =>
-                navigation.navigate('RecipeDetails', { id: item.id })
-              }
-            />
-          </Box>
-        ))}
+        {(foodStocks || [])
+          .sort(
+            (a, b) => dateParser(a.nextExpiration).getTime()
+              - dateParser(b.nextExpiration).getTime(),
+          )
+          .map((item) => (
+            <Box key={ item.food.name } px="l" mb="xl">
+              <StockListCard
+                imageURI="https://www.chiceats.com/sites/default/files/styles/image_1024x768/public/recipe/photo/homemade-pasta-recipe-1080x810@2x.jpg"
+                title={ item.food.name }
+                // tag={ (item.tags || [])[0].name }
+                nextExpiration={ item.nextExpiration }
+                quantity={ item.totalQuantity }
+                onPress={ () => navigation.push('StockDetails', { stockId: item.id }) }
+              />
+            </Box>
+          ))}
       </ScrollList>
     );
   }
 }
 
 const mapStateToProps = (state: any) => ({
-  userId: state.user.profile.id,
-  recipes: state.recipe.recipes,
+  foodStocks: state.stock.foodStocks,
 });
 
-const mapDispatchToProps = (dispatch: any) =>
-  bindActionCreators(
+const mapDispatchToProps = (dispatch: any) => bindActionCreators(
     {
-      getRecipesByUser: recipeActions.getRecipesByUser,
+      getAllStock: stockActions.getAllStock,
     },
     dispatch,
   );
@@ -61,4 +77,4 @@ const mapDispatchToProps = (dispatch: any) =>
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(RecipeListPage);
+)(StockListPage);

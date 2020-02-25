@@ -10,7 +10,7 @@ const createIcon = (
   name: string,
   paths: Array<string>,
 ): StyledComponent<React.FunctionComponent<Props>, ThemeInterface> => {
-  const Icon: React.FC<Props> = props => <SVGIcon paths={paths} {...props} />;
+  const Icon: React.FC<Props> = (props) => <SVGIcon paths={ paths } { ...props } />;
 
   const StyledIcon = styled(Icon)``;
   StyledIcon.displayName = `${name}Icon`;

@@ -20,24 +20,32 @@ const textSizes = variant({
   variants: {
     title: {
       fontSize: 'primer',
+      lineHeight: 'primer',
       fontWeight: 'bold',
+      fontFamily: 'SofiaProBold',
     },
     h1: {
       fontSize: 'bourgeois',
+      lineHeight: 'bourgeois',
       fontWeight: 'normal',
     },
     h2: {
       fontSize: 'pica',
+      lineHeight: 'pica',
       fontWeight: 'light',
+      fontFamily: 'SofiaProLight',
     },
     large: {
       fontSize: 'paragon',
+      lineHeight: 'paragon',
     },
     normal: {
       fontSize: 'pica',
+      lineHeight: 'pica',
     },
     small: {
       fontSize: 'brevier',
+      lineHeight: 'brevier',
     },
   },
 });

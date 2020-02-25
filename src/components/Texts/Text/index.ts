@@ -1,4 +1,6 @@
-import { space, SpaceProps, textAlign, TextAlignProps } from 'styled-system';
+import {
+ space, SpaceProps, textAlign, TextAlignProps,
+} from 'styled-system';
 import styled from '../../../styled';
 import textSize, { TextSizeProps } from '../textSizes';
 import textColor, { TextColorProps } from '../textColors';

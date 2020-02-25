@@ -7,9 +7,7 @@ import QuantityIcon from '../../../components/Icons/Quantity';
 import UtensilsIcon from '../../../components/Icons/Utensils';
 import Heading from '../../../components/Texts/Heading';
 import Subtitle from '../../../components/Texts/Subtitle';
-import StyledCardWrapper, {
-  Props as SWProps,
-} from '../../../components/Cards/Card/StyledCardWrapper';
+import Card, { Props as CardProps } from '../../../components/Cards/Card';
 
 const StyledImage = styled.Image`
   height: 100px;
@@ -17,7 +15,7 @@ const StyledImage = styled.Image`
   border-top-left-radius: ${({ theme: { space } }) => space.s};
 `;
 
-export type Props = SWProps & {
+export type Props = CardProps & {
   imageURI?: string;
   title?: string;
   tag?: string;
@@ -34,34 +32,36 @@ const RecipeCard: React.FC<Props> = ({
   difficulty,
   quantity,
   ...props
-}) => {
-  return (
-    <StyledCardWrapper {...props}>
-      <StyledImage source={{ uri: imageURI }} />
-      <Box px="m" py="s">
-        {tag && <Subtitle mb="xs">{tag}</Subtitle>}
-        <Heading mb="xs">{title}</Heading>
-        <Grid>
-          <Row>
-            <ClockIcon mr="xs" size="small" variant="tertiary" />
-            <Subtitle>{`${duration || 0} min${
-              duration > 1 ? 's' : ''
-            }`}</Subtitle>
-          </Row>
-          <Row>
-            <QuantityIcon mr="xs" size="small" variant="tertiary" />
-            <Subtitle>{difficulty}</Subtitle>
-          </Row>
-          <Row>
-            <UtensilsIcon mr="xs" size="small" variant="tertiary" />
-            <Subtitle>{`${quantity || 0} serving${
-              quantity > 1 ? 's' : ''
-            }`}</Subtitle>
-          </Row>
-        </Grid>
-      </Box>
-    </StyledCardWrapper>
+}) => (
+  <Card { ...props }>
+    <StyledImage source={{ uri: imageURI }} />
+    <Box px="m" py="s">
+      {tag && tag.length > 0 ? <Subtitle mb="xs">{tag}</Subtitle> : <></>}
+      <Heading mb="xs">{title}</Heading>
+      <Grid>
+        <Row>
+          <ClockIcon mr="xs" size="small" variant="tertiary" />
+          <Subtitle>
+            {`${duration || 0} min${
+              Number(duration) > 1 ? 's' : ''
+            }`}
+          </Subtitle>
+        </Row>
+        <Row>
+          <QuantityIcon mr="xs" size="small" variant="tertiary" />
+          <Subtitle>{difficulty}</Subtitle>
+        </Row>
+        <Row>
+          <UtensilsIcon mr="xs" size="small" variant="tertiary" />
+          <Subtitle>
+            {`${quantity || 0} serving${
+              Number(quantity) > 1 ? 's' : ''
+            }`}
+          </Subtitle>
+        </Row>
+      </Grid>
+    </Box>
+  </Card>
   );
-};
 
 export default RecipeCard;

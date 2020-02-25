@@ -8,11 +8,11 @@ const initialState = {
 };
 
 const RecipeReducer = createReducer(initialState, {
-  [actionTypes.FETCH_RECIPE]: state => ({
+  [actionTypes.FETCH_RECIPE]: (state) => ({
     ...state,
     isFetching: true,
   }),
-  [actionTypes.FETCH_RECIPES]: state => ({
+  [actionTypes.FETCH_RECIPES]: (state) => ({
     ...state,
     isFetching: true,
   }),
@@ -25,6 +25,10 @@ const RecipeReducer = createReducer(initialState, {
     ...state,
     isFetching: false,
     recipes,
+  }),
+  [actionTypes.CLEAR_RECIPE_DETAILS]: (state) => ({
+    ...state,
+    recipeDetails: {},
   }),
 });
 

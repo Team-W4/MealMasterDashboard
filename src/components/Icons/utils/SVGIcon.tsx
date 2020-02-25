@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import Svg, { Path, SvgProps } from 'react-native-svg';
 import { space, SpaceProps } from 'styled-system';
@@ -20,11 +21,11 @@ const StyledSVG = styled(Svg)`
 const SVGIcon: React.FC<Props> = ({ paths, variant, ...props }) => (
   <StyledSVG
     viewBox="0 0 50 50"
-    fill={variant ? iconColors[variant] : ''}
-    {...props}
+    fill={ variant ? iconColors[variant] : '' }
+    { ...props }
   >
     {paths.map((path, index) => (
-      <Path key={index} d={path} />
+      <Path key={ index } d={ path } />
     ))}
   </StyledSVG>
 );

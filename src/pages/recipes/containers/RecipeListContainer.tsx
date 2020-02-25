@@ -1,21 +1,25 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs';
+import { HomeTabParamList } from '../../navigator/HomeTab';
 import { recipeActions } from '../../../actions';
-import RecipeCard from '../components/RecipeCard';
+import { Recipe } from '../../../constants/dataTypes';
+import Box from '../../../components/Containers/Box';
 import ScrollList from '../../../components/ScrollList';
+import RecipeCard from '../components/RecipeCard';
 
 export type Props = {
-  navigation: any;
+  navigation: MaterialBottomTabNavigationProp<HomeTabParamList, 'Recipes'>;
   userId: number;
-  recipes: Array<any>;
+  recipes: Array<Recipe>;
   getRecipesByUser: (id: number) => void;
 };
 
 class RecipeListPage extends React.Component<Props> {
   public componentDidMount(): void {
-    const { userId } = this.props;
-    this.props.getRecipesByUser(userId);
+    const { userId, getRecipesByUser } = this.props;
+    getRecipesByUser(userId);
   }
 
   public render(): JSX.Element {
@@ -23,19 +27,17 @@ class RecipeListPage extends React.Component<Props> {
 
     return (
       <ScrollList>
-        {(recipes || []).map((item, index) => (
-          <Box key={index} mb="xl">
+        {(recipes || []).map((item: Recipe) => (
+          <Box key={ item.name } px="l" mb="xl">
             <RecipeCard
-              title={item.name}
-              tag={item.tags[0].name}
+              title={ item.name }
+              tag={ item.tags && item.tags.length > 0 ? item.tags[0].name : '' }
               // TODO: Adds image & difficulty
               imageURI="https://tmbidigitalassetsazure.blob.core.windows.net/secure/RMS/attachments/37/1200x1200/Peanut-Butter-and-Jelly-French-Toast_EXPS_BMZ19_526_B12_04_10b.jpg"
-              duration={item.cookTime}
+              duration={ item.cookTime }
               difficulty="Easy"
-              quantity={item.yield}
-              onPress={() =>
-                navigation.navigate('RecipeDetails', { id: item.id })
-              }
+              quantity={ item.yield }
+              onPress={ () => navigation.push('RecipeDetails', { recipeId: item.id }) }
             />
           </Box>
         ))}
@@ -49,8 +51,7 @@ const mapStateToProps = (state: any) => ({
   recipes: state.recipe.recipes,
 });
 
-const mapDispatchToProps = (dispatch: any) =>
-  bindActionCreators(
+const mapDispatchToProps = (dispatch: any) => bindActionCreators(
     {
       getRecipesByUser: recipeActions.getRecipesByUser,
     },

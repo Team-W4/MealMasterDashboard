@@ -1,66 +1,132 @@
 import React from 'react';
 import styled from '../../../styled';
-import StyledCardWrapper from '../../../components/Cards/Card/StyledCardWrapper'
-import Box from '../../../components/Containers/Box'
-import Heading from '../../../components/Texts/Heading'
-import Subtitle from '../../../components/Texts/Subtitle'
-import FavoriteButton, {
-    Props as FavProps,
-} from '../../../components/FavoriteButton';
+import { titleHelper, dateDifferenceHelper, dateParser } from '../../../utils';
+import {
+  StockItem,
+  StockDetails,
+  Tag as TagType,
+} from '../../../constants/dataTypes';
+import FavoriteIcon from '../../../components/Icons/Favorite';
+import BackIcon from '../../../components/Icons/Back';
+import ShareIcon from '../../../components/Icons/Share';
+import Box from '../../../components/Containers/Box';
+import IconButton from '../../../components/Buttons/IconButton';
+import Button from '../../../components/Buttons/Button';
 import Tag from '../../../components/Tag';
+import Title from '../../../components/Texts/Title';
+import Subtitle from '../../../components/Texts/Subtitle';
+import Visual from '../../../components/Visual';
+import StockItemListCard from './StockItemListCard';
 
-const StyledImage = styled.Image`
-    height: 300px;
-    border-top-right-radius: ${({ theme: { space } }) => space.s};
-    border-top-left-radius: ${({ theme: { space } }) => space.s};
-    border-bottom-right-radius: ${({ theme: { space } }) => space.s};
-    border-bottom-left-radius: ${({ theme: { space } }) => space.s};
-`;
-
-const SaveStockButton = styled(FavoriteButton)`
-  position: absolute;
-  bottom: -20px;
-  right: ${({ theme: { space } }) => space.xxxl};
+const StockDetailsScroll = styled.ScrollView`
+  flex: 1;
+  width: 100%;
 `;
 
 const TagList = styled.ScrollView`
   flex-grow: 0;
   flex-shrink: 0;
-  margin-bottom: ${({ theme: { space } }) => space.m};
+  padding-left: ${({ theme: { space } }) => space.l};
+  margin-bottom: ${({ theme: { space } }) => space.xl};
 `;
 
 export type Props = {
-    imageURI? : string;
-    title?: string;
-    tags?: Array<{ id: number; name: string }>;
+  onFavorite?: () => void;
+  onShare?: () => void;
+  onBack: () => void;
+  onAddEdit: (params?: any) => void;
+  stockDetails: StockDetails;
 };
 
 const StockDetailsPage: React.FC<Props> = ({
-    imageURI,
-    title,
-    tags
+  onFavorite,
+  onShare,
+  onBack,
+  onAddEdit,
+  stockDetails: {
+    foodName, tags, stockItems, nextExpiration,
+  },
 }) => {
-    return (
-        <StyledCardWrapper>
-            <Box px="xs" py="xs">
-                <StyledImage source={{ uri: imageURI }}/>
-                <SaveStockButton favorited={true}/>
-            </Box>
-            <Box px="m" py="xs">
-                <Subtitle ml="s">{"Produce"}</Subtitle>
-                <Heading mb="xs" ml="s">{title}</Heading>
-                {tags && (
-                    <TagList horizontal showsHorizontalScrollIndicator={false}>
-                        {tags?.map((tag: {id: number; name: string; }) => (
-                            <Box key={tag.id} alignSelf="flex-start" mr="s">
-                                <Tag value={tag.name} />
-                            </Box>
-                        ))}
-                    </TagList>
-                )}
-            </Box>
-        </StyledCardWrapper>
-    )
+  const today = new Date();
+  const nextExp = dateParser(nextExpiration);
+  let expireTag = <></>;
+
+  if (dateDifferenceHelper(nextExp, today) <= 2) {
+    expireTag = <Tag value="Expires Soon!" variant="soon" />;
+  } else if (dateDifferenceHelper(nextExp, today) < 0) {
+    expireTag = <Tag value="Expired!!" variant="expired" />;
+  }
+
+  return (
+    <Box height="100%" width="100%">
+      <StockDetailsScroll>
+        <Box position="relative" mb="l">
+          <Visual
+            source={{
+              uri:
+                'https://www.chiceats.com/sites/default/files/styles/image_1024x768/public/recipe/photo/homemade-pasta-recipe-1080x810@2x.jpg',
+            }}
+          />
+          <Box position="absolute" right="xxxl" bottom="-25px">
+            <IconButton onPress={ onFavorite }>
+              <FavoriteIcon variant="warning" />
+            </IconButton>
+          </Box>
+          <Box position="absolute" left="xxxl" top="50px">
+            <IconButton rounded flat size="normal" onPress={ onBack }>
+              <BackIcon size="normal" variant="warning" />
+            </IconButton>
+          </Box>
+          <Box position="absolute" right="xxxl" top="50px">
+            <IconButton rounded flat size="normal" onPress={ onShare }>
+              <ShareIcon size="normal" variant="warning" />
+            </IconButton>
+          </Box>
+        </Box>
+        <Box px="l">
+          <Subtitle mb="s">PRODUCE</Subtitle>
+          {foodName && <Title mb="s">{titleHelper(foodName)}</Title>}
+        </Box>
+        {tags && (
+          <TagList horizontal showsHorizontalScrollIndicator={ false }>
+            <Box mr="xs">{expireTag}</Box>
+            {tags.map((tag: TagType) => (
+              <Box key={ tag.id } alignSelf="flex-start" mr="xs">
+                <Tag value={ tag.name } />
+              </Box>
+            ))}
+          </TagList>
+        )}
+        {stockItems && (
+          <>
+            {stockItems
+              .sort(
+                (a: StockItem, b: StockItem) => dateParser(a.expirationDate).getTime()
+                  - dateParser(b.expirationDate).getTime(),
+              )
+              .map((stockItem: StockItem) => (
+                <Box key={ stockItem.id } px="l" mb="m">
+                  <StockItemListCard
+                    expirationDate={ stockItem.expirationDate }
+                    createdDate={ stockItem.dateObtained }
+                    quantity={ stockItem.quantity }
+                    onPress={ () => onAddEdit({ stockItemId: stockItem.id }) }
+                  />
+                </Box>
+              ))}
+            <Box height="90px" />
+          </>
+        )}
+      </StockDetailsScroll>
+      <Box position="absolute" bottom="xxxl" px="l" width="100%">
+        <Button
+          variant="warning"
+          title="Add some more"
+          onPress={ () => onAddEdit() }
+        />
+      </Box>
+    </Box>
+  );
 };
 
 export default StockDetailsPage;

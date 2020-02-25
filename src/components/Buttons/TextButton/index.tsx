@@ -12,8 +12,8 @@ const StyledTextButtonWrapper = styled.TouchableOpacity`
 `;
 
 const TextButon: React.FC<Props> = ({ onPress, ...props }) => (
-  <StyledTextButtonWrapper onPress={onPress}>
-    <Text {...props} />
+  <StyledTextButtonWrapper onPress={ onPress }>
+    <Text { ...props } />
   </StyledTextButtonWrapper>
 );
 
