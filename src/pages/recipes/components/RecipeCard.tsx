@@ -32,34 +32,36 @@ const RecipeCard: React.FC<Props> = ({
   difficulty,
   quantity,
   ...props
-}) => {
-  return (
-    <Card {...props}>
-      <StyledImage source={{ uri: imageURI }} />
-      <Box px="m" py="s">
-        {tag && tag.length > 0 ? <Subtitle mb="xs">{tag}</Subtitle> : <></>}
-        <Heading mb="xs">{title}</Heading>
-        <Grid>
-          <Row>
-            <ClockIcon mr="xs" size="small" variant="tertiary" />
-            <Subtitle>{`${duration || 0} min${
+}) => (
+  <Card { ...props }>
+    <StyledImage source={{ uri: imageURI }} />
+    <Box px="m" py="s">
+      {tag && tag.length > 0 ? <Subtitle mb="xs">{tag}</Subtitle> : <></>}
+      <Heading mb="xs">{title}</Heading>
+      <Grid>
+        <Row>
+          <ClockIcon mr="xs" size="small" variant="tertiary" />
+          <Subtitle>
+            {`${duration || 0} min${
               Number(duration) > 1 ? 's' : ''
-            }`}</Subtitle>
-          </Row>
-          <Row>
-            <QuantityIcon mr="xs" size="small" variant="tertiary" />
-            <Subtitle>{difficulty}</Subtitle>
-          </Row>
-          <Row>
-            <UtensilsIcon mr="xs" size="small" variant="tertiary" />
-            <Subtitle>{`${quantity || 0} serving${
+            }`}
+          </Subtitle>
+        </Row>
+        <Row>
+          <QuantityIcon mr="xs" size="small" variant="tertiary" />
+          <Subtitle>{difficulty}</Subtitle>
+        </Row>
+        <Row>
+          <UtensilsIcon mr="xs" size="small" variant="tertiary" />
+          <Subtitle>
+            {`${quantity || 0} serving${
               Number(quantity) > 1 ? 's' : ''
-            }`}</Subtitle>
-          </Row>
-        </Grid>
-      </Box>
-    </Card>
+            }`}
+          </Subtitle>
+        </Row>
+      </Grid>
+    </Box>
+  </Card>
   );
-};
 
 export default RecipeCard;

@@ -1,4 +1,4 @@
-/* eslint-disable prettier/prettier */
+/* eslint-disable key-spacing */
 
 const fontWeights = {
   extraLight: '100',

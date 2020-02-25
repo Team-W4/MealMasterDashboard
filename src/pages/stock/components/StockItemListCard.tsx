@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 import { properDateHelper, dateDifferenceHelper } from '../../../utils';
 import { stockItemLabelHelper } from '../expiryHelper';
@@ -25,30 +26,32 @@ const StockItemListCard: React.FC<Props> = ({
 
   const expNumber = dateDifferenceHelper(expDate, today);
   const addedDate = new Date(createdDate || '');
-  const titleVariant =
-    expNumber > 2 ? 'normal' : expNumber >= 0 ? 'warning' : 'error';
-  const stockVariant =
-    expNumber > 2 ? 'tertiary' : expNumber >= 0 ? 'warning' : 'error';
+  const titleVariant = expNumber > 2 ? 'normal' : expNumber >= 0 ? 'warning' : 'error';
+  const stockVariant = expNumber > 2 ? 'tertiary' : expNumber >= 0 ? 'warning' : 'error';
 
   return (
-    <StockListCardWrapper shadowVariant={stockVariant} {...props}>
+    <StockListCardWrapper shadowVariant={ stockVariant } { ...props }>
       <Box p="m">
-        <Text mb="s" variant={titleVariant}>
+        <Text mb="s" variant={ titleVariant }>
           {stockItemLabelHelper(expNumber || 0)}
         </Text>
         <Grid>
           <Row>
-            <ClockIcon variant={stockVariant} mr="xs" size="small" />
-            <Text variant={stockVariant}>{`Added ${properDateHelper(
+            <ClockIcon variant={ stockVariant } mr="xs" size="small" />
+            <Text variant={ stockVariant }>
+              {`Added ${properDateHelper(
               addedDate,
               false,
               false,
-            )}`}</Text>
+            )}`}
+            </Text>
           </Row>
           <Row>
-            <QuantityIcon variant={stockVariant} mr="xs" size="small" />
-            <Text size="h2" variant={stockVariant}>{`${Number(quantity) ||
-              0} servings`}</Text>
+            <QuantityIcon variant={ stockVariant } mr="xs" size="small" />
+            <Text size="h2" variant={ stockVariant }>
+              {`${Number(quantity)
+              || 0} servings`}
+            </Text>
           </Row>
         </Grid>
       </Box>

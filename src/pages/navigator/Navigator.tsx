@@ -17,9 +17,9 @@ export function goBack() {
   navigationRef.current.goBack();
 }
 
-const Navigator: React.FC<NavigationContainerProps> = props => (
+const Navigator: React.FC<NavigationContainerProps> = (props) => (
   <NavigationContainer
-    ref={navigationRef}
+    ref={ navigationRef }
     theme={{
       ...DefaultTheme,
       colors: {
@@ -27,7 +27,7 @@ const Navigator: React.FC<NavigationContainerProps> = props => (
         background: DefaultSemanticColors.background,
       },
     }}
-    {...props}
+    { ...props }
   />
 );
 

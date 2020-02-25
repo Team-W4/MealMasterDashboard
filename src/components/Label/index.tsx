@@ -7,7 +7,7 @@ export type Props = {
 };
 
 const Label: React.FC<Props> = ({ value, ...props }) => (
-  <StyledLabelWrapper {...props}>
+  <StyledLabelWrapper { ...props }>
     <Text variant="inverted">{value}</Text>
   </StyledLabelWrapper>
 );

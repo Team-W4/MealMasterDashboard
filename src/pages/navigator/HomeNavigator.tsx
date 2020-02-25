@@ -1,5 +1,4 @@
 import React from 'react';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import colors from '../../styled/variables/colors';
 import HomeOutlineIcon from '../../components/Icons/HomeOutline';
 import SearchIcon from '../../components/Icons/Search';
@@ -10,63 +9,55 @@ import HomePage from '../home';
 import SearchPage from '../search';
 import RecipesPage from '../recipes';
 import StockPage from '../stock';
-import { AuthStackParamList } from '../auths';
+import HomeTab from './HomeTab';
 
-export type HomeTabParamList = AuthStackParamList & {
-  Home: undefined;
-  Search: undefined;
-  Stocks: undefined;
-  Recipes: undefined;
-};
-
-const Tab = createMaterialBottomTabNavigator<HomeTabParamList>();
 
 const HomeNavigator: React.FC = () => (
   <>
     <TitlePage title="Good Morning!" />
-    <Tab.Navigator
+    <HomeTab.Navigator
       initialRouteName="Home"
       shifting
       backBehavior="none"
-      activeColor={colors.white}
+      activeColor={ colors.white }
     >
-      <Tab.Screen
+      <HomeTab.Screen
         name="Home"
-        component={HomePage}
+        component={ HomePage }
         options={{
           tabBarColor: colors.neoncarrot,
           tabBarLabel: 'Home',
           tabBarIcon: () => <HomeOutlineIcon variant="inverted" />,
         }}
       />
-      <Tab.Screen
+      <HomeTab.Screen
         name="Search"
-        component={SearchPage}
+        component={ SearchPage }
         options={{
           tabBarColor: colors.orange,
           tabBarLabel: 'Search',
           tabBarIcon: () => <SearchIcon variant="inverted" />,
         }}
       />
-      <Tab.Screen
+      <HomeTab.Screen
         name="Stocks"
-        component={StockPage}
+        component={ StockPage }
         options={{
           tabBarColor: colors.neoncarrot,
           tabBarLabel: 'Stocks',
           tabBarIcon: () => <StockIcon variant="inverted" />,
         }}
       />
-      <Tab.Screen
+      <HomeTab.Screen
         name="Recipes"
-        component={RecipesPage}
+        component={ RecipesPage }
         options={{
           tabBarColor: colors.orange,
           tabBarLabel: 'Recipes',
           tabBarIcon: () => <SavedIcon variant="inverted" />,
         }}
       />
-    </Tab.Navigator>
+    </HomeTab.Navigator>
   </>
 );
 

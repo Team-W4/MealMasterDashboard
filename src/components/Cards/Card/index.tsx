@@ -12,8 +12,7 @@ export type Props = SpaceProps &
 const StyledCardWrapper = styled.TouchableOpacity<Props>`
   ${space}
   width: 100%;
-  background-color: ${({ theme: { semanticColors } }) =>
-    semanticColors.background};
+  background-color: ${({ theme: { semanticColors } }) => semanticColors.background};
   ${cardColors}
   border-radius: ${({ theme: { space: spaces } }) => spaces.s};
   elevation: 10;
@@ -22,7 +21,7 @@ const StyledCardWrapper = styled.TouchableOpacity<Props>`
 `;
 
 const Card: React.FC<PropsWithChildren<Props>> = ({ ...props }) => (
-  <StyledCardWrapper {...props} />
+  <StyledCardWrapper { ...props } />
 );
 
 Card.defaultProps = {

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { AuthContext, AuthStackParamList } from '../../auths';
+import AuthContext from '../../auths/AuthContext';
+import { AuthStackParamList } from '../../auths/AuthStack';
 import styled from '../../../styled';
 import Box from '../../../components/Containers/Box';
 import Grid, { Column } from '../../../components/Containers/Grid';
@@ -40,7 +41,9 @@ const EditProfileButton = styled(TextButton)`
 
 const UserProfilePage: React.FC<Props> = ({
   navigation,
-  profile: { firstName, lastName, email, createDate },
+  profile: {
+ firstName, lastName, email,
+},
 }) => {
   const { logOut } = useContext(AuthContext);
 
@@ -48,12 +51,14 @@ const UserProfilePage: React.FC<Props> = ({
     <UserView>
       <Box alignItems="center" justifyContent="center" pt="xxxl">
         <UserProfile rounded />
-        <Text mt="m" size="large">{`${firstName || 'Meal'} ${lastName ||
-          'Master'}`}</Text>
+        <Text mt="m" size="large">
+          {`${firstName || 'Meal'} ${lastName
+          || 'Master'}`}
+        </Text>
         <Subtitle mb="m">{email || ''}</Subtitle>
         <Text>{`${0 || 0} Followers | ${0 || 0} Following`}</Text>
         <Box mt="l">
-          <EditProfileButton onPress={() => navigation.navigate('UserEdit')}>
+          <EditProfileButton onPress={ () => navigation.navigate('UserEdit') }>
             EDIT YOUR PROFILE
           </EditProfileButton>
         </Box>
@@ -65,14 +70,14 @@ const UserProfilePage: React.FC<Props> = ({
               mb="l"
               variant="warning"
               title="Stocks"
-              tag={`${13} items`}
-              icon={<StockIcon />}
+              tag={ `${13} items` }
+              icon={ <StockIcon /> }
             />
             <UserDetailsCard
               variant="warning"
               title="Food waste"
-              tag={`${2000}g of food`}
-              icon={<QuantityIcon />}
+              tag={ `${2000}g of food` }
+              icon={ <QuantityIcon /> }
             />
           </Column>
           <Column pl="xs" alignItems="center">
@@ -80,20 +85,20 @@ const UserProfilePage: React.FC<Props> = ({
               mb="l"
               variant="warning"
               title="Recipes"
-              tag={`${6} recipes`}
-              icon={<SavedIcon />}
+              tag={ `${6} recipes` }
+              icon={ <SavedIcon /> }
             />
             <UserDetailsCard
               variant="warning"
               title="More"
-              tag={`${2} things`}
-              icon={<UtensilsIcon />}
+              tag={ `${2} things` }
+              icon={ <UtensilsIcon /> }
             />
           </Column>
         </Grid>
       </Column>
       <Grid mb="xxxl" alignItems="center">
-        <EditProfileButton onPress={() => logOut()}>Log out</EditProfileButton>
+        <EditProfileButton onPress={ () => logOut() }>Log out</EditProfileButton>
       </Grid>
     </UserView>
   );

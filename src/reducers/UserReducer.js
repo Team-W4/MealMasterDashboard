@@ -11,15 +11,15 @@ const initialState = {
 };
 
 const UserReducer = createReducer(initialState, {
-  [actionTypes.FETCH_USER]: state => ({
+  [actionTypes.FETCH_USER]: (state) => ({
     ...state,
     isFetching: true,
   }),
-  [actionTypes.FETCH_PROFILE]: state => ({
+  [actionTypes.FETCH_PROFILE]: (state) => ({
     ...state,
     isFetching: true,
   }),
-  [actionTypes.FETCH_USERS]: state => ({
+  [actionTypes.FETCH_USERS]: (state) => ({
     ...state,
     isFetching: true,
   }),
@@ -44,24 +44,24 @@ const UserReducer = createReducer(initialState, {
     ...state,
     userToken: token,
   }),
-  [actionTypes.LOGIN]: state => ({
+  [actionTypes.LOGIN]: (state) => ({
     ...state,
     isFetching: true,
   }),
   // May need to add Success and Failures for these
-  [actionTypes.UPDATE_PROFILE]: state => ({
+  [actionTypes.UPDATE_PROFILE]: (state) => ({
     ...state,
   }),
-  [actionTypes.LOGOUT]: state => ({
+  [actionTypes.LOGOUT]: (state) => ({
     ...state,
     userToken: null,
     profile: {},
     isLoggedOut: true,
   }),
-  [actionTypes.REGISTER]: state => ({
+  [actionTypes.REGISTER]: (state) => ({
     ...state,
   }),
-  [actionTypes.CLEAR_USER_DETAILS]: state => ({
+  [actionTypes.CLEAR_USER_DETAILS]: (state) => ({
     ...state,
     userDetails: {},
   }),

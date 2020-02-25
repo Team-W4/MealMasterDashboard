@@ -6,8 +6,7 @@ const UserDetailCategories = styled.View`
   border-radius: 25px;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme: { semanticColors } }) =>
-    semanticColors.background};
+  background-color: ${({ theme: { semanticColors } }) => semanticColors.background};
 `;
 
 export default UserDetailCategories;

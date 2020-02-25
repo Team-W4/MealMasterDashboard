@@ -18,7 +18,7 @@ const ERROR_MSGS = {
 export type Props = {
   onBack: () => void;
   onUpdateStock: (stockItem: StockItem) => void;
-  onAddStock: (foodId: number, quantity: number) => void;
+  onAddStock: (stockItem: StockItem) => void;
   stockItemDetails: StockItem;
 };
 
@@ -55,7 +55,7 @@ const StockEditForm: React.FC<Props> = ({
   function onChange(e: any, selectedDate?: Date) {
     const currentDate = selectedDate || date;
 
-    setShowDate(Platform.OS === 'ios' ? true : false);
+    setShowDate(Platform.OS === 'ios');
     setDate(currentDate);
   }
 
@@ -81,53 +81,55 @@ const StockEditForm: React.FC<Props> = ({
     }
 
     setErrors({ ...errorInitialState });
+    const payload = {
+      ...stockItemDetails,
+      quantity: Number(quantity),
+      dateObtained: date.toISOString(),
+    };
 
     if (stockItemDetails) {
-      onUpdateStock({
-        ...stockItemDetails,
-        quantity: Number(quantity),
-        dateObtained: date.toISOString(),
-      });
+      onUpdateStock(payload);
     } else {
+      onAddStock(payload);
     }
 
     onBack();
   }
 
   return (
-    <Box width="100%" flexGrow={1} mt="200px">
+    <Box width="100%" flexGrow={ 1 } mt="200px">
       <Box px="xxxl">
         <Box mb="l">
           <Input
             title="Servings"
             placeholder="2 servings"
-            value={quantity}
-            error={errors.quantityError}
-            onChangeText={e => setQuantity(e)}
+            value={ quantity }
+            error={ errors.quantityError }
+            onChangeText={ (e) => setQuantity(e) }
           />
         </Box>
         <Box>
           <Input
             title="When did you get these?"
-            editable={false}
+            editable={ false }
             placeholder="Feb 20, 2020"
-            value={properDateHelper(date)}
-            error={errors.dateError}
+            value={ properDateHelper(date) }
+            error={ errors.dateError }
           />
           <Box position="absolute" right="0" top="xxs">
-            <IconButton onPress={() => setShowDate(!showDate)}>
+            <IconButton onPress={ () => setShowDate(!showDate) }>
               <SearchIcon />
             </IconButton>
           </Box>
         </Box>
       </Box>
-      {showDate && <DateInput value={date} onChange={onChange} />}
+      {showDate && <DateInput value={ date } onChange={ onChange } />}
       <Grid position="absolute" bottom="xxxl" px="l" width="100%">
         <Column pr="xs">
-          <Button variant="normal" title="Cancel" onPress={onCancelClick} />
+          <Button variant="normal" title="Cancel" onPress={ onCancelClick } />
         </Column>
         <Column pl="xs">
-          <Button variant="warning" title="Save" onPress={onSaveClick} />
+          <Button variant="warning" title="Save" onPress={ onSaveClick } />
         </Column>
       </Grid>
     </Box>

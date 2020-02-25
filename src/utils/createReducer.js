@@ -1,11 +1,9 @@
-const createReducer = (initialState, handlers) => {
-  return function reducer(state = initialState, action) {
+/* eslint-disable no-prototype-builtins */
+const createReducer = (initialState, handlers) => function reducer(state = initialState, action) {
     if (handlers.hasOwnProperty(action.type)) {
       return handlers[action.type](state, action);
-    } else {
-      return state;
     }
+      return state;
   };
-};
 
 export default createReducer;

@@ -16,8 +16,10 @@ export type Props = CardProps & {
   icon: JSX.Element;
 };
 
-const UserDetailsCard: React.FC<Props> = ({ title, tag, icon, ...props }) => (
-  <DetailCard {...props} px="m" pb="s">
+const UserDetailsCard: React.FC<Props> = ({
+ title, tag, icon, ...props
+}) => (
+  <DetailCard { ...props } px="m" pb="s">
     <Column>
       <Column alignItems="center" justifyContent="center">
         <UserDetailCategories>{icon}</UserDetailCategories>

@@ -19,7 +19,7 @@ const TitleBar: React.FC<Props> = ({ title }) => (
       <Subtitle>{properDateHelper(new Date())}</Subtitle>
     </Column>
     <Box justifyContent="center">
-      <TouchableOpacity onPress={() => navigate('UserDetails')}>
+      <TouchableOpacity onPress={ () => navigate('UserDetails') }>
         <ProfileImage rounded />
       </TouchableOpacity>
     </Box>

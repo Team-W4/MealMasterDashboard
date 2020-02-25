@@ -7,8 +7,7 @@ const mapStateToProps = (state: any) => ({
   profile: state.user.profile,
 });
 
-const mapDispatchToProps = (dispatch: any) =>
-  bindActionCreators(
+const mapDispatchToProps = (dispatch: any) => bindActionCreators(
     {
       updateProfile: userActions.updateProfile,
     },

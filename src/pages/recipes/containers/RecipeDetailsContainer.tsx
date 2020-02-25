@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { recipeActions } from '../../../actions';
-import { AuthStackParamList } from '../../auths';
+import { AuthStackParamList } from '../../auths/AuthStack';
 import RecipeDetailsPage from '../components/RecipeDetailsPage';
 
 type Props = {
@@ -31,11 +31,11 @@ class RecipeDetailsContainer extends React.Component<Props> {
 
     return (
       <RecipeDetailsPage
-        onBack={() => {
+        onBack={ () => {
           clearRecipeDetails();
           navigation.pop(1);
-        }}
-        recipeDetails={recipeDetails}
+        } }
+        recipeDetails={ recipeDetails }
       />
     );
   }
@@ -45,8 +45,7 @@ const mapStateToProps = (state: any) => ({
   recipeDetails: state.recipe.recipeDetails,
 });
 
-const mapDispatchToProps = (dispatch: any) =>
-  bindActionCreators(
+const mapDispatchToProps = (dispatch: any) => bindActionCreators(
     {
       getRecipeById: recipeActions.getRecipeById,
       clearRecipeDetails: recipeActions.clearRecipeDetails,

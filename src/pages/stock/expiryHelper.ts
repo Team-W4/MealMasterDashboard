@@ -1,9 +1,10 @@
 export const expiryLabelHelper = (
   expiryTime: number,
-  suffixed: boolean = true,
+  suffixed = true,
 ): string => {
   const days = Math.abs(expiryTime);
   const plural = Math.abs(expiryTime) > 1 ? 'days' : 'day';
+  // eslint-disable-next-line no-nested-ternary
   const suffix = expiryTime < 0 ? 'ago' : suffixed ? 'left' : '';
 
   return expiryTime === 0 ? 'Today' : `${days} ${plural} ${suffix}`;

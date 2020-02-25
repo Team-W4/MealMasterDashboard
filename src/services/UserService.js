@@ -30,16 +30,16 @@ class UserService {
   // Not used
   getProfile = () => getHelper(routes.PROFILE);
 
-  updateProfile = user => putHelper(routes.PROFILE, user);
+  updateProfile = (user) => putHelper(routes.PROFILE, user);
 
   deleteProfile = () => deleteHelper(routes.PROFILE);
 
-  getUserById = userId => {
+  getUserById = (userId) => {
     const route = `${routes.USER}/${userId}`;
     return getHelper(route);
   };
 
-  searchUsers = searchTerms => {
+  searchUsers = (searchTerms) => {
     const route = `${routes.USER}${routes.SEARCH}?${
       routes.SEARCHTERMS
     }=${searchTerms}`;

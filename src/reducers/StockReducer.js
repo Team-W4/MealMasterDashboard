@@ -9,15 +9,15 @@ const initialState = {
 };
 
 const StockReducer = createReducer(initialState, {
-  [actionTypes.FETCH_STOCK_ITEM]: state => ({
+  [actionTypes.FETCH_STOCK_ITEM]: (state) => ({
     ...state,
     isFetching: true,
   }),
-  [actionTypes.FETCH_FOOD_STOCK]: state => ({
+  [actionTypes.FETCH_FOOD_STOCK]: (state) => ({
     ...state,
     isFetching: true,
   }),
-  [actionTypes.FETCH_STOCK]: state => ({
+  [actionTypes.FETCH_STOCK]: (state) => ({
     ...state,
     isFetching: true,
   }),
@@ -36,31 +36,31 @@ const StockReducer = createReducer(initialState, {
     isFetching: false,
     foodStocks,
   }),
-  [actionTypes.CREATE_STOCK_ITEM]: state => ({
+  [actionTypes.CREATE_STOCK_ITEM]: (state) => ({
     ...state,
     isFetching: true,
   }),
-  [actionTypes.UPDATE_STOCK_ITEM]: state => ({
+  [actionTypes.UPDATE_STOCK_ITEM]: (state) => ({
     ...state,
     isFetching: true,
   }),
-  [actionTypes.DELETE_STOCK_ITEM]: state => ({
+  [actionTypes.DELETE_STOCK_ITEM]: (state) => ({
     ...state,
     isFetching: true,
   }),
-  [actionTypes.DELETE_STOCK_ITEM_FAIL]: state => ({
+  [actionTypes.DELETE_STOCK_ITEM_FAIL]: (state) => ({
     ...state,
     isFetching: false,
   }),
-  [actionTypes.DELETE_STOCK_ITEM_SUCCESS]: state => ({
+  [actionTypes.DELETE_STOCK_ITEM_SUCCESS]: (state) => ({
     ...state,
     isFetching: false,
   }),
-  [actionTypes.CLEAR_STOCK_DETAILS]: state => ({
+  [actionTypes.CLEAR_STOCK_DETAILS]: (state) => ({
     ...state,
     foodStockDetails: {},
   }),
-  [actionTypes.CLEAR_STOCK_ITEM_DETAILS]: state => ({
+  [actionTypes.CLEAR_STOCK_ITEM_DETAILS]: (state) => ({
     ...state,
     stockItemDetails: {},
   }),

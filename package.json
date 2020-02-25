@@ -49,12 +49,19 @@
     "@types/react-redux": "^7.1.7",
     "@types/react-test-renderer": "^16.9.2",
     "@typescript-eslint/eslint-plugin": "^2.21.0",
+    "@typescript-eslint/parser": "^2.21.0",
     "babel-jest": "^24.9.0",
     "eslint": "^6.5.1",
+    "eslint-config-airbnb-typescript": "^7.0.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.18.3",
     "husky": "^4.2.3",
     "jest": "^24.9.0",
     "lint-staged": "^10.0.7",
     "metro-react-native-babel-preset": "^0.56.0",
+    "prettier-eslint": "^9.0.1",
     "react-test-renderer": "16.9.0",
     "typescript": "^3.7.5"
   },
@@ -63,7 +70,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "npm run lint"
     }
   },
   "lint-staged": {

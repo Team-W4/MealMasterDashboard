@@ -20,19 +20,19 @@ const MoreMenu: React.FC<Props> = ({ items }) => {
 
   return (
     <View>
-      <IconButton onPress={() => setShow(true)}>
+      <IconButton onPress={ () => setShow(true) }>
         <MoreIcon />
       </IconButton>
       <StyledModalWrapper
-        isVisible={show}
-        onBackdropPress={() => setShow(false)}
+        isVisible={ show }
+        onBackdropPress={ () => setShow(false) }
       >
-        {items.map(({ title, icon, onPress }: MenuItemProps, index) => (
+        {items.map(({ title, icon, onPress }: MenuItemProps) => (
           <MenuItemCard
-            key={index}
-            title={title}
-            icon={icon}
-            onPress={onPress}
+            key={ title }
+            title={ title }
+            icon={ icon }
+            onPress={ onPress }
           />
         ))}
       </StyledModalWrapper>

@@ -84,17 +84,17 @@ const RecipeDetailsPage: React.FC<Props> = ({
           }}
         />
         <Box position="absolute" right="xxxl" bottom="-25px">
-          <IconButton onPress={onFavorite}>
+          <IconButton onPress={ onFavorite }>
             <FavoriteIcon variant="warning" />
           </IconButton>
         </Box>
         <Box position="absolute" left="xxxl" top="50px">
-          <IconButton rounded flat size="normal" onPress={onBack}>
+          <IconButton rounded flat size="normal" onPress={ onBack }>
             <BackIcon size="normal" variant="warning" />
           </IconButton>
         </Box>
         <Box position="absolute" right="xxxl" top="50px">
-          <IconButton rounded flat size="normal" onPress={onShare}>
+          <IconButton rounded flat size="normal" onPress={ onShare }>
             <ShareIcon size="normal" variant="warning" />
           </IconButton>
         </Box>
@@ -102,24 +102,26 @@ const RecipeDetailsPage: React.FC<Props> = ({
       </Box>
       <Grid px="xxl" mb="m">
         <Column>
-          {/*TODO: Adds rating */}
-          <Rating value={4.3} />
+          {/* TODO: Adds rating */}
+          <Rating value={ 4.3 } />
           <Title mt="m" mb="s">
             {name}
           </Title>
-          <Subtitle>{`${cookTime || 0} minutes | ${(ingredients &&
-            ingredients.length) ||
-            0} ingredients`}</Subtitle>
+          <Subtitle>
+            {`${cookTime || 0} minutes | ${(ingredients
+            && ingredients.length)
+            || 0} ingredients`}
+          </Subtitle>
         </Column>
         <Box ml="s" justifyContent="center">
           <ProfileImage />
         </Box>
       </Grid>
       {tags && tags.length > 0 && (
-        <TagList horizontal showsHorizontalScrollIndicator={false}>
+        <TagList horizontal showsHorizontalScrollIndicator={ false }>
           {tags.map((tag: TagProps) => (
-            <Box key={tag.id} alignSelf="flex-start" mr="xs">
-              <Tag value={tag.name} />
+            <Box key={ tag.id } alignSelf="flex-start" mr="xs">
+              <Tag value={ tag.name } />
             </Box>
           ))}
         </TagList>

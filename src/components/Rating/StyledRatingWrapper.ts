@@ -5,8 +5,7 @@ const StyledRatingWrapper = styled.View`
   height: ${({ theme: { space } }) => space.xl};
   border-radius: ${({ theme: { space } }) => space.xs};
   justify-content: center;
-  background-color: ${({ theme: { semanticColors } }) =>
-    semanticColors.primary};
+  background-color: ${({ theme: { semanticColors } }) => semanticColors.primary};
 `;
 
 export default StyledRatingWrapper;

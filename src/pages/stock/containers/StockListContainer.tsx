@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs';
-import { HomeTabParamList } from '../../navigator/HomeNavigator';
+import { HomeTabParamList } from '../../navigator/HomeTab';
 import { stockActions } from '../../../actions';
 import { Stock } from '../../../constants/dataTypes';
 import Box from '../../../components/Containers/Box';
@@ -18,18 +18,21 @@ export type Props = {
 class StockListPage extends React.Component<Props> {
   private willFocusSubscription!: () => void;
 
-  public refresh(): void {
-    const { getAllStock } = this.props;
-    getAllStock();
-  }
-
   public componentDidMount(): void {
     const { navigation } = this.props;
 
     this.refresh();
-    this.willFocusSubscription = navigation.addListener('focus', () =>
-      this.refresh(),
-    );
+    this.willFocusSubscription = navigation.addListener('focus', () => this.refresh());
+  }
+
+  public componentWillUnmount(): void {
+    const { navigation } = this.props;
+    navigation.removeListener('focus', this.willFocusSubscription);
+  }
+
+  public refresh(): void {
+    const { getAllStock } = this.props;
+    getAllStock();
   }
 
   public render(): JSX.Element {
@@ -39,21 +42,18 @@ class StockListPage extends React.Component<Props> {
       <ScrollList>
         {(foodStocks || [])
           .sort(
-            (a, b) =>
-              new Date(a.nextExpiration).getTime() -
-              new Date(b.nextExpiration).getTime(),
+            (a, b) => new Date(a.nextExpiration).getTime()
+              - new Date(b.nextExpiration).getTime(),
           )
-          .map((item, index) => (
-            <Box key={index} px="l" mb="xl">
+          .map((item) => (
+            <Box key={ item.food.name } px="l" mb="xl">
               <StockListCard
                 imageURI="https://www.chiceats.com/sites/default/files/styles/image_1024x768/public/recipe/photo/homemade-pasta-recipe-1080x810@2x.jpg"
-                title={item.food.name}
+                title={ item.food.name }
                 // tag={(item.tags || [])[0].name}
-                nextExpiration={item.nextExpiration}
-                quantity={item.totalQuantity}
-                onPress={() =>
-                  navigation.push('StockDetails', { stockId: item.id })
-                }
+                nextExpiration={ item.nextExpiration }
+                quantity={ item.totalQuantity }
+                onPress={ () => navigation.push('StockDetails', { stockId: item.id }) }
               />
             </Box>
           ))}
@@ -66,8 +66,7 @@ const mapStateToProps = (state: any) => ({
   foodStocks: state.stock.foodStocks,
 });
 
-const mapDispatchToProps = (dispatch: any) =>
-  bindActionCreators(
+const mapDispatchToProps = (dispatch: any) => bindActionCreators(
     {
       getAllStock: stockActions.getAllStock,
     },

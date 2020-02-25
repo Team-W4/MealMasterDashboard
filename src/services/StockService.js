@@ -7,19 +7,19 @@ import {
 } from '../utils/fetchHelper';
 
 class StockService {
-  getFoodStockById = id => {
+  getFoodStockById = (id) => {
     const route = `${routes.STOCK}/${id}`;
     return getHelper(route);
   };
 
-  getFoodStockByFood = foodId => {
+  getFoodStockByFood = (foodId) => {
     const route = `${routes.STOCK}${routes.FOOD}/${foodId}`;
     return getHelper(route);
   };
 
   getAllStock = () => getHelper(routes.STOCK);
 
-  getStockItemById = id => {
+  getStockItemById = (id) => {
     const route = `${routes.STOCK_ITEM}/${id}`;
     return getHelper(route);
   };
@@ -29,10 +29,9 @@ class StockService {
     return postHelper(route, stockItem);
   };
 
-  updateStockItem = stockItem => putHelper(routes.STOCK_ITEM, stockItem);
+  updateStockItem = (stockItem) => putHelper(routes.STOCK_ITEM, stockItem);
 
-  deleteStockItem = stockItemId =>
-    deleteHelper(`${routes.STOCK_ITEM}/${stockItemId}`);
+  deleteStockItem = (stockItemId) => deleteHelper(`${routes.STOCK_ITEM}/${stockItemId}`);
 }
 
 const singleton = new StockService();

@@ -9,7 +9,7 @@ const SuggestionCard = styled(Card)`
 
 const HomePage: React.FC = () => (
   <ScrollView>
-    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+    <ScrollView horizontal showsHorizontalScrollIndicator={ false }>
       <SuggestionCard />
     </ScrollView>
   </ScrollView>

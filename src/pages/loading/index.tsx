@@ -8,8 +8,7 @@ const LoadingView = styled.View`
   height: 100%;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme: { semanticColors } }) =>
-    semanticColors.primary};
+  background-color: ${({ theme: { semanticColors } }) => semanticColors.primary};
 `;
 
 const LOADING_MSGS = [
@@ -253,7 +252,8 @@ const messageChoser = throttle(
 const LoadingPage: React.FC = () => (
   <LoadingView>
     <Paragraph px="xxxl" textAlign="center" variant="inverted">
-      {LOADING_MSGS[messageChoser()]}...
+      {LOADING_MSGS[messageChoser()]}
+      ...
     </Paragraph>
   </LoadingView>
 );

@@ -15,15 +15,13 @@ const StyledButtonWrapper = styled.TouchableOpacity<Props>`
   justify-content: center;
   align-items: center;
   border-radius: ${({ theme: { space } }) => space.s};
-  ${({ rounded, theme: { space } }) =>
-    `border-radius: ${rounded ? '100px' : space.s};`}
-  ${({ flat, theme: { semanticColors } }) =>
-    flat
+  ${({ rounded, theme: { space } }) => `border-radius: ${rounded ? '100px' : space.s};`}
+  ${({ flat, theme: { semanticColors } }) => (flat
       ? ''
       : `
         box-shadow: 0 15px 18px ${semanticColors.shadow}};
         elevation: 10;
-      `}
+      `)}
 `;
 
 StyledButtonWrapper.defaultProps = {

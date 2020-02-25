@@ -1,39 +1,17 @@
-import React, { createContext, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import AsyncStorage from '@react-native-community/async-storage';
-import { createStackNavigator } from '@react-navigation/stack';
 import { userActions } from '../../actions';
+import HomeNavigator from '../navigator/HomeNavigator';
+import * as navigator from '../navigator/Navigator';
 import LoadingPage from '../loading';
 import LoginPage from '../login';
 import { RecipeDetailsPage } from '../recipes';
 import { StockDetailsPage, StockEditPage } from '../stock';
 import UserDetailsPage, { UserEditPage } from '../user';
-import HomeNavigator from '../navigator/HomeNavigator';
-import * as navigator from '../navigator/Navigator';
-
-export type AuthStackParamList = {
-  Login: undefined;
-  Loading: undefined;
-  Home: undefined;
-  RecipeDetails: { recipeId: number };
-  StockDetails: { stockId: number };
-  StockEdit: { stockItemId: number };
-  UserDetails: undefined;
-  UserEdit: undefined;
-};
-
-const Stack = createStackNavigator<AuthStackParamList>();
-
-export const AuthContext = createContext<{
-  logOut: () => void;
-  logIn: (email?: string, password?: string) => void;
-  register: (email?: string, password?: string) => void;
-}>({
-  logIn: () => {},
-  logOut: () => {},
-  register: () => {},
-});
+import AuthStack from './AuthStack';
+import AuthContext from './AuthContext';
 
 export type Props = {
   logOut: () => void;
@@ -83,27 +61,27 @@ const AuthProvider: React.FC<Props> = ({
   }
 
   return (
-    <AuthContext.Provider value={authContext}>
-      <Stack.Navigator headerMode="none">
-        <Stack.Screen
+    <AuthContext.Provider value={ authContext }>
+      <AuthStack.Navigator headerMode="none">
+        <AuthStack.Screen
           name="Login"
-          component={LoginPage}
+          component={ LoginPage }
           options={{ animationTypeForReplace: isLoggedOut ? 'pop' : 'push' }}
         />
         {userToken ? (
           <>
-            <Stack.Screen name="Home" component={HomeNavigator} />
-            <Stack.Screen name="RecipeDetails" component={RecipeDetailsPage} />
-            <Stack.Screen name="StockDetails" component={StockDetailsPage} />
-            <Stack.Screen name="StockEdit" component={StockEditPage} />
-            <Stack.Screen name="UserDetails" component={UserDetailsPage} />
-            <Stack.Screen name="UserEdit" component={UserEditPage} />
+            <AuthStack.Screen name="Home" component={ HomeNavigator } />
+            <AuthStack.Screen name="RecipeDetails" component={ RecipeDetailsPage } />
+            <AuthStack.Screen name="StockDetails" component={ StockDetailsPage } />
+            <AuthStack.Screen name="StockEdit" component={ StockEditPage } />
+            <AuthStack.Screen name="UserDetails" component={ UserDetailsPage } />
+            <AuthStack.Screen name="UserEdit" component={ UserEditPage } />
           </>
         ) : (
-          <Stack.Screen name="Home" component={LoginPage} />
+          <AuthStack.Screen name="Home" component={ LoginPage } />
         )}
-        <Stack.Screen name="Loading" component={LoadingPage} />
-      </Stack.Navigator>
+        <AuthStack.Screen name="Loading" component={ LoadingPage } />
+      </AuthStack.Navigator>
     </AuthContext.Provider>
   );
 };
@@ -114,8 +92,7 @@ const mapStateToProps = (state: any) => ({
   isLoggedOut: state.user.isLoggedOut,
 });
 
-const mapDispatchToProps = (dispatch: any) =>
-  bindActionCreators(
+const mapDispatchToProps = (dispatch: any) => bindActionCreators(
     {
       logIn: userActions.logIn,
       logOut: userActions.logOut,

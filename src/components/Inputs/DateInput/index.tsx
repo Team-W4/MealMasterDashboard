@@ -13,7 +13,7 @@ export type Props = (IOSNativeProps | AndroidNativeProps) & {
 const DateInput: React.FC<Props> = ({ title, ...props }) => (
   <Box>
     {title && <Heading>{title}</Heading>}
-    <DateTimePicker {...props} />
+    <DateTimePicker { ...props } />
   </Box>
 );
 

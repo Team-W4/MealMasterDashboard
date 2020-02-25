@@ -5,8 +5,7 @@ const StyledLabelWrapper = styled.View`
   width: 160px;
   justify-content: center;
   align-items: center;
-  background-color: ${({ theme: { semanticColors } }) =>
-    semanticColors.primary};
+  background-color: ${({ theme: { semanticColors } }) => semanticColors.primary};
   border-top-right-radius: ${({ theme: { space } }) => space.l};
   border-bottom-left-radius: ${({ theme: { space } }) => space.l};
 `;

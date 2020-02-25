@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '../../../styled';
-import { titleHelper } from '../../../utils';
+import { titleHelper, dateDifferenceHelper } from '../../../utils';
 import {
   StockItem,
   StockDetails,
@@ -43,15 +43,19 @@ const StockDetailsPage: React.FC<Props> = ({
   onShare,
   onBack,
   onAddEdit,
-  stockDetails: { id, foodName, tags, stockItems },
+  stockDetails: {
+    foodName, tags, stockItems, nextExpiration,
+  },
 }) => {
-  const expireTag = true ? (
-    <Tag value="Expires Soon!" variant="soon" />
-  ) : true ? (
-    <Tag value="Expired!!" variant="expired" />
-  ) : (
-    <></>
-  );
+  const today = new Date();
+  const nextExp = new Date(nextExpiration);
+  let expireTag = <></>;
+
+  if (dateDifferenceHelper(nextExp, today) <= 2) {
+    expireTag = <Tag value="Expires Soon!" variant="soon" />;
+  } else if (dateDifferenceHelper(nextExp, today) < 0) {
+    expireTag = <Tag value="Expired!!" variant="expired" />;
+  }
 
   return (
     <Box height="100%" width="100%">
@@ -64,17 +68,17 @@ const StockDetailsPage: React.FC<Props> = ({
             }}
           />
           <Box position="absolute" right="xxxl" bottom="-25px">
-            <IconButton onPress={onFavorite}>
+            <IconButton onPress={ onFavorite }>
               <FavoriteIcon variant="warning" />
             </IconButton>
           </Box>
           <Box position="absolute" left="xxxl" top="50px">
-            <IconButton rounded flat size="normal" onPress={onBack}>
+            <IconButton rounded flat size="normal" onPress={ onBack }>
               <BackIcon size="normal" variant="warning" />
             </IconButton>
           </Box>
           <Box position="absolute" right="xxxl" top="50px">
-            <IconButton rounded flat size="normal" onPress={onShare}>
+            <IconButton rounded flat size="normal" onPress={ onShare }>
               <ShareIcon size="normal" variant="warning" />
             </IconButton>
           </Box>
@@ -84,11 +88,11 @@ const StockDetailsPage: React.FC<Props> = ({
           {foodName && <Title mb="s">{titleHelper(foodName)}</Title>}
         </Box>
         {tags && (
-          <TagList horizontal showsHorizontalScrollIndicator={false}>
+          <TagList horizontal showsHorizontalScrollIndicator={ false }>
             <Box mr="xs">{expireTag}</Box>
             {tags.map((tag: TagType) => (
-              <Box key={tag.id} alignSelf="flex-start" mr="xs">
-                <Tag value={tag.name} />
+              <Box key={ tag.id } alignSelf="flex-start" mr="xs">
+                <Tag value={ tag.name } />
               </Box>
             ))}
           </TagList>
@@ -97,17 +101,16 @@ const StockDetailsPage: React.FC<Props> = ({
           <>
             {stockItems
               .sort(
-                (a: StockItem, b: StockItem) =>
-                  new Date(a.expirationDate).getTime() -
-                  new Date(b.expirationDate).getTime(),
+                (a: StockItem, b: StockItem) => new Date(a.expirationDate).getTime()
+                  - new Date(b.expirationDate).getTime(),
               )
               .map((stockItem: StockItem) => (
-                <Box key={stockItem.id} px="l" mb="m">
+                <Box key={ stockItem.id } px="l" mb="m">
                   <StockItemListCard
-                    expirationDate={stockItem.expirationDate}
-                    createdDate={stockItem.dateObtained}
-                    quantity={stockItem.quantity}
-                    onPress={() => onAddEdit({ stockItemId: stockItem.id })}
+                    expirationDate={ stockItem.expirationDate }
+                    createdDate={ stockItem.dateObtained }
+                    quantity={ stockItem.quantity }
+                    onPress={ () => onAddEdit({ stockItemId: stockItem.id }) }
                   />
                 </Box>
               ))}
@@ -119,7 +122,7 @@ const StockDetailsPage: React.FC<Props> = ({
         <Button
           variant="warning"
           title="Add some more"
-          onPress={() => onAddEdit()}
+          onPress={ () => onAddEdit() }
         />
       </Box>
     </Box>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { AuthStackParamList } from '../../auths';
+import { AuthStackParamList } from '../../auths/AuthStack';
 import styled from '../../../styled';
 import Box from '../../../components/Containers/Box';
 import { Column } from '../../../components/Containers/Grid';
@@ -56,13 +56,12 @@ const UserEditPage: React.FC<Props> = ({
     firstName: firstNameProps,
     lastName: lastNameProps,
     email: emailProps,
-    createDate,
   } = profile;
   const [email, setEmail] = useState(emailProps);
   const [firstName, setFirstName] = useState(firstNameProps);
   const [lastName, setLastName] = useState(lastNameProps);
   const [about, setAbout] = useState('');
-  const [errors, setErrors] = useState(errorInitialState);
+  const [errors] = useState(errorInitialState);
 
   return (
     <UserView>
@@ -72,23 +71,23 @@ const UserEditPage: React.FC<Props> = ({
           <Box mb="l">
             <Input
               title="First Name"
-              value={firstName}
-              onChangeText={e => setFirstName(e)}
+              value={ firstName }
+              onChangeText={ (e) => setFirstName(e) }
             />
           </Box>
           <Box mb="l">
             <Input
               title="Last Name"
-              value={lastName}
-              onChangeText={e => setLastName(e)}
+              value={ lastName }
+              onChangeText={ (e) => setLastName(e) }
             />
           </Box>
           <Box mb="l">
             <Input
               title="Email"
-              error={errors.email || ''}
-              value={email}
-              onChangeText={e => setEmail(e)}
+              error={ errors.email || '' }
+              value={ email }
+              onChangeText={ (e) => setEmail(e) }
             />
           </Box>
           <Box position="relative" mb="l">
@@ -96,19 +95,21 @@ const UserEditPage: React.FC<Props> = ({
               multiline
               title="About Me"
               placeholder="We're making you a cookie. Get some milk!"
-              maxLength={ABOUT_MAX_LENGTH}
-              value={about}
-              onChangeText={e => setAbout(e)}
+              maxLength={ ABOUT_MAX_LENGTH }
+              value={ about }
+              onChangeText={ (e) => setAbout(e) }
             />
-            <AboutTextLength>{`${about.length ||
-              0}/${ABOUT_MAX_LENGTH}`}</AboutTextLength>
+            <AboutTextLength>
+              {`${about.length
+              || 0}/${ABOUT_MAX_LENGTH}`}
+            </AboutTextLength>
           </Box>
         </Column>
         <Box mb="xxxl">
           <Button
             title="Save"
             variant="warning"
-            onPress={() => {
+            onPress={ () => {
               navigation.pop(1);
               updateProfile({
                 ...profile,
@@ -116,7 +117,7 @@ const UserEditPage: React.FC<Props> = ({
                 lastName,
                 email,
               });
-            }}
+            } }
           />
         </Box>
       </Column>
