@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, Platform } from 'react-native';
 import { StockItem } from '../../../constants/dataTypes';
+import { properDateHelper } from '../../../utils';
 import Box from '../../../components/Containers/Box';
 import Grid, { Column } from '../../../components/Containers/Grid';
 import Input from '../../../components/Inputs/Input';
 import DateInput from '../../../components/Inputs/DateInput';
-import SearchIcon from '../../../components/Icons/Search';
 import Button from '../../../components/Buttons/Button';
 import IconButton from '../../../components/Buttons/IconButton';
-import { properDateHelper } from '../../../utils/dateHelper';
+import SearchIcon from '../../../components/Icons/Search';
 
 const ERROR_MSGS = {
   invalidQuantity: 'Enter a positive quantity',
@@ -82,14 +82,18 @@ const StockEditForm: React.FC<Props> = ({
     }
 
     setErrors({ ...errorInitialState });
+
     if (stockItemDetails) {
       onUpdateStock({
+        ...stockItemDetails,
         quantity: Number(quantity),
-        dateObtained: date.toString(),
+        dateObtained: date.toISOString(),
       });
     } else {
 
     }
+
+    onBack();
   }
 
   return (

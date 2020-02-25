@@ -23,11 +23,11 @@ const months = [
   'Dec',
 ];
 
-export const properDateHelper = (dateString: Date, showWeekday: boolean = true, showYear: boolean = true): string => {
-  const weekday = weekdays[dateString.getDay()];
-  const date = dateString.getDate();
-  const month = months[dateString.getMonth()];
-  const year = dateString.getFullYear();
+export const properDateHelper = (dateObj: Date, showWeekday: boolean = true, showYear: boolean = true): string => {
+  const weekday = weekdays[dateObj.getDay()];
+  const date = dateObj.getDate();
+  const month = months[dateObj.getMonth()];
+  const year = dateObj.getFullYear();
 
   return `${showWeekday ? weekday + ' ' : ''}${month} ${date} ${showYear ? ', ' + year : ''}`;
 }

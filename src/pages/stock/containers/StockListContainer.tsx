@@ -16,9 +16,21 @@ export type Props = {
 };
 
 class StockListPage extends React.Component<Props> {
-  public componentDidMount(): void {
+  private willFocusSubscription!: () => void;
+
+  public refresh(): void {
     const { getAllStock } = this.props;
     getAllStock();
+  }
+
+  public componentDidMount(): void {
+    const { navigation } = this.props;
+
+    this.refresh();
+    this.willFocusSubscription = navigation.addListener(
+      'focus',
+      () => this.refresh(),
+    );
   }
 
   public render(): JSX.Element {

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '../../../styled';
+import { titleHelper } from '../../../utils';
 import { StockItem, StockDetails, Tag as TagType } from '../../../constants/dataTypes';
 import FavoriteIcon from '../../../components/Icons/Favorite';
 import BackIcon from '../../../components/Icons/Back';
@@ -12,7 +13,6 @@ import Title from '../../../components/Texts/Title';
 import Subtitle from '../../../components/Texts/Subtitle';
 import Visual from '../../../components/Visual';
 import StockItemListCard from './StockItemListCard';
-import titleHelper from '../../../utils/titleHelper';
 
 const StockDetailsScroll = styled.ScrollView`
   flex: 1;

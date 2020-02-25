@@ -12,11 +12,12 @@ type Props = {
   navigation: StackNavigationProp<AuthStackParamList, 'StockDetails'>;
   route: RouteProp<AuthStackParamList, 'StockDetails'>;
   getFoodStockById: (stockId: number) => void;
-  clearStockDetails: () => void;
 };
 
 class StockDetailsContainer extends React.Component<Props> {
-  public componentDidMount(): void {
+  private willFocusSubscription!: () => void;
+
+  public refresh(): void {
     const {
       route: {
         params: { stockId },
@@ -27,15 +28,27 @@ class StockDetailsContainer extends React.Component<Props> {
     getFoodStockById(stockId);
   }
 
+  public componentDidMount(): void {
+    const { navigation } = this.props;
+
+    this.refresh();
+    this.willFocusSubscription = navigation.addListener(
+      'focus',
+      () => this.refresh(),
+    );
+  }
+
+  componentWillUnmount() {
+    const { navigation } = this.props;
+    navigation.removeListener('focus', this.willFocusSubscription);
+  }
+
   public render(): JSX.Element {
-    const { navigation, stockDetails, clearStockDetails } = this.props;
+    const { navigation, stockDetails } = this.props;
 
     return (
       <StockDetailsPage
-        onBack={() => {
-          clearStockDetails();
-          navigation.pop(1);
-        }}
+        onBack={() => navigation.pop(1)}
         onAddEdit={(params?: any) => navigation.push('StockEdit', params)}
         stockDetails={stockDetails}
       />
@@ -50,8 +63,8 @@ const mapStateToProps = (state: any) => ({
 const mapDispatchToProps = (dispatch: any) =>
   bindActionCreators(
     {
+      getAllStock: stockActions.getAllStock,
       getFoodStockById: stockActions.getFoodStockById,
-      clearStockDetails: stockActions.clearStockDetails,
     },
     dispatch,
   );

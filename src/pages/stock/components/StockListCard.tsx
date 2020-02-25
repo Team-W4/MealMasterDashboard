@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from '../../../styled';
-import Card, { Props as CardProps } from '../../../components/Cards/Card';
+import { titleHelper, dateDifferenceHelper } from '../../../utils';
+import { expiryLabelHelper } from '../expiryHelper';
+import { Props as CardProps } from '../../../components/Cards/Card';
 import Box from '../../../components/Containers/Box';
 import Text from '../../../components/Texts/Text';
 import Heading from '../../../components/Texts/Heading';
@@ -8,10 +10,7 @@ import Subtitle from '../../../components/Texts/Subtitle';
 import Grid, { Row } from '../../../components/Containers/Grid';
 import ClockIcon from '../../../components/Icons/Clock';
 import QuantityIcon from '../../../components/Icons/Quantity';
-import { expiryLabelHelper } from '../expiryHelper';
-import { dateDifferenceHelper } from '../../../utils/dateHelper';
 import StockListCardWrapper from './StockListCardWrapper';
-import titleHelper from '../../../utils/titleHelper';
 
 const StyledImage = styled.Image`
   height: 75px;
