@@ -9,8 +9,7 @@ import IconButton from '../../components/Buttons/IconButton';
 import Box from '../../components/Containers/Box';
 import Input from '../../components/Inputs/Input';
 import Back from '../../components/Icons/Back';
-import MoreMenu from '../../components/MoreMenu';
-import Delete from '../../components/Icons/Delete';
+import ScrollList from '../../components/ScrollList';
 
 const ERROR_MSGS = {
   emptyEmail: 'Please enter your email.',
@@ -20,9 +19,7 @@ const ERROR_MSGS = {
   passwordsDontMatch: "Those passwords don't match. Try again.",
 };
 
-const LoginView = styled.KeyboardAvoidingView`
-  flex: 1;
-  width: 100%;
+const LoginView = styled(ScrollList)`
   padding-left: ${({ theme: { space } }) => space.xxxl};
   padding-right: ${({ theme: { space } }) => space.xxxl};
 `;
@@ -94,58 +91,50 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <LoginView>
-      <Box position="relative" flexGrow={ 1 } justifyContent="center">
-        <MoreMenu
-          items={ [
-            { title: 'Rename', onPress: () => {}, icon: <Delete /> },
-            { title: 'Delete', onPress: () => {}, icon: <Delete /> },
-          ] }
+    <LoginView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
+      <Box mb="l">
+        <Text size="large" mb="xxxl">
+          {registerMode ? 'Sign Up' : 'Log In'}
+        </Text>
+        <Input
+          title="Email"
+          error={ errors.email || '' }
+          value={ email }
+          onChangeText={ (e) => setEmail(e) }
         />
-        <Box mb="l">
-          <Text size="large" mb="xxxl">
-            {registerMode ? 'Sign Up' : 'Log In'}
-          </Text>
-          <Input
-            title="Email"
-            error={ errors.email || '' }
-            value={ email }
-            onChangeText={ (e) => setEmail(e) }
-          />
-        </Box>
+      </Box>
+      <Box mb="l">
+        <Input
+          secureTextEntry
+          title="Password"
+          error={ errors.password || '' }
+          value={ password }
+          onChangeText={ (e) => setPassword(e) }
+        />
+      </Box>
+      {registerMode && (
         <Box mb="l">
           <Input
             secureTextEntry
-            title="Password"
-            error={ errors.password || '' }
-            value={ password }
-            onChangeText={ (e) => setPassword(e) }
+            title="Confirm Password"
+            error={ errors.cfPassword || '' }
+            value={ newPassword }
+            onChangeText={ (e) => setNewPassword(e) }
           />
         </Box>
-        {registerMode && (
-          <Box mb="l">
-            <Input
-              secureTextEntry
-              title="Confirm Password"
-              error={ errors.cfPassword || '' }
-              value={ newPassword }
-              onChangeText={ (e) => setNewPassword(e) }
-            />
-          </Box>
-        )}
-        <Grid position="absolute" bottom="30px" right="0">
-          <Column justifyContent="center">
-            <SwitchModeButton onPress={ () => setRegisterMode(!registerMode) }>
-              {registerMode
-                ? 'Already have an account?'
-                : "Don't have an account?"}
-            </SwitchModeButton>
-          </Column>
-          <IconButton size="large" onPress={ handleSubmit }>
-            <LoginIcon size="large" />
-          </IconButton>
-        </Grid>
-      </Box>
+      )}
+      <Grid mb="l" mr="s">
+        <Column justifyContent="center">
+          <SwitchModeButton onPress={ () => setRegisterMode(!registerMode) }>
+            {registerMode
+              ? 'Already have an account?'
+              : "Don't have an account?"}
+          </SwitchModeButton>
+        </Column>
+        <IconButton size="large" onPress={ handleSubmit }>
+          <LoginIcon size="large" />
+        </IconButton>
+      </Grid>
     </LoginView>
   );
 };
