@@ -11,6 +11,7 @@ import { emailChecker } from '../../utils';
 import { AuthContext } from '../auths';
 import MoreMenu from '../../components/MoreMenu';
 import Delete from '../../components/Icons/Delete';
+import ScrollList from '../../components/ScrollList';
 
 const ERROR_MSGS = {
   emptyEmail: 'Please enter your email.',
@@ -20,9 +21,7 @@ const ERROR_MSGS = {
   passwordsDontMatch: "Those passwords don't match. Try again.",
 };
 
-const LoginView = styled.KeyboardAvoidingView`
-  flex: 1;
-  width: 100%;
+const LoginView = styled(ScrollList)`
   padding-left: ${({ theme: { space } }) => space.xxxl};
   padding-right: ${({ theme: { space } }) => space.xxxl};
 `;
@@ -95,9 +94,7 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <LoginView>
-      <Box position="relative" flexGrow={1} justifyContent="center">
-      <MoreMenu items={[{ title: 'Rename', onPress: () => {}, icon: <Delete />}, { title: 'Delete', onPress: () => {}, icon: <Delete />}]}/>
+      <LoginView contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
         <Box mb="l">
           <Text size="large" mb="xxxl">
             {registerMode ? 'Sign Up' : 'Log In'}
@@ -129,7 +126,7 @@ const LoginPage: React.FC = () => {
             />
           </Box>
         )}
-        <Grid position="absolute" bottom="30px" right="0">
+        <Grid mb="l" mr="s">
           <Column justifyContent="center">
             <SwitchModeButton onPress={() => setRegisterMode(!registerMode)}>
               {registerMode
@@ -141,8 +138,7 @@ const LoginPage: React.FC = () => {
             <LoginIcon size="large" />
           </IconButton>
         </Grid>
-      </Box>
-    </LoginView>
+      </LoginView>
   );
 };
 

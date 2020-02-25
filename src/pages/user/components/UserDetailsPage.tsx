@@ -13,6 +13,7 @@ import StockIcon from '../../../components/Icons/Stock';
 import QuantityIcon from '../../../components/Icons/Quantity';
 import SavedIcon from '../../../components/Icons/Saved';
 import UtensilsIcon from '../../../components/Icons/Utensils';
+import ScrollList from '../../../components/ScrollList'
 
 const months = [
   'Jan',
@@ -61,12 +62,13 @@ const UserProfilePage: React.FC<Props> = ({
 
   return (
     <UserView>
+      <ScrollList>
       <Box alignItems="center" justifyContent="center" pt="xxxl">
         <UserProfile rounded />
         <Text mt="m" size="large">{`${firstName || 'Meal'} ${lastName || 'Master'}`}</Text>
         <Subtitle mb="m">{email || ''}</Subtitle>
         <Text>{`${0 || 0} Followers | ${0 || 0} Following`}</Text>
-        <Box mt="l">
+        <Box mt="l" mb="l">
           <EditProfileButton onPress={() => navigation.navigate('UserEdit')}>EDIT YOUR PROFILE</EditProfileButton>
         </Box>
       </Box>
@@ -82,9 +84,10 @@ const UserProfilePage: React.FC<Props> = ({
           </Column>
         </Grid>
       </Column>
-      <Grid mb="xxxl" alignItems="center">
+      <Grid mb="xxxl" alignItems="center" justifyContent="center" mt="l">
         <EditProfileButton onPress={() => logOut()}>Log out</EditProfileButton>
       </Grid>
+      </ScrollList>
     </UserView>
   );
 }
