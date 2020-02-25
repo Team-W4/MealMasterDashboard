@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from '../../../styled';
-import Card, { Props as CardProps } from '../../../components/Cards/Card';
+import { titleHelper, dateDifferenceHelper } from '../../../utils';
+import { expiryLabelHelper } from '../expiryHelper';
+import { Props as CardProps } from '../../../components/Cards/Card';
 import Box from '../../../components/Containers/Box';
 import Text from '../../../components/Texts/Text';
 import Heading from '../../../components/Texts/Heading';
@@ -8,10 +10,7 @@ import Subtitle from '../../../components/Texts/Subtitle';
 import Grid, { Row } from '../../../components/Containers/Grid';
 import ClockIcon from '../../../components/Icons/Clock';
 import QuantityIcon from '../../../components/Icons/Quantity';
-import { expiryLabelHelper } from '../expiryHelper';
-import { dateDifferenceHelper } from '../../../utils/dateHelper';
 import StockListCardWrapper from './StockListCardWrapper';
-import titleHelper from '../../../utils/titleHelper';
 
 const StyledImage = styled.Image`
   height: 75px;
@@ -39,15 +38,21 @@ const StockListCard: React.FC<Props> = ({
   const today = new Date();
 
   const expNumber = dateDifferenceHelper(expDate, today);
-  const titleVariant = expNumber > 2 ? 'normal' : (expNumber >= 0 ? 'warning' : 'error');
-  const stockVariant = expNumber > 2 ? 'tertiary' : (expNumber >= 0 ? 'warning' : 'error');
+  const titleVariant =
+    expNumber > 2 ? 'normal' : expNumber >= 0 ? 'warning' : 'error';
+  const stockVariant =
+    expNumber > 2 ? 'tertiary' : expNumber >= 0 ? 'warning' : 'error';
 
   return (
     <StockListCardWrapper shadowVariant={stockVariant} {...props}>
       <StyledImage source={{ uri: imageURI }} />
       <Box p="m">
         {tag && <Subtitle mb="s">{tag}</Subtitle>}
-        {title && <Heading mb="s" variant={titleVariant}>{titleHelper(title)}</Heading>}
+        {title && (
+          <Heading mb="s" variant={titleVariant}>
+            {titleHelper(title)}
+          </Heading>
+        )}
         <Grid>
           <Row>
             <ClockIcon variant={stockVariant} mr="xs" size="small" />
@@ -55,12 +60,13 @@ const StockListCard: React.FC<Props> = ({
           </Row>
           <Row>
             <QuantityIcon variant={stockVariant} mr="xs" size="small" />
-            <Text size="h2" variant={stockVariant}>{`${quantity || 0} servings`}</Text>
+            <Text size="h2" variant={stockVariant}>{`${quantity ||
+              0} servings`}</Text>
           </Row>
         </Grid>
       </Box>
     </StockListCardWrapper>
   );
-}
+};
 
 export default StockListCard;

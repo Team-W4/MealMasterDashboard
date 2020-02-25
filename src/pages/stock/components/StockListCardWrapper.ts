@@ -1,4 +1,4 @@
-import styled from "../../../styled";
+import styled from '../../../styled';
 import Card, { Props as CardProps } from '../../../components/Cards/Card';
 
 enum stockCardColorEnum {
@@ -36,7 +36,7 @@ const StockListCardWrapper = styled(Card)<Props>`
           box-shadow: 0 0 10px;
           shadow-color: ${colors.silver};
         `;
-    };
+    }
   }}
 `;
 

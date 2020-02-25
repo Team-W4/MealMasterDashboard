@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Row } from '../Containers/Grid';
 import Text from '../Texts/Text';
 import StyledRatingWrapper from './StyledRatingWrapper';

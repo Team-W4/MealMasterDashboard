@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Alert, Platform } from 'react-native';
 import { StockItem } from '../../../constants/dataTypes';
+import { properDateHelper } from '../../../utils';
 import Box from '../../../components/Containers/Box';
 import Grid, { Column } from '../../../components/Containers/Grid';
 import Input from '../../../components/Inputs/Input';
 import DateInput from '../../../components/Inputs/DateInput';
-import SearchIcon from '../../../components/Icons/Search';
 import Button from '../../../components/Buttons/Button';
 import IconButton from '../../../components/Buttons/IconButton';
-import { properDateHelper } from '../../../utils/dateHelper';
+import SearchIcon from '../../../components/Icons/Search';
 
 const ERROR_MSGS = {
   invalidQuantity: 'Enter a positive quantity',
@@ -35,59 +35,67 @@ const StockEditForm: React.FC<Props> = ({
 }) => {
   const [showDate, setShowDate] = useState(false);
   const [errors, setErrors] = useState(errorInitialState);
-  const [date, setDate] = useState(
-    stockItemDetails && stockItemDetails.dateObtained
-    ? new Date(stockItemDetails.dateObtained)
-    : new Date()
-  );
-  const [quantity, setQuantity] = useState(
-    stockItemDetails && stockItemDetails.quantity
-    ? stockItemDetails.quantity.toString()
-    : '0'
-  );
+  const [date, setDate] = useState(new Date());
+  const [quantity, setQuantity] = useState();
+
+  useEffect(() => {
+    if (stockItemDetails) {
+      const { quantity: quantityProp, dateObtained } = stockItemDetails;
+
+      if (quantityProp) {
+        setQuantity(quantityProp.toString());
+      }
+
+      if (dateObtained) {
+        setDate(new Date(dateObtained));
+      }
+    }
+  }, [stockItemDetails]);
 
   function onChange(e: any, selectedDate?: Date) {
     const currentDate = selectedDate || date;
 
     setShowDate(Platform.OS === 'ios' ? true : false);
     setDate(currentDate);
-  };
+  }
 
   function onCancelClick() {
-    Alert.alert(
-      'Are you sure?',
-      'Your edit will be lost',
-      [
-        {text: 'Cancel', style: 'cancel'},
-        {text: 'OK', onPress: onBack},
-      ],
-    );
-  };
+    Alert.alert('Are you sure?', 'Your edit will be lost', [
+      { text: 'Cancel', style: 'cancel' },
+      { text: 'OK', onPress: onBack },
+    ]);
+  }
 
   function onSaveClick() {
     if (!quantity || Number(quantity) <= 0) {
-      setErrors({ ...errorInitialState, quantityError: ERROR_MSGS.invalidQuantity});
+      setErrors({
+        ...errorInitialState,
+        quantityError: ERROR_MSGS.invalidQuantity,
+      });
       return;
     }
 
-    if (date.setHours(0, 0, 0, 0) > (new Date()).setHours(0, 0, 0, 0)) {
-      setErrors({ ...errorInitialState, dateError: ERROR_MSGS.invalidDate});
+    if (date.setHours(0, 0, 0, 0) > new Date().setHours(0, 0, 0, 0)) {
+      setErrors({ ...errorInitialState, dateError: ERROR_MSGS.invalidDate });
       return;
     }
 
     setErrors({ ...errorInitialState });
+
     if (stockItemDetails) {
       onUpdateStock({
+        ...stockItemDetails,
         quantity: Number(quantity),
-        dateObtained: date.toString(),
+        dateObtained: date.toISOString(),
       });
     } else {
-      
     }
+
+    onBack();
   }
 
   return (
-		<Box width="100%" flexGrow={1} mt="200px">
+    <Box width="100%" flexGrow={1} mt="200px">
       <Box px="xxxl">
         <Box mb="l">
           <Input
@@ -113,30 +121,17 @@ const StockEditForm: React.FC<Props> = ({
           </Box>
         </Box>
       </Box>
-      {showDate && (
-        <DateInput
-          value={date}
-          onChange={onChange}
-        />
-      )}
+      {showDate && <DateInput value={date} onChange={onChange} />}
       <Grid position="absolute" bottom="xxxl" px="l" width="100%">
         <Column pr="xs">
-          <Button
-            variant="normal"
-            title="Cancel"
-            onPress={onCancelClick}
-          />
+          <Button variant="normal" title="Cancel" onPress={onCancelClick} />
         </Column>
         <Column pl="xs">
-          <Button
-            variant="warning"
-            title="Save"
-            onPress={onSaveClick}
-          />
+          <Button variant="warning" title="Save" onPress={onSaveClick} />
         </Column>
       </Grid>
     </Box>
   );
-}
+};
 
 export default StockEditForm;

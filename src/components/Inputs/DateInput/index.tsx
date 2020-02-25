@@ -1,5 +1,8 @@
 import React from 'react';
-import DateTimePicker, { IOSNativeProps, AndroidNativeProps} from '@react-native-community/datetimepicker';
+import DateTimePicker, {
+  IOSNativeProps,
+  AndroidNativeProps,
+} from '@react-native-community/datetimepicker';
 import Box from '../../Containers/Box';
 import Heading from '../../Texts/Heading';
 

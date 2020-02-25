@@ -24,7 +24,12 @@ const Tab = createMaterialBottomTabNavigator<HomeTabParamList>();
 const HomeNavigator: React.FC = () => (
   <>
     <TitlePage title="Good Morning!" />
-    <Tab.Navigator initialRouteName="Home" shifting activeColor={colors.white}>
+    <Tab.Navigator
+      initialRouteName="Home"
+      shifting
+      backBehavior="none"
+      activeColor={colors.white}
+    >
       <Tab.Screen
         name="Home"
         component={HomePage}

@@ -9,7 +9,9 @@ export type Props = TagColorProps & {
 
 const Tag: React.FC<Props> = ({ value, variant, ...props }) => (
   <StyledTagWrapper variant={variant} {...props}>
-    <Text variant={variant !== 'normal' ? 'inverted' : 'secondary'}>{value}</Text>
+    <Text variant={variant !== 'normal' ? 'inverted' : 'secondary'}>
+      {value}
+    </Text>
   </StyledTagWrapper>
 );
 

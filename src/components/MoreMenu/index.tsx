@@ -11,7 +11,7 @@ export type Props = {
 };
 
 const StyledModalWrapper = styled(Modal)`
-  justifyContent: flex-end;
+  justifycontent: flex-end;
   margin: 0;
 `;
 
@@ -27,11 +27,14 @@ const MoreMenu: React.FC<Props> = ({ items }) => {
         isVisible={show}
         onBackdropPress={() => setShow(false)}
       >
-        {
-          items.map((({ title, icon, onPress }: MenuItemProps, index) => (
-            <MenuItemCard key={index} title={title} icon={icon} onPress={onPress} />
-          )))
-        }
+        {items.map(({ title, icon, onPress }: MenuItemProps, index) => (
+          <MenuItemCard
+            key={index}
+            title={title}
+            icon={icon}
+            onPress={onPress}
+          />
+        ))}
       </StyledModalWrapper>
     </View>
   );

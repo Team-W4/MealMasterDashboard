@@ -1,7 +1,7 @@
 export type Tag = {
-	id: number;
-	name: string
-}
+  id: number;
+  name: string;
+};
 
 export type GenericFood = {
   id: number;
@@ -18,6 +18,7 @@ export type Stock = {
   food: GenericFood;
   foodName: string;
   nextExpiration: string;
+  tags: Array<Tag>;
 };
 
 export type StockItem = {

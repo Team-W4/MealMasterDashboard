@@ -1,4 +1,3 @@
-
 import { connect } from 'react-redux';
 import UserProfilePage from '../components/UserDetailsPage';
 

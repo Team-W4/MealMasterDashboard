@@ -9,17 +9,18 @@ import { StockItem } from '../../../constants/dataTypes';
 import StockEditForm from '../components/StockEditForm';
 
 type Props = {
-  stockItemDetails?: any;
   navigation: StackNavigationProp<AuthStackParamList, 'StockEdit'>;
   route: RouteProp<AuthStackParamList, 'StockEdit'>;
-  getStockItemById: (stockId: number) => void;
-	addToStock: (foodId: number, quantity: number) => void;
+  stockItemDetails: StockItem;
+  getStockItemById: (stockItemId: number) => void;
+  addToStock: (foodId: number, quantity: number) => void;
   updateStockItem: (stockItem: StockItem) => void;
-  clearStockItemDetails: () => void;
 };
 
 class StockEditContainer extends React.Component<Props> {
-  public componentDidMount(): void {
+  private willFocusSubscription!: () => void;
+
+  public refresh(): void {
     const {
       route: { params },
       getStockItemById,
@@ -30,21 +31,32 @@ class StockEditContainer extends React.Component<Props> {
     }
   }
 
+  public componentDidMount(): void {
+    const { navigation } = this.props;
+
+    this.refresh();
+    this.willFocusSubscription = navigation.addListener(
+      'focus',
+      () => this.refresh,
+    );
+  }
+
+  componentWillUnmount() {
+    const { navigation } = this.props;
+    navigation.removeListener('focus', this.willFocusSubscription);
+  }
+
   public render(): JSX.Element {
     const {
       navigation,
       addToStock,
       updateStockItem,
-      clearStockItemDetails,
       stockItemDetails,
     } = this.props;
 
     return (
       <StockEditForm
-        onBack={() => {
-          clearStockItemDetails();
-          navigation.pop(1);
-        }}
+        onBack={() => navigation.pop(1)}
         onAddStock={addToStock}
         onUpdateStock={updateStockItem}
         stockItemDetails={stockItemDetails}
@@ -63,7 +75,6 @@ const mapDispatchToProps = (dispatch: any) =>
       getStockItemById: stockActions.getStockItemById,
       addToStock: stockActions.addToStock,
       updateStockItem: stockActions.updateStockItem,
-      clearStockItemDetails: stockActions.clearStockItemDetails,
     },
     dispatch,
   );

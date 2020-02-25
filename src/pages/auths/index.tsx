@@ -100,7 +100,7 @@ const AuthProvider: React.FC<Props> = ({
             <Stack.Screen name="UserEdit" component={UserEditPage} />
           </>
         ) : (
-          <Stack.Screen name="Home" component={LoginPage}/>
+          <Stack.Screen name="Home" component={LoginPage} />
         )}
         <Stack.Screen name="Loading" component={LoadingPage} />
       </Stack.Navigator>

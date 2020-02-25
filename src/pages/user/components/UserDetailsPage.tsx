@@ -13,22 +13,7 @@ import StockIcon from '../../../components/Icons/Stock';
 import QuantityIcon from '../../../components/Icons/Quantity';
 import SavedIcon from '../../../components/Icons/Saved';
 import UtensilsIcon from '../../../components/Icons/Utensils';
-import ScrollList from '../../../components/ScrollList'
-
-const months = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec',
-];
+import ScrollList from '../../../components/ScrollList';
 
 export type Props = {
   navigation: StackNavigationProp<AuthStackParamList, 'UserDetails'>;

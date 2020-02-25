@@ -33,12 +33,6 @@ export const getStockItemById = stockItemId => dispatch => {
   );
 };
 
-export const clearStockDetails = () => dispatch =>
-  dispatch({ type: actionTypes.CLEAR_STOCK_DETAILS });
-
-export const clearStockItemDetails = () => dispatch =>
-  dispatch({ type: actionTypes.CLEAR_STOCK_ITEM_DETAILS });
-
 export const addToStock = (foodId, stockItem) => dispatch => {
   dispatch({ type: actionTypes.CREATE_STOCK_ITEM });
 
@@ -66,6 +60,14 @@ export const deleteStockItem = stockItemId => dispatch => {
       dispatch({ type: actionTypes.DELETE_STOCK_ITEM_FAIL });
     });
 };
+
+export const clearStockDetails = () => ({
+  type: actionTypes.CLEAR_STOCK_DETAILS,
+});
+
+export const clearStockItemDetails = () => ({
+  type: actionTypes.CLEAR_STOCK_ITEM_DETAILS,
+});
 
 const receiveStockItem = stockItem => ({
   type: actionTypes.RECEIVE_STOCK_ITEM,
