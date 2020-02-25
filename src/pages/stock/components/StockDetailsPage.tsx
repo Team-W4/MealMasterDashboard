@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '../../../styled';
-import { titleHelper, dateDifferenceHelper } from '../../../utils';
+import { titleHelper, dateDifferenceHelper, dateParser } from '../../../utils';
 import {
   StockItem,
   StockDetails,
@@ -48,7 +48,7 @@ const StockDetailsPage: React.FC<Props> = ({
   },
 }) => {
   const today = new Date();
-  const nextExp = new Date(nextExpiration);
+  const nextExp = dateParser(nextExpiration);
   let expireTag = <></>;
 
   if (dateDifferenceHelper(nextExp, today) <= 2) {
@@ -101,8 +101,8 @@ const StockDetailsPage: React.FC<Props> = ({
           <>
             {stockItems
               .sort(
-                (a: StockItem, b: StockItem) => new Date(a.expirationDate).getTime()
-                  - new Date(b.expirationDate).getTime(),
+                (a: StockItem, b: StockItem) => dateParser(a.expirationDate).getTime()
+                  - dateParser(b.expirationDate).getTime(),
               )
               .map((stockItem: StockItem) => (
                 <Box key={ stockItem.id } px="l" mb="m">

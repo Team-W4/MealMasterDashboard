@@ -41,3 +41,11 @@ export const properDateHelper = (
 export const dateDifferenceHelper = (date1: Date, date2: Date): number => (
   Math.floor((date1.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24))
 );
+
+export const dateParser = (dateString: string): Date => {
+  if (!dateString || dateString.length < 0) {
+    return new Date();
+  }
+
+  return new Date(dateString.replace('+0000', 'Z'));
+};

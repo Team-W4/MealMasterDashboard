@@ -2,8 +2,9 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs';
-import { HomeTabParamList } from '../../navigator/HomeTab';
+import { dateParser } from '../../../utils';
 import { stockActions } from '../../../actions';
+import { HomeTabParamList } from '../../navigator/HomeTab';
 import { Stock } from '../../../constants/dataTypes';
 import Box from '../../../components/Containers/Box';
 import StockListCard from '../components/StockListCard';
@@ -42,15 +43,15 @@ class StockListPage extends React.Component<Props> {
       <ScrollList>
         {(foodStocks || [])
           .sort(
-            (a, b) => new Date(a.nextExpiration).getTime()
-              - new Date(b.nextExpiration).getTime(),
+            (a, b) => dateParser(a.nextExpiration).getTime()
+              - dateParser(b.nextExpiration).getTime(),
           )
           .map((item) => (
             <Box key={ item.food.name } px="l" mb="xl">
               <StockListCard
                 imageURI="https://www.chiceats.com/sites/default/files/styles/image_1024x768/public/recipe/photo/homemade-pasta-recipe-1080x810@2x.jpg"
                 title={ item.food.name }
-                // tag={(item.tags || [])[0].name}
+                // tag={ (item.tags || [])[0].name }
                 nextExpiration={ item.nextExpiration }
                 quantity={ item.totalQuantity }
                 onPress={ () => navigation.push('StockDetails', { stockId: item.id }) }

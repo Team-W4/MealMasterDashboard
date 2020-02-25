@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, Platform } from 'react-native';
 import { StockItem } from '../../../constants/dataTypes';
-import { properDateHelper } from '../../../utils';
+import { properDateHelper, dateParser } from '../../../utils';
 import Box from '../../../components/Containers/Box';
 import Grid, { Column } from '../../../components/Containers/Grid';
 import Input from '../../../components/Inputs/Input';
@@ -47,7 +47,7 @@ const StockEditForm: React.FC<Props> = ({
       }
 
       if (dateObtained) {
-        setDate(new Date(dateObtained));
+        setDate(dateParser(dateObtained));
       }
     }
   }, [stockItemDetails]);

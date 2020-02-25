@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react';
 import styled from '../../../styled';
-import { titleHelper, dateDifferenceHelper } from '../../../utils';
+import { titleHelper, dateDifferenceHelper, dateParser } from '../../../utils';
 import { expiryLabelHelper } from '../expiryHelper';
 import { Props as CardProps } from '../../../components/Cards/Card';
 import Box from '../../../components/Containers/Box';
@@ -35,7 +35,7 @@ const StockListCard: React.FC<Props> = ({
   quantity,
   ...props
 }) => {
-  const expDate = nextExpiration ? new Date(nextExpiration) : new Date();
+  const expDate = dateParser(nextExpiration);
   const today = new Date();
 
   const expNumber = dateDifferenceHelper(expDate, today);

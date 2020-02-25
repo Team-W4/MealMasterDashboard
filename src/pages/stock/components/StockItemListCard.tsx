@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react';
-import { properDateHelper, dateDifferenceHelper } from '../../../utils';
+import { properDateHelper, dateDifferenceHelper, dateParser } from '../../../utils';
 import { stockItemLabelHelper } from '../expiryHelper';
 import Box from '../../../components/Containers/Box';
 import Grid, { Row } from '../../../components/Containers/Grid';
@@ -21,11 +21,11 @@ const StockItemListCard: React.FC<Props> = ({
   quantity,
   ...props
 }) => {
-  const expDate = expirationDate ? new Date(expirationDate) : new Date();
+  const expDate = dateParser(expirationDate);
   const today = new Date();
 
   const expNumber = dateDifferenceHelper(expDate, today);
-  const addedDate = new Date(createdDate || '');
+  const addedDate = dateParser(createdDate);
   const titleVariant = expNumber > 2 ? 'normal' : expNumber >= 0 ? 'warning' : 'error';
   const stockVariant = expNumber > 2 ? 'tertiary' : expNumber >= 0 ? 'warning' : 'error';
 
