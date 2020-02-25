@@ -8,11 +8,11 @@ const initialState = {
 };
 
 const GenericFoodReducer = createReducer(initialState, {
-  [actionTypes.FETCH_FOOD]: state => ({
+  [actionTypes.FETCH_FOOD]: (state) => ({
     ...state,
     isFetching: true,
   }),
-  [actionTypes.FETCH_FOODS]: state => ({
+  [actionTypes.FETCH_FOODS]: (state) => ({
     ...state,
     isFetching: true,
   }),
