@@ -83,3 +83,16 @@ export const deleteStockItem = (stockItemId) => (dispatch) => {
       dispatch({ type: actionTypes.DELETE_STOCK_ITEM_FAIL });
     });
 };
+
+// TODO: upload image here to API here
+export const parseReceipt = () => dispatch => {
+  dispatch({ type: actionTypes.FETCH_RECEIPT_FOODS });
+  StockService.parseReceipt()
+    .then(parsedFoodIds => {
+      dispatch({ type: actionTypes.RECEIVE_RECEIPT_FOODS, parsedFoodIds });
+    })
+    .catch(e => {
+      console.error(e);
+      dispatch({ type: actionTypes.FETCH_RECEIPT_FOODS_FAIL });
+    });
+};
