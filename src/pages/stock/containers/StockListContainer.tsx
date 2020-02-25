@@ -1,31 +1,32 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { recipeActions } from '../../../actions';
-import RecipeCard from '../components/RecipeCard';
+import { stockActions } from '../../../actions';
+import Box from '../../../components/Containers/Box';
+import StockListCard from '../components/StockListCard';
 import ScrollList from '../../../components/ScrollList';
 
 export type Props = {
   navigation: any;
   userId: number;
-  recipes: Array<any>;
-  getRecipesByUser: (id: number) => void;
+  stocks: Array<any>;
+  getStockByUserId: (id: number) => void;
 };
 
-class RecipeListPage extends React.Component<Props> {
+class StockListPage extends React.Component<Props> {
   public componentDidMount(): void {
     const { userId } = this.props;
-    this.props.getRecipesByUser(userId);
+    this.props.getStockByUserId(userId);
   }
 
   public render(): JSX.Element {
-    const { recipes, navigation } = this.props;
+    const { stocks, navigation } = this.props;
 
     return (
       <ScrollList>
-        {(recipes || []).map((item, index) => (
+        {(stocks || []).map((item, index) => (
           <Box key={index} mb="xl">
-            <RecipeCard
+            <
               title={item.name}
               tag={item.tags[0].name}
               // TODO: Adds image & difficulty

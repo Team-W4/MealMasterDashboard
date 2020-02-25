@@ -1,11 +1,5 @@
-import React from 'react';
-import { View } from 'react-native';
-import Text from '../../components/Texts/Text';
+import StockDetailsPage from './containers/StockDetailsContainer';
+import StockListPage from './containers/StockListContainer';
 
-const StockPage: React.FC = () => (
-  <View>
-    <Text>Stock</Text>
-  </View>
-);
-
-export default StockPage;
+export { StockDetailsPage };
+export default StockListPage;
