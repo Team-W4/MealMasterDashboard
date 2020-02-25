@@ -13,12 +13,14 @@ export type Props = {
   title: string;
   icon: JSX.Element;
   onPress: (e?: any) => void;
-}
+};
 
 const MenuItemCard: React.FC<Props> = ({ title, icon, onPress }) => (
   <StyledCardItem onPress={onPress}>
     <Grid px="l">
-      <Box width="50px" justifyContent="center" alignItems="center">{icon}</Box>
+      <Box width="50px" justifyContent="center" alignItems="center">
+        {icon}
+      </Box>
       <Column>
         <Text py="xl">{title}</Text>
       </Column>

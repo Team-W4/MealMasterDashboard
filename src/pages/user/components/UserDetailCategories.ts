@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from '../../../styled';
 
 const UserDetailCategories = styled.View`
@@ -7,7 +6,8 @@ const UserDetailCategories = styled.View`
   border-radius: 25px;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme: { semanticColors } }) => semanticColors.background};
+  background-color: ${({ theme: { semanticColors } }) =>
+    semanticColors.background};
 `;
 
 export default UserDetailCategories;

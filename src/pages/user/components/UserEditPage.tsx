@@ -18,7 +18,7 @@ export type Props = {
     email: string;
     createDate: string;
   };
-}
+};
 
 const UserView = styled.View`
   flex: 1;
@@ -52,13 +52,18 @@ const UserEditPage: React.FC<Props> = ({
   updateProfile,
   profile,
 }) => {
-  const { firstName: firstNameProps, lastName: lastNameProps, email: emailProps, createDate } = profile;
+  const {
+    firstName: firstNameProps,
+    lastName: lastNameProps,
+    email: emailProps,
+    createDate,
+  } = profile;
   const [email, setEmail] = useState(emailProps);
   const [firstName, setFirstName] = useState(firstNameProps);
   const [lastName, setLastName] = useState(lastNameProps);
   const [about, setAbout] = useState('');
   const [errors, setErrors] = useState(errorInitialState);
-  
+
   return (
     <UserView>
       <UserProfile rounded />
@@ -95,23 +100,28 @@ const UserEditPage: React.FC<Props> = ({
               value={about}
               onChangeText={e => setAbout(e)}
             />
-            <AboutTextLength>{`${about.length || 0}/${ABOUT_MAX_LENGTH}`}</AboutTextLength>
+            <AboutTextLength>{`${about.length ||
+              0}/${ABOUT_MAX_LENGTH}`}</AboutTextLength>
           </Box>
         </Column>
         <Box mb="xxxl">
-          <Button title="Save" variant="warning" onPress={() => {
-            navigation.pop(1);
-            updateProfile({
-              ...profile,
-              firstName,
-              lastName,
-              email,
-            });
-          }}/>
+          <Button
+            title="Save"
+            variant="warning"
+            onPress={() => {
+              navigation.pop(1);
+              updateProfile({
+                ...profile,
+                firstName,
+                lastName,
+                email,
+              });
+            }}
+          />
         </Box>
       </Column>
     </UserView>
   );
-}
+};
 
 export default UserEditPage;

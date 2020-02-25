@@ -32,9 +32,8 @@ class StockDetailsContainer extends React.Component<Props> {
     const { navigation } = this.props;
 
     this.refresh();
-    this.willFocusSubscription = navigation.addListener(
-      'focus',
-      () => this.refresh(),
+    this.willFocusSubscription = navigation.addListener('focus', () =>
+      this.refresh(),
     );
   }
 

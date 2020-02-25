@@ -14,21 +14,6 @@ import QuantityIcon from '../../../components/Icons/Quantity';
 import SavedIcon from '../../../components/Icons/Saved';
 import UtensilsIcon from '../../../components/Icons/Utensils';
 
-const months = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec',
-];
-
 export type Props = {
   navigation: StackNavigationProp<AuthStackParamList, 'UserDetails'>;
   profile: {
@@ -63,22 +48,47 @@ const UserProfilePage: React.FC<Props> = ({
     <UserView>
       <Box alignItems="center" justifyContent="center" pt="xxxl">
         <UserProfile rounded />
-        <Text mt="m" size="large">{`${firstName || 'Meal'} ${lastName || 'Master'}`}</Text>
+        <Text mt="m" size="large">{`${firstName || 'Meal'} ${lastName ||
+          'Master'}`}</Text>
         <Subtitle mb="m">{email || ''}</Subtitle>
         <Text>{`${0 || 0} Followers | ${0 || 0} Following`}</Text>
         <Box mt="l">
-          <EditProfileButton onPress={() => navigation.navigate('UserEdit')}>EDIT YOUR PROFILE</EditProfileButton>
+          <EditProfileButton onPress={() => navigation.navigate('UserEdit')}>
+            EDIT YOUR PROFILE
+          </EditProfileButton>
         </Box>
       </Box>
-      <Column alignItems="center" justifyContent="center" >
+      <Column alignItems="center" justifyContent="center">
         <Grid width="100%" px="m">
           <Column pr="xs" alignItems="center">
-            <UserDetailsCard mb="l" variant="warning" title="Stocks" tag={`${13} items`} icon={<StockIcon />} />
-            <UserDetailsCard variant="warning" title="Food waste" tag={`${2000}g of food`} icon={<QuantityIcon />}/>
+            <UserDetailsCard
+              mb="l"
+              variant="warning"
+              title="Stocks"
+              tag={`${13} items`}
+              icon={<StockIcon />}
+            />
+            <UserDetailsCard
+              variant="warning"
+              title="Food waste"
+              tag={`${2000}g of food`}
+              icon={<QuantityIcon />}
+            />
           </Column>
           <Column pl="xs" alignItems="center">
-            <UserDetailsCard mb="l" variant="warning" title="Recipes" tag={`${6} recipes`} icon={<SavedIcon />} />
-            <UserDetailsCard variant="warning" title="More" tag={`${2} things`} icon={<UtensilsIcon />}/>
+            <UserDetailsCard
+              mb="l"
+              variant="warning"
+              title="Recipes"
+              tag={`${6} recipes`}
+              icon={<SavedIcon />}
+            />
+            <UserDetailsCard
+              variant="warning"
+              title="More"
+              tag={`${2} things`}
+              icon={<UtensilsIcon />}
+            />
           </Column>
         </Grid>
       </Column>
@@ -87,6 +97,6 @@ const UserProfilePage: React.FC<Props> = ({
       </Grid>
     </UserView>
   );
-}
+};
 
 export default UserProfilePage;

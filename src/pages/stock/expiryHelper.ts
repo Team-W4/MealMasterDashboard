@@ -1,7 +1,10 @@
-export const expiryLabelHelper = (expiryTime: number, suffixed: boolean = true): string => {
+export const expiryLabelHelper = (
+  expiryTime: number,
+  suffixed: boolean = true,
+): string => {
   const days = Math.abs(expiryTime);
   const plural = Math.abs(expiryTime) > 1 ? 'days' : 'day';
-  const suffix = expiryTime < 0 ? 'ago' : (suffixed ? 'left' : '');
+  const suffix = expiryTime < 0 ? 'ago' : suffixed ? 'left' : '';
 
   return expiryTime === 0 ? 'Today' : `${days} ${plural} ${suffix}`;
 };
@@ -13,9 +16,12 @@ export const stockItemLabelHelper = (expiryTime: number): string => {
   } else if (expiryTime === 1) {
     timeString = 'tomorrow';
   } else if (expiryTime === -1) {
-    timeString = 'yesterday'
+    timeString = 'yesterday';
   } else {
-    timeString = `${expiryTime < 0 ? '' : 'in '}${expiryLabelHelper(expiryTime, false)}`;
+    timeString = `${expiryTime < 0 ? '' : 'in '}${expiryLabelHelper(
+      expiryTime,
+      false,
+    )}`;
   }
 
   return `Expire${expiryTime < 0 ? 'd' : 's'} ${timeString}`;

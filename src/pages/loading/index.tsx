@@ -245,7 +245,10 @@ const LOADING_MSGS = [
   'Still faster than Windows update',
 ];
 
-const messageChoser = throttle(() => Math.floor((Math.random()) * LOADING_MSGS.length), 2000);
+const messageChoser = throttle(
+  () => Math.floor(Math.random() * LOADING_MSGS.length),
+  2000,
+);
 
 const LoadingPage: React.FC = () => (
   <LoadingView>

@@ -27,9 +27,8 @@ class StockListPage extends React.Component<Props> {
     const { navigation } = this.props;
 
     this.refresh();
-    this.willFocusSubscription = navigation.addListener(
-      'focus',
-      () => this.refresh(),
+    this.willFocusSubscription = navigation.addListener('focus', () =>
+      this.refresh(),
     );
   }
 
@@ -39,21 +38,25 @@ class StockListPage extends React.Component<Props> {
     return (
       <ScrollList>
         {(foodStocks || [])
-        .sort((a, b) =>  new Date(a.nextExpiration).getTime() - new Date(b.nextExpiration).getTime())
-        .map((item, index) => (
-          <Box key={index} px="l" mb="xl">
-            <StockListCard
-              imageURI="https://www.chiceats.com/sites/default/files/styles/image_1024x768/public/recipe/photo/homemade-pasta-recipe-1080x810@2x.jpg"
-              title={item.food.name}
-              // tag={(item.tags || [])[0].name}
-              nextExpiration={item.nextExpiration}
-              quantity={item.totalQuantity}
-              onPress={() =>
-                navigation.push('StockDetails', { stockId: item.id })
-              }
-            />
-          </Box>
-        ))}
+          .sort(
+            (a, b) =>
+              new Date(a.nextExpiration).getTime() -
+              new Date(b.nextExpiration).getTime(),
+          )
+          .map((item, index) => (
+            <Box key={index} px="l" mb="xl">
+              <StockListCard
+                imageURI="https://www.chiceats.com/sites/default/files/styles/image_1024x768/public/recipe/photo/homemade-pasta-recipe-1080x810@2x.jpg"
+                title={item.food.name}
+                // tag={(item.tags || [])[0].name}
+                nextExpiration={item.nextExpiration}
+                quantity={item.totalQuantity}
+                onPress={() =>
+                  navigation.push('StockDetails', { stockId: item.id })
+                }
+              />
+            </Box>
+          ))}
       </ScrollList>
     );
   }

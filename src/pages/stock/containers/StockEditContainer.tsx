@@ -13,7 +13,7 @@ type Props = {
   route: RouteProp<AuthStackParamList, 'StockEdit'>;
   stockItemDetails: StockItem;
   getStockItemById: (stockItemId: number) => void;
-	addToStock: (foodId: number, quantity: number) => void;
+  addToStock: (foodId: number, quantity: number) => void;
   updateStockItem: (stockItem: StockItem) => void;
 };
 

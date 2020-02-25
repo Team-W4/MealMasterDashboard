@@ -97,7 +97,12 @@ const LoginPage: React.FC = () => {
   return (
     <LoginView>
       <Box position="relative" flexGrow={1} justifyContent="center">
-      <MoreMenu items={[{ title: 'Rename', onPress: () => {}, icon: <Delete />}, { title: 'Delete', onPress: () => {}, icon: <Delete />}]}/>
+        <MoreMenu
+          items={[
+            { title: 'Rename', onPress: () => {}, icon: <Delete /> },
+            { title: 'Delete', onPress: () => {}, icon: <Delete /> },
+          ]}
+        />
         <Box mb="l">
           <Text size="large" mb="xxxl">
             {registerMode ? 'Sign Up' : 'Log In'}

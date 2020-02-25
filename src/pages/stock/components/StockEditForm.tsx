@@ -40,10 +40,10 @@ const StockEditForm: React.FC<Props> = ({
 
   useEffect(() => {
     if (stockItemDetails) {
-      const { quantity, dateObtained } = stockItemDetails;
+      const { quantity: quantityProp, dateObtained } = stockItemDetails;
 
-      if (quantity) {
-        setQuantity(quantity.toString());
+      if (quantityProp) {
+        setQuantity(quantityProp.toString());
       }
 
       if (dateObtained) {
@@ -57,27 +57,26 @@ const StockEditForm: React.FC<Props> = ({
 
     setShowDate(Platform.OS === 'ios' ? true : false);
     setDate(currentDate);
-  };
+  }
 
   function onCancelClick() {
-    Alert.alert(
-      'Are you sure?',
-      'Your edit will be lost',
-      [
-        {text: 'Cancel', style: 'cancel'},
-        {text: 'OK', onPress: onBack},
-      ],
-    );
-  };
+    Alert.alert('Are you sure?', 'Your edit will be lost', [
+      { text: 'Cancel', style: 'cancel' },
+      { text: 'OK', onPress: onBack },
+    ]);
+  }
 
   function onSaveClick() {
     if (!quantity || Number(quantity) <= 0) {
-      setErrors({ ...errorInitialState, quantityError: ERROR_MSGS.invalidQuantity});
+      setErrors({
+        ...errorInitialState,
+        quantityError: ERROR_MSGS.invalidQuantity,
+      });
       return;
     }
 
-    if (date.setHours(0, 0, 0, 0) > (new Date()).setHours(0, 0, 0, 0)) {
-      setErrors({ ...errorInitialState, dateError: ERROR_MSGS.invalidDate});
+    if (date.setHours(0, 0, 0, 0) > new Date().setHours(0, 0, 0, 0)) {
+      setErrors({ ...errorInitialState, dateError: ERROR_MSGS.invalidDate });
       return;
     }
 
@@ -90,14 +89,13 @@ const StockEditForm: React.FC<Props> = ({
         dateObtained: date.toISOString(),
       });
     } else {
-
     }
 
     onBack();
   }
 
   return (
-		<Box width="100%" flexGrow={1} mt="200px">
+    <Box width="100%" flexGrow={1} mt="200px">
       <Box px="xxxl">
         <Box mb="l">
           <Input
@@ -123,30 +121,17 @@ const StockEditForm: React.FC<Props> = ({
           </Box>
         </Box>
       </Box>
-      {showDate && (
-        <DateInput
-          value={date}
-          onChange={onChange}
-        />
-      )}
+      {showDate && <DateInput value={date} onChange={onChange} />}
       <Grid position="absolute" bottom="xxxl" px="l" width="100%">
         <Column pr="xs">
-          <Button
-            variant="normal"
-            title="Cancel"
-            onPress={onCancelClick}
-          />
+          <Button variant="normal" title="Cancel" onPress={onCancelClick} />
         </Column>
         <Column pl="xs">
-          <Button
-            variant="warning"
-            title="Save"
-            onPress={onSaveClick}
-          />
+          <Button variant="warning" title="Save" onPress={onSaveClick} />
         </Column>
       </Grid>
     </Box>
   );
-}
+};
 
 export default StockEditForm;
