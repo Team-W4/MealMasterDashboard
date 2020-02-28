@@ -9,19 +9,32 @@ export type Props = SpaceProps &
     onPress?: (ev: NativeSyntheticEvent<NativeTouchEvent>) => void;
   };
 
-const StyledCardWrapper = styled.TouchableOpacity<Props>`
+const StyledCardWrapper = styled.View<Props>`
   ${space}
   width: 100%;
   background-color: ${({ theme: { semanticColors } }) => semanticColors.background};
   ${cardColors}
   border-radius: ${({ theme: { space: spaces } }) => spaces.s};
   elevation: 10;
-  box-shadow: 0 15px 18px
-    ${({ theme: { semanticColors } }) => semanticColors.shadow};
+  box-shadow: 0 15px 18px ${({ theme: { semanticColors } }) => semanticColors.shadow};
 `;
 
-const Card: React.FC<PropsWithChildren<Props>> = ({ ...props }) => (
-  <StyledCardWrapper { ...props } />
+const StyledButtonWrapper = styled.TouchableOpacity`
+  width: 100%;
+  align-self: flex-start;
+`;
+
+const Card: React.FC<PropsWithChildren<Props>> = ({
+  onPress,
+  ...props
+}) => (
+  onPress ? (
+    <StyledButtonWrapper onPress={ onPress }>
+      <StyledCardWrapper { ...props } />
+    </StyledButtonWrapper>
+  ) : (
+    <StyledCardWrapper { ...props } />
+  )
 );
 
 Card.defaultProps = {
