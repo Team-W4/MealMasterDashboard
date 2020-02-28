@@ -67,7 +67,7 @@ const StockReducer = createReducer(initialState, {
     stockItemDetails: {},
   }),
   // TODO: move to GenericFoodReducer when GF gets merged
-  [actionTypes.FETCH_RECEIPT_FOODS]: state => ({
+  [actionTypes.FETCH_RECEIPT_FOODS]: (state) => ({
     ...state,
     isFetchingReceiptFoods: true,
   }),
@@ -76,7 +76,7 @@ const StockReducer = createReducer(initialState, {
     isFetchingReceiptFoods: false,
     receiptFoodIds: parsedFoodIds,
   }),
-  [actionTypes.FETCH_RECEIPT_FOODS_FAIL]: state => ({
+  [actionTypes.FETCH_RECEIPT_FOODS_FAIL]: (state) => ({
     ...state,
     isFetchingReceiptFoods: false,
   }),
