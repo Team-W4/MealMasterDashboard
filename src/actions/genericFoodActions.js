@@ -22,3 +22,7 @@ export const getGenericFoodById = (foodId) => (dispatch) => {
 
   GenericFoodService.getGenericFoodById(foodId).then((food) => dispatch(receiveFood(food)));
 };
+
+export const clearSearch = () => ({
+  type: actionTypes.CLEAR_FOODS,
+});

@@ -26,6 +26,11 @@ const GenericFoodReducer = createReducer(initialState, {
     isFetching: false,
     foods,
   }),
+  [actionTypes.CLEAR_FOODS]: (state) => ({
+    ...state,
+    isFetching: false,
+    foods: [],
+  }),
 });
 
 export default GenericFoodReducer;
