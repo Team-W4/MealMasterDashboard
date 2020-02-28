@@ -48,17 +48,19 @@ const AuthProvider: React.FC<Props> = ({
     retoreTokenAsync();
   });
 
+  useEffect(() => {
+    if (isLoading) {
+      navigator.navigate('Loading');
+    } else {
+      navigator.navigate(userToken ? 'Home' : 'Login');
+    }
+  }, [userToken, isLoading]);
+
   const authContext = useMemo(() => ({ logIn, logOut, register }), [
     logIn,
     logOut,
     register,
   ]);
-
-  if (isLoading) {
-    navigator.navigate('Loading');
-  } else {
-    navigator.navigate(userToken ? 'Home' : 'Login');
-  }
 
   return (
     <AuthContext.Provider value={ authContext }>
