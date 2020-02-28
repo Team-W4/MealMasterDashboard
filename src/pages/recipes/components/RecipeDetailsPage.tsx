@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '../../../styled';
+import { GenericFood, Tag as TagType } from '../../../constants/dataTypes';
 import FavoriteIcon from '../../../components/Icons/Favorite';
 import BackIcon from '../../../components/Icons/Back';
 import ShareIcon from '../../../components/Icons/Share';
@@ -39,12 +40,6 @@ const AddStockButton = styled(Button)`
   bottom: ${({ theme: { space } }) => space.xxxl};
 `;
 
-export type TagProps = {
-  id: number;
-  name: string;
-};
-
-export type IngredientProps = {};
 
 export type Props = {
   onFavorite?: () => void;
@@ -54,8 +49,8 @@ export type Props = {
     rating?: number;
     name?: string;
     cookTime?: string | number;
-    ingredients?: Array<IngredientProps>;
-    tags?: Array<TagProps>;
+    ingredients?: Array<GenericFood>;
+    tags?: Array<Tag>;
     instructions: string;
   };
 };
@@ -119,7 +114,7 @@ const RecipeDetailsPage: React.FC<Props> = ({
       </Grid>
       {tags && tags.length > 0 && (
         <TagList horizontal showsHorizontalScrollIndicator={ false }>
-          {tags.map((tag: TagProps) => (
+          {tags.map((tag: TagType) => (
             <Box key={ tag.id } alignSelf="flex-start" mr="xs">
               <Tag value={ tag.name } />
             </Box>

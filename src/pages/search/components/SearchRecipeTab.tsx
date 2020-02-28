@@ -31,7 +31,7 @@ const SearchRecipeTab: React.FC<Props> = ({
 );
 
 const mapStateToProps = (state: any) => ({
-  data: state.recipe.recipes,
+  data: state.recipe.searchedRecipes,
 });
 
 export default connect(

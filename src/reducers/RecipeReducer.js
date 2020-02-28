@@ -3,6 +3,7 @@ import { createReducer } from '../utils';
 
 const initialState = {
   recipes: [],
+  searchedRecipes: [],
   recipeDetails: {},
   isFetching: false,
 };
@@ -25,6 +26,11 @@ const RecipeReducer = createReducer(initialState, {
     ...state,
     isFetching: false,
     recipes,
+  }),
+  [actionTypes.RECEIVE_SEARCHED_RECIPES]: (state, { searchedRecipes }) => ({
+    ...state,
+    isFetching: false,
+    searchedRecipes,
   }),
   [actionTypes.CLEAR_RECIPE_DETAILS]: (state) => ({
     ...state,

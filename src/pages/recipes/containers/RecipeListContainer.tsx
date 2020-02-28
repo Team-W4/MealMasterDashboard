@@ -47,7 +47,7 @@ class RecipeListPage extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: any) => ({
-  userId: state.user.profile.id,
+  userId: state.user.userToken,
   recipes: state.recipe.recipes,
 });
 

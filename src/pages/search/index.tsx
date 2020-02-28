@@ -1,11 +1,3 @@
-import React from 'react';
-import { View } from 'react-native';
-import Text from '../../components/Texts/Text';
-
-const SearchPage: React.FC = () => (
-  <View>
-    <Text>Search</Text>
-  </View>
-);
+import SearchPage from './containers/SearchPageContainer';
 
 export default SearchPage;

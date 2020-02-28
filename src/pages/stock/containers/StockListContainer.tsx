@@ -46,7 +46,7 @@ class StockListPage extends React.Component<Props> {
             (a, b) => dateParser(a.nextExpiration).getTime()
               - dateParser(b.nextExpiration).getTime(),
           )
-          .map((item) => (
+          .map((item: Stock) => (
             <Box key={ item.food.name } px="l" mb="xl">
               <StockListCard
                 imageURI="https://www.chiceats.com/sites/default/files/styles/image_1024x768/public/recipe/photo/homemade-pasta-recipe-1080x810@2x.jpg"

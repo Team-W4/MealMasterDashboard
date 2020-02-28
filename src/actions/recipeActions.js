@@ -11,10 +11,17 @@ const receiveRecipes = (recipes) => ({
   recipes,
 });
 
+const receiveSearchedRecipes = (searchedRecipes) => ({
+  type: actionTypes.RECEIVE_SEARCHED_RECIPES,
+  searchedRecipes,
+});
+
 export const searchRecipes = (searchTerms) => (dispatch) => {
   dispatch({ type: actionTypes.FETCH_RECIPES });
 
-  RecipeService.searchRecipes(searchTerms).then((recipes) => dispatch(receiveRecipes(recipes)));
+  RecipeService.searchRecipes(searchTerms).then(
+    (recipes) => dispatch(receiveSearchedRecipes(recipes)),
+  );
 };
 
 export const getRecipeById = (recipeId) => (dispatch) => {
