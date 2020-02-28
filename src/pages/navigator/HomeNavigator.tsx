@@ -14,7 +14,7 @@ import HomeTab from './HomeTab';
 
 const HomeNavigator: React.FC = () => (
   <>
-    <TitlePage title="Good Morning!" />
+    <TitlePage />
     <HomeTab.Navigator
       initialRouteName="Home"
       shifting

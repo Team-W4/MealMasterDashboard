@@ -5,7 +5,7 @@ import Grid, { Column } from '../Containers/Grid';
 import Card from '../Cards/Card';
 import Text from '../Texts/Text';
 
-const StyledCardItem = styled(Card)`
+const MenuItemCardWrapper = styled(Card)`
   border-radius: 0px;
 `;
 
@@ -16,7 +16,7 @@ export type Props = {
 };
 
 const MenuItemCard: React.FC<Props> = ({ title, icon, onPress }) => (
-  <StyledCardItem onPress={ onPress }>
+  <MenuItemCardWrapper onPress={ onPress }>
     <Grid px="l">
       <Box width="50px" justifyContent="center" alignItems="center">
         {icon}
@@ -25,7 +25,7 @@ const MenuItemCard: React.FC<Props> = ({ title, icon, onPress }) => (
         <Text py="xl">{title}</Text>
       </Column>
     </Grid>
-  </StyledCardItem>
+  </MenuItemCardWrapper>
 );
 
 export default MenuItemCard;

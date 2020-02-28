@@ -124,6 +124,7 @@ const RecipeDetailsPage: React.FC<Props> = ({
               <Tag value={ tag.name } />
             </Box>
           ))}
+          <Box width="48px" />
         </TagList>
       )}
       <Paragraph px="xxl">{instructions}</Paragraph>
