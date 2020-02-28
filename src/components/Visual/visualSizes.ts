@@ -1,6 +1,7 @@
 import { variant } from 'styled-system';
 
 enum visualSizeEnum {
+  tiny,
   small,
   normal,
   large,
@@ -16,6 +17,9 @@ export type VisualSizeProps = {
 const visualSizes = variant({
   prop: 'size',
   variants: {
+    tiny: {
+      height: '50px',
+    },
     small: {
       height: '100px',
     },

@@ -33,7 +33,7 @@ export const properDateHelper = (
   const month = months[dateObj.getMonth()];
   const year = dateObj.getFullYear();
 
-  return `${showWeekday ? `${weekday} ` : ''}${month} ${date} ${
+  return `${showWeekday ? `${weekday} ` : ''}${month} ${date}${
     showYear ? `, ${year}` : ''
   }`;
 };
@@ -42,7 +42,7 @@ export const dateDifferenceHelper = (date1: Date, date2: Date): number => (
   Math.floor((date1.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24))
 );
 
-export const dateParser = (dateString: string): Date => {
+export const dateParser = (dateString?: string): Date => {
   if (!dateString || dateString.length < 0) {
     return new Date();
   }

@@ -3,6 +3,13 @@ export type Tag = {
   name: string;
 };
 
+export type User = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  createDate: string;
+}
+
 export type GenericFood = {
   id: number;
   name: string;
@@ -13,12 +20,12 @@ export type GenericFood = {
 
 export type Stock = {
   id: number;
-  totalQuantity: number;
-  quantityInGrams: number;
-  food: GenericFood;
-  foodName: string;
-  nextExpiration: string;
-  tags: Array<Tag>;
+  totalQuantity?: number;
+  quantityInGrams?: number;
+  food?: GenericFood;
+  foodName?: string;
+  nextExpiration?: string;
+  tags?: Array<Tag>;
 };
 
 export type StockItem = {
@@ -36,5 +43,8 @@ export type StockDetails = Stock & {
 
 export type Recipe = {
   id: number;
-  tags: Array<Tag>;
+  name?: string;
+  tags?: Array<Tag>;
+  cookTime?: string;
+  yield?: string;
 };
