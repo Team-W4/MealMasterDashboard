@@ -23,6 +23,9 @@ module.exports = {
         },
       }
     ],
+    'react/jsx-curly-newline': 'off',
+    'react/static-property-placement': 'off',
+    'react/state-in-constructor': 'off',
     'react/jsx-props-no-spreading': 'off',
     'react/prop-types': 'off',
   }
