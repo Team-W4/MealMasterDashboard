@@ -1,6 +1,9 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { LayoutAnimation } from 'react-native';
+// @ts-ignore
+import { CustomLayoutSpring } from "react-native-animation-layout";
 import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs';
 import { dateParser } from '../../../utils';
 import { stockActions } from '../../../actions';
@@ -34,6 +37,8 @@ class StockListPage extends React.Component<Props> {
   public refresh(): void {
     const { getAllStock } = this.props;
     getAllStock();
+
+    LayoutAnimation.configureNext(CustomLayoutSpring(null, null, "scaleXY"));
   }
 
   public render(): JSX.Element {

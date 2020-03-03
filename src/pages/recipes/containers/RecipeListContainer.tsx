@@ -1,6 +1,9 @@
 import React from 'react';
+import { LayoutAnimation } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+// @ts-ignore
+import { CustomLayoutSpring } from "react-native-animation-layout";
 import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs';
 import { HomeTabParamList } from '../../navigator/HomeTab';
 import { recipeActions } from '../../../actions';
@@ -20,6 +23,8 @@ class RecipeListPage extends React.Component<Props> {
   public componentDidMount(): void {
     const { userId, getRecipesByUser } = this.props;
     getRecipesByUser(userId);
+
+    LayoutAnimation.configureNext(CustomLayoutSpring(null, null, "scaleXY"));
   }
 
   public render(): JSX.Element {

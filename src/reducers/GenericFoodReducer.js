@@ -2,7 +2,6 @@ import { genericFoodActionTypes as actionTypes } from '../constants/actionTypes'
 import { createReducer } from '../utils';
 
 const initialState = {
-  foods: [],
   foodDetails: {},
   isFetching: false,
 };

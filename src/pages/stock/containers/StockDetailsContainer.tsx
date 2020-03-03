@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
+import { LayoutAnimation } from 'react-native';
+// @ts-ignore
+import { CustomLayoutSpring } from "react-native-animation-layout";
 import { stockActions } from '../../../actions';
 import { AuthStackParamList } from '../../auths/AuthStack';
 import StockDetailsPage from '../components/StockDetailsPage';
@@ -38,6 +41,8 @@ class StockDetailsContainer extends React.Component<Props> {
     } = this.props;
 
     getFoodStockById(stockId);
+
+    LayoutAnimation.configureNext(CustomLayoutSpring(null, null, "scaleXY"));
   }
 
   public render(): JSX.Element {

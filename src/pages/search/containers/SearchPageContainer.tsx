@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { bindActionCreators } from 'redux';
+import { LayoutAnimation } from 'react-native';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { genericFoodActions, recipeActions } from '../../../actions';
-import colors from '../../../styled/variables/colors';
+// @ts-ignore
+import { CustomLayoutSpring } from 'react-native-animation-layout';
+import { searchActions } from '../../../actions';
 import Box from '../../../components/Containers/Box';
-import SearchBar from '../components/SearchBar';
-import SearchFoodTab from '../components/SearchFoodTab';
-import SearchRecipeTab from '../components/SearchRecipeTab';
+import SearchInput from '../components/SearchInput';
+import SearchFoodTab from './SearchFoodTab';
+import SearchRecipeTab from './SearchRecipeTab';
+import SearchTabBar from './SearchTabBarContainer';
 
 export type Props = {
   clearSearch: () => void;
@@ -24,6 +27,7 @@ const SearchPage: React.FC<Props> = ({
 }) => {
   const prevSearch = useRef<string>();
   const [searchTerm, setSearchTerm] = useState('');
+
   useEffect(() => {
     if (prevSearch.current !== searchTerm) {
       prevSearch.current = searchTerm;
@@ -31,39 +35,28 @@ const SearchPage: React.FC<Props> = ({
 
     onSearchFood(searchTerm);
     onSearchRecipe(searchTerm);
+
+    LayoutAnimation.configureNext(CustomLayoutSpring(null, null, "scaleXY"));
   }, [searchTerm]);
 
   return (
     <Box flexGrow={ 1 } width="100%">
-      <SearchBar
+      <SearchInput
         value={ searchTerm }
-        onClear={ clearSearch }
+        onClear={ () => {
+          setSearchTerm('');
+          clearSearch();
+        } }
         onChangeText={ (e: string) => setSearchTerm(e) }
       />
       <SearchTab.Navigator
-        tabBarOptions={{
-          activeTintColor: colors.black,
-          inactiveTintColor: colors.athensgray,
-          indicatorStyle: {
-            backgroundColor: colors.neoncarrot,
-            borderRadius: 20,
-            height: 5,
-            width: 50,
-            bottom: 20,
-            left: 35,
-          },
-          labelStyle: {
-            fontFamily: 'SofiaProRegular',
-            fontSize: 20,
-            textTransform: 'capitalize',
-          },
-        }}
+        tabBar={ (props: any) => <SearchTabBar { ...props } /> }
       >
         <SearchTab.Screen
-          name="SearchFood"
+          name="SearchFoods"
           component={ SearchFoodTab }
           options={{
-            tabBarLabel: 'foods',
+            tabBarLabel: 'Foods',
           }}
         />
         <SearchTab.Screen
@@ -94,9 +87,9 @@ const SearchPage: React.FC<Props> = ({
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators(
     {
-      clearSearch: genericFoodActions.clearSearch,
-      onSearchFood: genericFoodActions.searchGenericFood,
-      onSearchRecipe: recipeActions.searchRecipes,
+      clearSearch: searchActions.clearSearch,
+      onSearchFood: searchActions.searchFoods,
+      onSearchRecipe: searchActions.searchRecipes,
     },
     dispatch,
   );

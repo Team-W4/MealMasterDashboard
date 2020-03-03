@@ -6,17 +6,6 @@ const receiveFood = (food) => ({
   food,
 });
 
-const receiveFoods = (foods) => ({
-  type: actionTypes.RECEIVE_FOODS,
-  foods,
-});
-
-export const searchGenericFood = (searchTerms) => (dispatch) => {
-  dispatch({ type: actionTypes.FETCH_FOODS });
-
-  GenericFoodService.searchGenericFood(searchTerms).then((foods) => dispatch(receiveFoods(foods)));
-};
-
 export const getGenericFoodById = (foodId) => (dispatch) => {
   dispatch({ type: actionTypes.FETCH_FOOD });
 

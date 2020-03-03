@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { titleHelper } from '../../../utils';
 import { Recipe } from '../../../constants/dataTypes';
 import Box from '../../../components/Containers/Box';
-import SearchResultList from './SearchResultList';
-import RecipeSearchListCard from './RecipeSearchListCard';
+import DataList from '../../../components/DataList';
+import RecipeSearchListCard from '../components/RecipeSearchListCard';
 
 type Props = {
   data?: Array<Recipe>;
@@ -13,7 +13,7 @@ type Props = {
 const SearchRecipeTab: React.FC<Props> = ({
   data,
 }) => (
-  <SearchResultList
+  <DataList
     data={ data }
     keyExtractor={ (item) => item.id.toString() }
     renderItem={ ({ item }) => (
@@ -31,7 +31,7 @@ const SearchRecipeTab: React.FC<Props> = ({
 );
 
 const mapStateToProps = (state: any) => ({
-  data: state.recipe.searchedRecipes,
+  data: state.search.recipes,
 });
 
 export default connect(

@@ -3,7 +3,6 @@ import { createReducer } from '../utils';
 
 const initialState = {
   profile: {},
-  users: [],
   userDetails: {},
   userToken: null,
   isFetching: false,
@@ -19,19 +18,10 @@ const UserReducer = createReducer(initialState, {
     ...state,
     isFetching: true,
   }),
-  [actionTypes.FETCH_USERS]: (state) => ({
-    ...state,
-    isFetching: true,
-  }),
   [actionTypes.RECEIVE_USER]: (state, { user }) => ({
     ...state,
     isFetching: false,
     userDetails: user,
-  }),
-  [actionTypes.RECEIVE_USERS]: (state, { users }) => ({
-    ...state,
-    isFetching: false,
-    users,
   }),
   [actionTypes.RECEIVE_PROFILE]: (state, { profile, userToken }) => ({
     ...state,

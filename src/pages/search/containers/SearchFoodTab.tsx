@@ -2,15 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { GenericFood } from '../../../constants/dataTypes';
 import Box from '../../../components/Containers/Box';
-import SearchResultList from './SearchResultList';
-import IngredientSearchListCard from './IngredientSearchListCard';
+import DataList from '../../../components/DataList';
+import IngredientSearchListCard from '../components/IngredientSearchListCard';
 
 type Props = {
   data?: Array<GenericFood>;
 };
 
 const SearchFoodTab: React.FC<Props> = ({ data }) => (
-  <SearchResultList
+  // @ts-ignore
+  <DataList
     data={ data }
     keyExtractor={ (item: GenericFood) => item.id.toString() }
     renderItem={ ({ item }: { item: GenericFood }) => (
@@ -22,7 +23,7 @@ const SearchFoodTab: React.FC<Props> = ({ data }) => (
 );
 
 const mapStateToProps = (state: any) => ({
-  data: state.food.foods,
+  data: state.search.foods,
 });
 
 export default connect(

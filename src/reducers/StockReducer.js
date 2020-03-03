@@ -2,9 +2,9 @@ import { stockActionTypes as actionTypes } from '../constants/actionTypes';
 import { createReducer } from '../utils';
 
 const initialState = {
+  foodStocks: [],
   stockItemDetails: {},
   foodStockDetails: {},
-  foodStocks: [],
   isFetching: false,
   receiptFoodIds: [],
   isFetchingReceiptFoods: false,
