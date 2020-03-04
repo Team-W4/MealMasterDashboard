@@ -6,24 +6,24 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 // @ts-ignore
 import { CustomLayoutSpring } from 'react-native-animation-layout';
 import { searchActions } from '../../../actions';
-import Box from '../../../components/Containers/Box';
+import SafeView from '../../../components/SafeView';
 import SearchInput from '../components/SearchInput';
 import SearchFoodTab from './SearchFoodTab';
 import SearchRecipeTab from './SearchRecipeTab';
 import SearchTabBar from './SearchTabBarContainer';
 
 export type Props = {
-  clearSearch: () => void;
   onSearchFood: (term: string) => void;
   onSearchRecipe: (term: string) => void;
+  onSearchUser: (term: string) => void;
 };
 
 const SearchTab = createMaterialTopTabNavigator();
 
 const SearchPage: React.FC<Props> = ({
-  clearSearch,
   onSearchFood,
   onSearchRecipe,
+  onSearchUser,
 }) => {
   const prevSearch = useRef<string>();
   const [searchTerm, setSearchTerm] = useState('');
@@ -35,17 +35,17 @@ const SearchPage: React.FC<Props> = ({
 
     onSearchFood(searchTerm);
     onSearchRecipe(searchTerm);
+    onSearchUser(searchTerm);
 
     LayoutAnimation.configureNext(CustomLayoutSpring(null, null, "scaleXY"));
   }, [searchTerm]);
 
   return (
-    <Box flexGrow={ 1 } width="100%">
+    <SafeView full>
       <SearchInput
         value={ searchTerm }
         onClear={ () => {
           setSearchTerm('');
-          clearSearch();
         } }
         onChangeText={ (e: string) => setSearchTerm(e) }
       />
@@ -81,15 +81,15 @@ const SearchPage: React.FC<Props> = ({
           }}
         />
       </SearchTab.Navigator>
-    </Box>
+    </SafeView>
   );
 }
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators(
     {
-      clearSearch: searchActions.clearSearch,
       onSearchFood: searchActions.searchFoods,
       onSearchRecipe: searchActions.searchRecipes,
+      onSearchUser: searchActions.searchUsers,
     },
     dispatch,
   );

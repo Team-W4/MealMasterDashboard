@@ -38,7 +38,7 @@ const HomeNavigator: React.FC = () => {
             tabBarIcon: () => <HomeOutlineIcon variant="inverted" />,
           }}
         />
-        <HomeTab.Screen
+        {/* <HomeTab.Screen
           name="Search"
           component={ SearchPage }
           options={{
@@ -46,12 +46,12 @@ const HomeNavigator: React.FC = () => {
             tabBarLabel: 'Search',
             tabBarIcon: () => <SearchIcon variant="inverted" />,
           }}
-        />
+        /> */}
         <HomeTab.Screen
           name="Stocks"
           component={ StockPage }
           options={{
-            tabBarColor: colors.neoncarrot,
+            tabBarColor: colors.orange,
             tabBarLabel: 'Stocks',
             tabBarIcon: () => <StockIcon variant="inverted" />,
           }}
@@ -60,7 +60,7 @@ const HomeNavigator: React.FC = () => {
           name="Recipes"
           component={ RecipesPage }
           options={{
-            tabBarColor: colors.orange,
+            tabBarColor: colors.neoncarrot,
             tabBarLabel: 'Recipes',
             tabBarIcon: () => <SavedIcon variant="inverted" />,
           }}

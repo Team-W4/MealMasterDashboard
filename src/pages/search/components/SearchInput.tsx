@@ -25,7 +25,7 @@ const StyledSearchInput = styled.TextInput`
 `;
 
 export type Props = TextInputProps & {
-  onClear: () => void;
+  onClear?: () => void;
 };
 
 const SearchInput: React.FC<Props> = ({

@@ -50,7 +50,7 @@ export type Props = {
     name?: string;
     cookTime?: string | number;
     ingredients?: Array<GenericFood>;
-    tags?: Array<Tag>;
+    tags?: Array<TagType>;
     instructions: string;
   };
 };
@@ -83,12 +83,12 @@ const RecipeDetailsPage: React.FC<Props> = ({
             <FavoriteIcon variant="warning" />
           </IconButton>
         </Box>
-        <Box position="absolute" left="xxxl" top="50px">
+        <Box position="absolute" left="xxxl">
           <IconButton rounded flat size="normal" onPress={ onBack }>
             <BackIcon size="normal" variant="warning" />
           </IconButton>
         </Box>
-        <Box position="absolute" right="xxxl" top="50px">
+        <Box position="absolute" right="xxxl">
           <IconButton rounded flat size="normal" onPress={ onShare }>
             <ShareIcon size="normal" variant="warning" />
           </IconButton>

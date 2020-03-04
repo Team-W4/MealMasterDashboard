@@ -1,7 +1,7 @@
 import { genericFoodActionTypes as actionTypes } from '../constants/actionTypes';
 import { GenericFoodService } from '../services';
 
-const receiveFood = (food) => ({
+export const receiveFood = (food) => ({
   type: actionTypes.RECEIVE_FOOD,
   food,
 });
@@ -11,7 +11,3 @@ export const getGenericFoodById = (foodId) => (dispatch) => {
 
   GenericFoodService.getGenericFoodById(foodId).then((food) => dispatch(receiveFood(food)));
 };
-
-export const clearSearch = () => ({
-  type: actionTypes.CLEAR_FOODS,
-});

@@ -4,6 +4,7 @@ import { navigate } from '../navigator/Navigator';
 import { properDateHelper } from '../../utils';
 import Box from '../../components/Containers/Box';
 import Grid, { Column } from '../../components/Containers/Grid';
+import SafeView from '../../components/SafeView';
 import Title from '../../components/Texts/Title';
 import ProfileImage from '../../components/ProfileImage';
 import Subtitle from '../../components/Texts/Subtitle';
@@ -26,17 +27,19 @@ const greetingsGenerator = (): string => {
 };
 
 const TitleBar: React.FC<Props> = ({ title }) => (
-  <Grid mb="s" mt="50px" mx="xxxl">
-    <Column>
-      <Title mb="xxs">{title || greetingsGenerator()}</Title>
-      <Subtitle>{properDateHelper(new Date())}</Subtitle>
-    </Column>
-    <Box justifyContent="center">
-      <TouchableOpacity onPress={ () => navigate('UserDetails') }>
-        <ProfileImage rounded />
-      </TouchableOpacity>
-    </Box>
-  </Grid>
+  <SafeView>
+    <Grid mx="xxxl">
+      <Column>
+        <Title mb="xxs">{title || greetingsGenerator()}</Title>
+        <Subtitle>{properDateHelper(new Date())}</Subtitle>
+      </Column>
+      <Box justifyContent="center">
+        <TouchableOpacity onPress={ () => navigate('UserDetails') }>
+          <ProfileImage rounded />
+        </TouchableOpacity>
+      </Box>
+    </Grid>
+  </SafeView>
 );
 
 export default TitleBar;

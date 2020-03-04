@@ -10,6 +10,7 @@ export type Props = {
   items: Array<MenuItemProps>;
 };
 
+// @ts-ignore
 const StyledModalWrapper = styled(Modal)`
   justify-content: flex-end;
   margin: 0;

@@ -1,14 +1,14 @@
 import React, { useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import AsyncStorage from '@react-native-community/async-storage';
 import { userActions } from '../../actions';
 import HomeNavigator from '../navigator/HomeNavigator';
 import * as navigator from '../navigator/Navigator';
 import LoadingPage from '../loading';
 import LoginPage from '../login';
+import SearchPage from '../search';
 import { RecipeDetailsPage } from '../recipes';
-import { StockDetailsPage, StockEditPage } from '../stock';
+import { StockDetailsPage } from '../stock';
 import UserDetailsPage, { UserEditPage } from '../user';
 import AuthStack from './AuthStack';
 import AuthContext from './AuthContext';
@@ -17,7 +17,7 @@ export type Props = {
   logOut: () => void;
   logIn: (email?: string, password?: string) => void;
   register: (email?: string, password?: string) => void;
-  restoreToken: (token: string | null) => void;
+  restoreToken: () => void;
   userToken: string | null;
   isLoading: boolean;
   isLoggedOut: boolean;
@@ -33,17 +33,7 @@ const AuthProvider: React.FC<Props> = ({
   isLoggedOut,
 }) => {
   useEffect(() => {
-    const retoreTokenAsync = async () => {
-      let token = null;
-
-      try {
-        token = await AsyncStorage.getItem('userToken');
-      } catch (e) {
-        console.log('Failed to retrieve user token');
-      }
-
-      restoreToken(token);
-    };
+    const retoreTokenAsync = async () => restoreToken();
 
     retoreTokenAsync();
   });
@@ -73,9 +63,9 @@ const AuthProvider: React.FC<Props> = ({
         {userToken ? (
           <>
             <AuthStack.Screen name="Home" component={ HomeNavigator } />
+            <AuthStack.Screen name="Search" component={ SearchPage } />
             <AuthStack.Screen name="RecipeDetails" component={ RecipeDetailsPage } />
             <AuthStack.Screen name="StockDetails" component={ StockDetailsPage } />
-            <AuthStack.Screen name="StockEdit" component={ StockEditPage } />
             <AuthStack.Screen name="UserDetails" component={ UserDetailsPage } />
             <AuthStack.Screen name="UserEdit" component={ UserEditPage } />
           </>

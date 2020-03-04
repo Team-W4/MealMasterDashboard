@@ -9,9 +9,8 @@ export type Props = {
   onPress: (ev: NativeSyntheticEvent<NativeTouchEvent> | void) => void;
 };
 
-
 const SearchTab: React.FC<Props> = ({
- title, active, onPress, onLongPress,
+  title, active, onPress, onLongPress, ...props
 }) => (
   <TextButton
     mr="50px"
@@ -19,9 +18,10 @@ const SearchTab: React.FC<Props> = ({
     variant={ active ? 'warning' : 'tertiary' }
     onLongPress={ onLongPress }
     onPress={ onPress }
+    { ...props }
   >
     {title}
   </TextButton>
 );
 
-export default SearchTab;
+export default React.forwardRef(SearchTab);

@@ -4,9 +4,9 @@ export type AuthStackParamList = {
   Login: undefined;
   Loading: undefined;
   Home: undefined;
+  Search: undefined;
   RecipeDetails: { recipeId: number };
   StockDetails: { stockId: number };
-  StockEdit: { stockItemId: number };
   UserDetails: undefined;
   UserEdit: undefined;
 };

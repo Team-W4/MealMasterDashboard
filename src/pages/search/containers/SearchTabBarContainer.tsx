@@ -1,5 +1,6 @@
 /* eslint-disable no-nested-ternary */
-import React from 'react';
+import React, { useRef } from 'react';
+import { findNodeHandle, View, ScrollView } from 'react-native';
 import styled from '../../../styled';
 import Box from '../../../components/Containers/Box';
 import SearchTab from '../components/SearchTab';
@@ -15,13 +16,20 @@ const SearchTabList = styled.ScrollView`
 export type Props = any;
 
 const SearchTabBarContainer: React.FC<Props> = ({
- state, descriptors, navigation,
-}) => (
-  <SearchTabList
-    horizontal
-    showsHorizontalScrollIndicator={ false }
-  >
-    {state.routes.map((route, index: number) => {
+  state, descriptors, navigation,
+}) => {
+  const scrollRef = useRef<ScrollView>();
+
+  return (
+    <SearchTabList
+      // @ts-ignore
+      ref={ scrollRef }
+      horizontal
+      showsHorizontalScrollIndicator={ false }
+    >
+      {state.routes.map((route, index: number) => {
+        let menuItemRef: View | null;
+
         const { options } = descriptors[route.key];
         const label = options.tabBarLabel !== undefined
             ? options.tabBarLabel
@@ -40,6 +48,17 @@ const SearchTabBarContainer: React.FC<Props> = ({
           if (!isFocused && !event.defaultPrevented) {
             navigation.navigate(route.name);
           }
+
+          if (scrollRef && scrollRef.current && menuItemRef) {
+            menuItemRef.measureLayout(
+              // @ts-ignore
+              findNodeHandle(scrollRef.current), (x: number) => scrollRef.current.scrollTo({
+                x: x <= 32 ? 0 : x,
+                y: 0,
+                animated: true,
+              }), () => {},
+            );
+          }
         };
 
         const onLongPress = () => {
@@ -50,17 +69,22 @@ const SearchTabBarContainer: React.FC<Props> = ({
         };
 
         return (
-          <SearchTab
+          <Box
             key={ label }
-            title={ label }
-            active={ isFocused }
-            onLongPress={ onLongPress }
-            onPress={ onPress }
-          />
+            ref={ (ref) => { menuItemRef = ref } }
+          >
+            <SearchTab
+              title={ label }
+              active={ isFocused }
+              onLongPress={ onLongPress }
+              onPress={ onPress }
+            />
+          </Box>
         );
       })}
-    <Box width="16px" />
-  </SearchTabList>
-);
+      <Box width="16px" />
+    </SearchTabList>
+  );
+}
 
 export default SearchTabBarContainer;

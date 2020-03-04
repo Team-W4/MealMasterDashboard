@@ -8,8 +8,8 @@
     "start": "react-native start",
     "link": "react-native link",
     "test": "jest",
-    "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src",
-    "lint-fix": "eslint --ext .js,.jsx,.ts,.tsx ./src --fix"
+    "lint": "tsc --p tsconfig.json && eslint --ext .js,.jsx,.ts,.tsx ./src",
+    "lint-fix": "tsc --p tsconfig.json && eslint --ext .js,.jsx,.ts,.tsx ./src --quiet --fix"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.8.0",
@@ -74,10 +74,13 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint"
+      "pre-commit": "tsc --noEmit && lint-staged"
     }
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix"
+    "*.{js,ts,tsx}": [
+      "eslint --fix",
+      "git add"
+    ]
   }
 }

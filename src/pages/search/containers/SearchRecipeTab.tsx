@@ -13,10 +13,11 @@ type Props = {
 const SearchRecipeTab: React.FC<Props> = ({
   data,
 }) => (
+  // @ts-ignore
   <DataList
     data={ data }
-    keyExtractor={ (item) => item.id.toString() }
-    renderItem={ ({ item }) => (
+    keyExtractor={ (item: Recipe) => item.id.toString() }
+    renderItem={ ({ item }: { item: Recipe }) => (
       <Box key={ item.name } px="l" mb="m">
         <RecipeSearchListCard
           title={ titleHelper(item.name) }

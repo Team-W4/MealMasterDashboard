@@ -54,8 +54,7 @@ const UserProfilePage: React.FC<Props> = ({
         <Box alignItems="center" justifyContent="center" pt="xxxl">
           <UserProfile rounded />
           <Text mt="m" size="large">
-            {`${firstName || 'Meal'} ${lastName
-            || 'Master'}`}
+            {`${firstName || 'Meal'} ${lastName || 'Master'}`}
           </Text>
           <Subtitle mb="m">{email || ''}</Subtitle>
           <Text>{`${0 || 0} Followers | ${0 || 0} Following`}</Text>

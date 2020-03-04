@@ -4,6 +4,7 @@ export type Tag = {
 };
 
 export type User = {
+  id: number;
   firstName: string;
   lastName: string;
   email: string;
@@ -22,14 +23,14 @@ export type Stock = {
   id: number;
   totalQuantity?: number;
   quantityInGrams?: number;
-  food?: GenericFood;
+  food: GenericFood;
   foodName?: string;
   nextExpiration?: string;
   tags?: Array<Tag>;
 };
 
 export type StockItem = {
-  id?: number;
+  id: number;
   location?: string;
   dateObtained: string;
   expirationDate?: string;

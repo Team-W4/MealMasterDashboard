@@ -5,31 +5,27 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { LayoutAnimation } from 'react-native';
 // @ts-ignore
-import { CustomLayoutSpring } from "react-native-animation-layout";
+import { CustomLayoutSpring } from 'react-native-animation-layout';
+import { StockDetails, StockItem } from '../../../constants/dataTypes';
 import { stockActions } from '../../../actions';
 import { AuthStackParamList } from '../../auths/AuthStack';
 import StockDetailsPage from '../components/StockDetailsPage';
 
 type Props = {
-  stockDetails?: any;
+  stockDetails: StockDetails;
+  stockItemDetails: StockItem;
   navigation: StackNavigationProp<AuthStackParamList, 'StockDetails'>;
   route: RouteProp<AuthStackParamList, 'StockDetails'>;
   getFoodStockById: (stockId: number) => void;
+  getStockItemById: (stockItemId: number) => void;
+  addToStock: (foodId: number, stockItem: StockItem) => void;
+  updateStockItem: (stockItem: StockItem) => void;
+  deleteStockitem: (stockItemId: number) => void;
 };
 
 class StockDetailsContainer extends React.Component<Props> {
-  private willFocusSubscription!: () => void;
-
   public componentDidMount(): void {
-    const { navigation } = this.props;
-
     this.refresh();
-    this.willFocusSubscription = navigation.addListener('focus', () => this.refresh());
-  }
-
-  public componentWillUnmount(): void {
-    const { navigation } = this.props;
-    navigation.removeListener('focus', this.willFocusSubscription);
   }
 
   public refresh(): void {
@@ -41,18 +37,29 @@ class StockDetailsContainer extends React.Component<Props> {
     } = this.props;
 
     getFoodStockById(stockId);
-
-    LayoutAnimation.configureNext(CustomLayoutSpring(null, null, "scaleXY"));
   }
 
   public render(): JSX.Element {
-    const { navigation, stockDetails } = this.props;
+    const {
+      navigation,
+      getStockItemById,
+      addToStock,
+      updateStockItem,
+      deleteStockitem,
+      stockDetails,
+      stockItemDetails,
+    } = this.props;
 
     return (
       <StockDetailsPage
         onBack={ () => navigation.pop(1) }
-        onAddEdit={ (params?: any) => navigation.push('StockEdit', params) }
+        onRefresh={ () => this.refresh() }
+        onItemClick={ getStockItemById }
+        onAdd={ (stockItem: StockItem) => addToStock(stockDetails.food.id, stockItem) }
+        onUpdate={ updateStockItem }
+        onDelete={ deleteStockitem }
         stockDetails={ stockDetails }
+        stockItemDetails={ stockItemDetails }
       />
     );
   }
@@ -60,12 +67,16 @@ class StockDetailsContainer extends React.Component<Props> {
 
 const mapStateToProps = (state: any) => ({
   stockDetails: state.stock.foodStockDetails,
+  stockItemDetails: state.stock.stockItemDetails,
 });
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators(
     {
-      getAllStock: stockActions.getAllStock,
       getFoodStockById: stockActions.getFoodStockById,
+      getStockItemById: stockActions.getStockItemById,
+      addToStock: stockActions.addToStock,
+      updateStockItem: stockActions.updateStockItem,
+      deleteStockitem: stockActions.deleteStockItem,
     },
     dispatch,
   );

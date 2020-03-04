@@ -3,18 +3,21 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { LayoutAnimation } from 'react-native';
 // @ts-ignore
-import { CustomLayoutSpring } from "react-native-animation-layout";
+import { CustomLayoutSpring } from 'react-native-animation-layout';
 import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { dateParser } from '../../../utils';
 import { stockActions } from '../../../actions';
 import { HomeTabParamList } from '../../navigator/HomeTab';
+import { AuthStackParamList } from '../../auths/AuthStack';
 import { Stock } from '../../../constants/dataTypes';
 import Box from '../../../components/Containers/Box';
 import StockListCard from '../components/StockListCard';
 import ScrollList from '../../../components/ScrollList';
 
 export type Props = {
-  navigation: MaterialBottomTabNavigationProp<HomeTabParamList, 'Stocks'>;
+  navigation: MaterialBottomTabNavigationProp<HomeTabParamList, 'Stocks'>
+    & StackNavigationProp<AuthStackParamList, 'Home'>;
   foodStocks: Array<Stock>;
   getAllStock: () => void;
 };
@@ -29,6 +32,15 @@ class StockListPage extends React.Component<Props> {
     this.willFocusSubscription = navigation.addListener('focus', () => this.refresh());
   }
 
+  public componentDidUpdate(prevProps: Props): void {
+    const { foodStocks } = this.props;
+    const { foodStocks: prevStocks } = prevProps;
+
+    if (foodStocks !== prevStocks) {
+      LayoutAnimation.configureNext(CustomLayoutSpring(null, null, "scaleXY"));
+    }
+  }
+
   public componentWillUnmount(): void {
     const { navigation } = this.props;
     navigation.removeListener('focus', this.willFocusSubscription);
@@ -37,8 +49,6 @@ class StockListPage extends React.Component<Props> {
   public refresh(): void {
     const { getAllStock } = this.props;
     getAllStock();
-
-    LayoutAnimation.configureNext(CustomLayoutSpring(null, null, "scaleXY"));
   }
 
   public render(): JSX.Element {
