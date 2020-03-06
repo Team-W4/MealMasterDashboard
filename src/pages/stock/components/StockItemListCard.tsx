@@ -2,11 +2,9 @@
 import React from 'react';
 import { properDateHelper, dateDifferenceHelper, dateParser } from '../../../utils';
 import { stockItemLabelHelper } from '../expiryHelper';
-import Box from '../../../components/Containers/Box';
-import Grid, { Row } from '../../../components/Containers/Grid';
-import Text from '../../../components/Texts/Text';
-import ClockIcon from '../../../components/Icons/Clock';
-import QuantityIcon from '../../../components/Icons/Quantity';
+import { Text } from '../../../components/Texts';
+import { Box, Grid, Row } from '../../../components/Containers';
+import { ClockIcon, QuantityIcon } from '../../../components/Icons';
 import StockListCardWrapper, { Props as SWProps } from './StockListCardWrapper';
 
 export type Props = SWProps & {

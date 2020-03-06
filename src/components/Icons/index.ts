@@ -1,0 +1,16 @@
+export { default as AddIcon } from './components/Add';
+export { default as BackIcon } from './components/Back';
+export { default as CancelIcon } from './components/Cancel';
+export { default as CheckIcon } from './components/Check';
+export { default as ClockIcon } from './components/Clock';
+export { default as DeleteIcon } from './components/Delete';
+export { default as DeleteStockIcon } from './components/DeleteStock';
+export { default as FavoriteIcon } from './components/Favorite';
+export { default as HomeOutlineIcon } from './components/HomeOutline';
+export { default as MoreIcon } from './components/More';
+export { default as QuantityIcon } from './components/Quantity';
+export { default as SavedIcon } from './components/Saved';
+export { default as SearchIcon } from './components/Search';
+export { default as ShareIcon } from './components/Share';
+export { default as StockIcon } from './components/Stock';
+export { default as UtensilsIcon } from './components/Utensils';

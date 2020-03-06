@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { TextInputProps } from 'react-native';
+import { Heading, Text } from '../../Texts';
 import InputWrapper from './InputWrapper';
 import StyledInputWrapper, { Keys as SWKeys } from './StyledInputWrapper';
 import StyledInputField, { Props as SIProps } from './StyledInputField';
-import Heading from '../../Texts/Heading';
-import Text from '../../Texts/Text';
 
 export type Props = TextInputProps &
   SIProps & {

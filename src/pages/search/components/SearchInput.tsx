@@ -1,11 +1,9 @@
 import React from 'react';
 import { TextInputProps } from 'react-native';
 import styled from '../../../styled';
-import Box from '../../../components/Containers/Box';
-import Grid, { Column } from '../../../components/Containers/Grid';
-import SearchIcon from '../../../components/Icons/Search';
-import DeleteIcon from '../../../components/Icons/Delete';
-import IconButton from '../../../components/Buttons/IconButton';
+import { Box, Grid, Column } from '../../../components/Containers';
+import { DeleteIcon, SearchIcon } from '../../../components/Icons';
+import { IconButton } from '../../../components/Buttons';
 
 const StyledSearchInputWrapper = styled(Grid)`
   elevation: 10;

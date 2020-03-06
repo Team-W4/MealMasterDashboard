@@ -1,16 +1,11 @@
 import React from 'react';
-import { titleHelper } from '../../../utils';
 import styled from '../../../styled';
-import Box from '../../../components/Containers/Box';
-import Grid, { Row } from '../../../components/Containers/Grid';
-import Card from '../../../components/Cards/Card';
-import Subtitle from '../../../components/Texts/Subtitle';
-import Heading from '../../../components/Texts/Heading';
+import { titleHelper } from '../../../utils';
+import { Box, Grid, Row } from '../../../components/Containers';
+import { Card } from '../../../components/Cards';
+import { Heading, Subtitle, Text } from '../../../components/Texts';
 import Rating from '../../../components/Rating';
-import Text from '../../../components/Texts/Text';
-import ClockIcon from '../../../components/Icons/Clock';
-import QuantityIcon from '../../../components/Icons/Quantity';
-import UtensilsIcon from '../../../components/Icons/Utensils';
+import { ClockIcon, QuantityIcon, UtensilsIcon } from '../../../components/Icons';
 
 const RecipeRecImage = styled.Image`
   width: 350px;

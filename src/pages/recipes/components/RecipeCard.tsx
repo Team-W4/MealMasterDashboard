@@ -1,13 +1,9 @@
 import React from 'react';
 import styled from '../../../styled';
-import Box from '../../../components/Containers/Box';
-import Grid, { Row } from '../../../components/Containers/Grid';
-import ClockIcon from '../../../components/Icons/Clock';
-import QuantityIcon from '../../../components/Icons/Quantity';
-import UtensilsIcon from '../../../components/Icons/Utensils';
-import Heading from '../../../components/Texts/Heading';
-import Subtitle from '../../../components/Texts/Subtitle';
-import Card, { Props as CardProps } from '../../../components/Cards/Card';
+import { Box, Grid, Row } from '../../../components/Containers';
+import { Card, CardProps } from '../../../components/Cards';
+import { Heading, Subtitle } from '../../../components/Texts';
+import { ClockIcon, QuantityIcon, UtensilsIcon } from '../../../components/Icons';
 
 const StyledImage = styled.Image`
   height: 100px;

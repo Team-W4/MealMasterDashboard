@@ -1,7 +1,7 @@
 import React from 'react';
 import { NativeSyntheticEvent, NativeTouchEvent } from 'react-native';
 import styled from '../../../styled';
-import Text, { Props as TextProps } from '../../Texts/Text';
+import { Text, TextProps } from '../../Texts';
 
 export type Props = TextProps & {
   onLongPress?: (ev: NativeSyntheticEvent<NativeTouchEvent> | void) => void;

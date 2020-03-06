@@ -1,5 +1,5 @@
 import styled from '../../../styled';
-import Card, { Props as CardProps } from '../../../components/Cards/Card';
+import { Card, CardProps } from '../../../components/Cards';
 
 enum stockCardColorEnum {
   warning,

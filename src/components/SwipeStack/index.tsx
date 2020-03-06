@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Animated, PanResponder } from 'react-native';
-import Box from '../Containers/Box';
+import { Box } from '../Containers';
 
 export type Props = {
   data: Array<any>;

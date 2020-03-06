@@ -2,13 +2,11 @@ import React, { useContext, useState } from 'react';
 import styled from '../../styled';
 import { emailChecker } from '../../utils';
 import AuthContext from '../auths/AuthContext';
-import Grid, { Column } from '../../components/Containers/Grid';
-import Text from '../../components/Texts/Text';
-import TextButton from '../../components/Buttons/TextButton';
-import IconButton from '../../components/Buttons/IconButton';
-import Box from '../../components/Containers/Box';
-import Input from '../../components/Inputs/Input';
-import Back from '../../components/Icons/Back';
+import { Box, Grid, Column } from '../../components/Containers';
+import { Text } from '../../components/Texts';
+import { TextButton, IconButton } from '../../components/Buttons';
+import { Input } from '../../components/Inputs';
+import { BackIcon } from '../../components/Icons';
 import ScrollList from '../../components/ScrollList';
 
 const ERROR_MSGS = {
@@ -24,7 +22,7 @@ const LoginView = styled(ScrollList)`
   padding-right: ${({ theme: { space } }) => space.xxxl};
 `;
 
-const LoginIcon = styled(Back)`
+const LoginIcon = styled(BackIcon)`
   transform: rotate(180deg);
 `;
 

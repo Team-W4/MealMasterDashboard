@@ -1,21 +1,15 @@
 import React from 'react';
 import styled from '../../../styled';
 import { GenericFood, Tag as TagType } from '../../../constants/dataTypes';
-import FavoriteIcon from '../../../components/Icons/Favorite';
-import BackIcon from '../../../components/Icons/Back';
-import ShareIcon from '../../../components/Icons/Share';
-import Box from '../../../components/Containers/Box';
-import Grid, { Column } from '../../../components/Containers/Grid';
-import IconButton from '../../../components/Buttons/IconButton';
-import Button from '../../../components/Buttons/Button';
-import Label from '../../../components/Label';
+import { Box, Grid, Column } from '../../../components/Containers';
+import { Button, IconButton } from '../../../components/Buttons';
+import { Title, Subtitle, Paragraph } from '../../../components/Texts';
+import { FavoriteIcon, BackIcon, ShareIcon } from '../../../components/Icons';
 import ProfileImage from '../../../components/ProfileImage';
 import Rating from '../../../components/Rating';
 import Tag from '../../../components/Tag';
-import Title from '../../../components/Texts/Title';
-import Subtitle from '../../../components/Texts/Subtitle';
-import Paragraph from '../../../components/Texts/Paragraph';
 import Visual from '../../../components/Visual';
+import Label from '../../../components/Label';
 
 const RecipeDetailsScroll = styled.ScrollView`
   flex: 1;

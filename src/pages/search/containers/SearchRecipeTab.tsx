@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { titleHelper } from '../../../utils';
 import { Recipe } from '../../../constants/dataTypes';
-import Box from '../../../components/Containers/Box';
+import { Box } from '../../../components/Containers';
 import DataList from '../../../components/DataList';
 import RecipeSearchListCard from '../components/RecipeSearchListCard';
 

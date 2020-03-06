@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { Platform, UIManager } from 'react-native';
+import {
+ HomeOutlineIcon, SearchIcon, SavedIcon, StockIcon,
+} from '../../components/Icons';
 import colors from '../../styled/variables/colors';
-import HomeOutlineIcon from '../../components/Icons/HomeOutline';
-import SearchIcon from '../../components/Icons/Search';
-import SavedIcon from '../../components/Icons/Saved';
-import StockIcon from '../../components/Icons/Stock';
 import TitlePage from '../title';
 import HomePage from '../home';
 import SearchPage from '../search';

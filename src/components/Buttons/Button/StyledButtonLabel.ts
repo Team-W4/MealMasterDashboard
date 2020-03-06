@@ -1,5 +1,5 @@
 import styled from '../../../styled';
-import Text from '../../Texts/Text';
+import { Text } from '../../Texts';
 
 const StyledLabel = styled(Text)`
   text-align: center;

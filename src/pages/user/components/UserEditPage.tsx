@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { AuthNavigationProps } from '../../auths/AuthStack';
 import styled from '../../../styled';
-import Box from '../../../components/Containers/Box';
-import { Column } from '../../../components/Containers/Grid';
+import { AuthNavigationProps } from '../../auths/AuthStack';
+import { Box, Column } from '../../../components/Containers';
+import { Input } from '../../../components/Inputs';
+import { Button } from '../../../components/Buttons';
+import { Subtitle } from '../../../components/Texts';
 import ProfileImage from '../../../components/ProfileImage';
-import Input from '../../../components/Inputs/Input';
-import Button from '../../../components/Buttons/Button';
-import Subtitle from '../../../components/Texts/Subtitle';
 
 export type Props = AuthNavigationProps<'UserEdit'> & {
   updateProfile: (profile: any) => void;

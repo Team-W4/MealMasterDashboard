@@ -8,7 +8,7 @@ import { HomeNavigationProps } from '../../navigator/HomeTab';
 import { AuthNavigationProps } from '../../auths/AuthStack';
 import { recipeActions } from '../../../actions';
 import { Recipe } from '../../../constants/dataTypes';
-import Box from '../../../components/Containers/Box';
+import { Box } from '../../../components/Containers';
 import ScrollList from '../../../components/ScrollList';
 import RecipeCard from '../components/RecipeCard';
 

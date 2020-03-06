@@ -6,20 +6,17 @@ import styled from '../../../styled';
 import {
   titleHelper, dateDifferenceHelper, properDateHelper, dateParser,
 } from '../../../utils';
-import { StockItem, StockDetails, Tag as TagType } from '../../../constants/dataTypes';
-import AddIcon from '../../../components/Icons/Add';
-import CheckIcon from '../../../components/Icons/Check';
-import CancelIcon from '../../../components/Icons/Cancel';
-import DeleteStockIcon from '../../../components/Icons/DeleteStock';
-import SearchIcon from '../../../components/Icons/Search';
-import Box from '../../../components/Containers/Box';
-import Grid from '../../../components/Containers/Grid';
-import IconButton from '../../../components/Buttons/IconButton';
-import Input from '../../../components/Inputs/Input';
-import DateInput from '../../../components/Inputs/DateInput';
+import {
+  AddIcon, CheckIcon, CancelIcon, DeleteStockIcon, SearchIcon,
+} from '../../../components/Icons';
+import {
+  StockItem, StockDetails, Tag as TagType,
+} from '../../../constants/dataTypes';
+import { Box, Grid } from '../../../components/Containers';
+import { IconButton } from '../../../components/Buttons';
+import { Input, DateInput } from '../../../components/Inputs';
+import { Title, Subtitle } from '../../../components/Texts';
 import Tag from '../../../components/Tag';
-import Title from '../../../components/Texts/Title';
-import Subtitle from '../../../components/Texts/Subtitle';
 import Visual from '../../../components/Visual';
 import StockItemListCard from './StockItemListCard';
 

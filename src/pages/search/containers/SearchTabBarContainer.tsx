@@ -2,7 +2,7 @@
 import React, { useRef } from 'react';
 import { findNodeHandle, View, ScrollView } from 'react-native';
 import styled from '../../../styled';
-import Box from '../../../components/Containers/Box';
+import { Box } from '../../../components/Containers';
 import { SearchTabBarProps } from '../components/SearchTab';
 import SearchTabLabel from '../components/SearchTabLabel';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import throttle from 'lodash.throttle';
-import Paragraph from '../../components/Texts/Paragraph';
 import styled from '../../styled';
+import { Paragraph } from '../../components/Texts';
 
 const LoadingView = styled.View`
   width: 100%;

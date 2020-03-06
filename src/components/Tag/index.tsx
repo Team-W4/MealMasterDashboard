@@ -1,7 +1,7 @@
 import React from 'react';
-import Text from '../Texts/Text';
-import StyledTagWrapper from './StyledTagWrapper';
+import { Text } from '../Texts';
 import { TagColorProps } from './tagColors';
+import StyledTagWrapper from './StyledTagWrapper';
 
 export type Props = TagColorProps & {
   value: string;

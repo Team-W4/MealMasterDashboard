@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 import Modal from 'react-native-modal';
 import styled from '../../styled';
-import MoreIcon from '../Icons/More';
-import IconButton from '../Buttons/IconButton';
+import { IconButton } from '../Buttons';
+import { MoreIcon } from '../Icons';
 import MenuItemCard, { Props as MenuItemProps } from './MenuItemCard';
 
 export type Props = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { User } from '../../../constants/dataTypes';
-import Box from '../../../components/Containers/Box';
+import { Box } from '../../../components/Containers';
 import DataList from '../../../components/DataList';
 
 type Props = {

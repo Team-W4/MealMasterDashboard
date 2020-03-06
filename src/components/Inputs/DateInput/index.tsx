@@ -3,8 +3,8 @@ import DateTimePicker, {
   IOSNativeProps,
   AndroidNativeProps,
 } from '@react-native-community/datetimepicker';
-import Box from '../../Containers/Box';
-import Heading from '../../Texts/Heading';
+import { Box } from '../../Containers';
+import { Heading } from '../../Texts';
 
 export type Props = (IOSNativeProps | AndroidNativeProps) & {
   title?: string;

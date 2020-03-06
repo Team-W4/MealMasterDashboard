@@ -1,6 +1,6 @@
 import React from 'react';
+import { Text } from '../Texts';
 import StyledLabelWrapper from './StyledLabelWrapper';
-import Text from '../Texts/Text';
 
 export type Props = {
   value: string;

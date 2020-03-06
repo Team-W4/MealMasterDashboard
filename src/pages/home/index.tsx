@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from '../../styled';
 import { HomeNavigationProps } from '../navigator/HomeTab';
-import Box from '../../components/Containers/Box';
+import { Box } from '../../components/Containers';
+import { Text } from '../../components/Texts';
 import SwipeStack from '../../components/SwipeStack';
 import SearchInput from '../search/components/SearchInput';
 import RecipeRecCard from './components/RecipeRecCard';
-import Text from '../../components/Texts/Text';
 
 const SearchEntry = styled.TouchableOpacity`
   position: absolute;

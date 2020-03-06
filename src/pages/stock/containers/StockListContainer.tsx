@@ -9,7 +9,7 @@ import { stockActions } from '../../../actions';
 import { HomeNavigationProps } from '../../navigator/HomeTab';
 import { AuthNavigationProps } from '../../auths/AuthStack';
 import { Stock } from '../../../constants/dataTypes';
-import Box from '../../../components/Containers/Box';
+import { Box } from '../../../components/Containers';
 import StockListCard from '../components/StockListCard';
 import ScrollList from '../../../components/ScrollList';
 

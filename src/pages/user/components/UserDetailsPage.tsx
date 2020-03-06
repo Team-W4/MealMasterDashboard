@@ -2,17 +2,14 @@ import React, { useContext } from 'react';
 import AuthContext from '../../auths/AuthContext';
 import { AuthNavigationProps } from '../../auths/AuthStack';
 import styled from '../../../styled';
-import Box from '../../../components/Containers/Box';
-import Grid, { Column } from '../../../components/Containers/Grid';
-import Text from '../../../components/Texts/Text';
-import Subtitle from '../../../components/Texts/Subtitle';
-import TextButton from '../../../components/Buttons/TextButton';
+import { Box, Grid, Column } from '../../../components/Containers';
+import { Text, Subtitle } from '../../../components/Texts';
+import { TextButton } from '../../../components/Buttons';
 import ProfileImage from '../../../components/ProfileImage';
 import UserDetailsCard from './UserDetailsCard';
-import StockIcon from '../../../components/Icons/Stock';
-import QuantityIcon from '../../../components/Icons/Quantity';
-import SavedIcon from '../../../components/Icons/Saved';
-import UtensilsIcon from '../../../components/Icons/Utensils';
+import {
+ StockIcon, QuantityIcon, SavedIcon, UtensilsIcon,
+} from '../../../components/Icons';
 import ScrollList from '../../../components/ScrollList'
 
 export type Props = AuthNavigationProps<'UserDetails'> & {

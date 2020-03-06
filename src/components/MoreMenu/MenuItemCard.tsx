@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from '../../styled';
-import Box from '../Containers/Box';
-import Grid, { Column } from '../Containers/Grid';
-import Card from '../Cards/Card';
-import Text from '../Texts/Text';
+import { Box, Grid, Column } from '../Containers';
+import { Card } from '../Cards';
+import { Text } from '../Texts';
 
 const MenuItemCardWrapper = styled(Card)`
   border-radius: 0px;

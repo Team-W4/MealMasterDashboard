@@ -1,6 +1,6 @@
 import React from 'react';
 import { NativeSyntheticEvent, NativeTouchEvent } from 'react-native';
-import TextButton from '../../../components/Buttons/TextButton';
+import { TextButton } from '../../../components/Buttons';
 
 export type Props = {
   title: string;

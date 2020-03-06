@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from '../../../styled';
 import { titleHelper } from '../../../utils';
-import { Column } from '../../../components/Containers/Grid';
-import Card, { Props as CardProps } from '../../../components/Cards/Card';
-import Heading from '../../../components/Texts/Heading';
-import Subtitle from '../../../components/Texts/Subtitle';
+import { Column } from '../../../components/Containers';
+import { Card, CardProps } from '../../../components/Cards';
+import { Heading, Subtitle } from '../../../components/Texts';
 
 const RoundedImage = styled.Image`
   position: absolute;
