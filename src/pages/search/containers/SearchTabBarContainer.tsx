@@ -3,7 +3,8 @@ import React, { useRef } from 'react';
 import { findNodeHandle, View, ScrollView } from 'react-native';
 import styled from '../../../styled';
 import Box from '../../../components/Containers/Box';
-import SearchTab from '../components/SearchTab';
+import { SearchTabBarProps } from '../components/SearchTab';
+import SearchTabLabel from '../components/SearchTabLabel';
 
 const SearchTabList = styled.ScrollView`
   flex-grow: 0;
@@ -13,7 +14,7 @@ const SearchTabList = styled.ScrollView`
   padding-bottom: ${({ theme: { space } }) => space.s};
 `;
 
-export type Props = {
+export type Props = SearchTabBarProps & {
 };
 
 const SearchTabBarContainer: React.FC<Props> = ({
@@ -32,7 +33,8 @@ const SearchTabBarContainer: React.FC<Props> = ({
         let menuItemRef: View | null;
 
         const { options } = descriptors[route.key];
-        const label = options.tabBarLabel !== undefined
+        // @ts-ignore
+        const label: string = options.tabBarLabel !== undefined
             ? options.tabBarLabel
             : options.title !== undefined
             ? options.title
@@ -44,6 +46,7 @@ const SearchTabBarContainer: React.FC<Props> = ({
           const event = navigation.emit({
             type: 'tabPress',
             target: route.key,
+            canPreventDefault: true,
           });
 
           if (!isFocused && !event.defaultPrevented) {
@@ -71,10 +74,10 @@ const SearchTabBarContainer: React.FC<Props> = ({
 
         return (
           <Box
-            key={ label }
+            key={ route.name }
             ref={ (ref) => { menuItemRef = ref } }
           >
-            <SearchTab
+            <SearchTabLabel
               title={ label }
               active={ isFocused }
               onLongPress={ onLongPress }

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { AuthStackParamList } from '../../auths/AuthStack';
+import { AuthNavigationProps } from '../../auths/AuthStack';
 import styled from '../../../styled';
 import Box from '../../../components/Containers/Box';
 import { Column } from '../../../components/Containers/Grid';
@@ -9,8 +8,7 @@ import Input from '../../../components/Inputs/Input';
 import Button from '../../../components/Buttons/Button';
 import Subtitle from '../../../components/Texts/Subtitle';
 
-export type Props = {
-  navigation: StackNavigationProp<AuthStackParamList, 'UserEdit'>;
+export type Props = AuthNavigationProps<'UserEdit'> & {
   updateProfile: (profile: any) => void;
   profile: {
     firstName: string;

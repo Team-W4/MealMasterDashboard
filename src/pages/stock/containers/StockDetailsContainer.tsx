@@ -1,21 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RouteProp } from '@react-navigation/native';
-import { LayoutAnimation } from 'react-native';
-// @ts-ignore
-import { CustomLayoutSpring } from 'react-native-animation-layout';
 import { StockDetails, StockItem } from '../../../constants/dataTypes';
 import { stockActions } from '../../../actions';
-import { AuthStackParamList } from '../../auths/AuthStack';
+import { AuthNavigationProps } from '../../auths/AuthStack';
 import StockDetailsPage from '../components/StockDetailsPage';
 
-type Props = {
+type Props = AuthNavigationProps<'StockDetails'> & {
   stockDetails: StockDetails;
   stockItemDetails: StockItem;
-  navigation: StackNavigationProp<AuthStackParamList, 'StockDetails'>;
-  route: RouteProp<AuthStackParamList, 'StockDetails'>;
   getFoodStockById: (stockId: number) => void;
   getStockItemById: (stockItemId: number) => void;
   addToStock: (foodId: number, stockItem: StockItem) => void;

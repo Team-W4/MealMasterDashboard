@@ -1,16 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RouteProp } from '@react-navigation/native';
 import { recipeActions } from '../../../actions';
-import { AuthStackParamList } from '../../auths/AuthStack';
+import { AuthNavigationProps } from '../../auths/AuthStack';
 import RecipeDetailsPage from '../components/RecipeDetailsPage';
 
-type Props = {
+type Props = AuthNavigationProps<'RecipeDetails'> & {
   recipeDetails?: any;
-  navigation: StackNavigationProp<AuthStackParamList, 'RecipeDetails'>;
-  route: RouteProp<AuthStackParamList, 'RecipeDetails'>;
   getRecipeById: (id: number) => void;
   clearRecipeDetails: () => void;
 };

@@ -4,19 +4,17 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 // @ts-ignore
 import { CustomLayoutSpring } from 'react-native-animation-layout';
-import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { HomeTabParamList } from '../../navigator/HomeTab';
-import { AuthStackParamList } from '../../auths/AuthStack';
+import { HomeNavigationProps } from '../../navigator/HomeTab';
+import { AuthNavigationProps } from '../../auths/AuthStack';
 import { recipeActions } from '../../../actions';
 import { Recipe } from '../../../constants/dataTypes';
 import Box from '../../../components/Containers/Box';
 import ScrollList from '../../../components/ScrollList';
 import RecipeCard from '../components/RecipeCard';
 
-export type Props = {
-  navigation: MaterialBottomTabNavigationProp<HomeTabParamList, 'Recipes'>
-    & StackNavigationProp<AuthStackParamList, 'Home'>;
+export type Props = HomeNavigationProps<'Recipes'>
+  & AuthNavigationProps<'Home'>
+  & {
   userId: number;
   recipes: Array<Recipe>;
   getRecipesByUser: (id: number) => void;

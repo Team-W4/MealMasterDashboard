@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
-import { StackNavigationProp } from '@react-navigation/stack';
 import AuthContext from '../../auths/AuthContext';
-import { AuthStackParamList } from '../../auths/AuthStack';
+import { AuthNavigationProps } from '../../auths/AuthStack';
 import styled from '../../../styled';
 import Box from '../../../components/Containers/Box';
 import Grid, { Column } from '../../../components/Containers/Grid';
@@ -16,8 +15,7 @@ import SavedIcon from '../../../components/Icons/Saved';
 import UtensilsIcon from '../../../components/Icons/Utensils';
 import ScrollList from '../../../components/ScrollList'
 
-export type Props = {
-  navigation: StackNavigationProp<AuthStackParamList, 'UserDetails'>;
+export type Props = AuthNavigationProps<'UserDetails'> & {
   profile: {
     firstName: string;
     lastName: string;

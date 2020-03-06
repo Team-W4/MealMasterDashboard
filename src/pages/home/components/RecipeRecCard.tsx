@@ -49,7 +49,7 @@ const RecipeRecCard: React.FC = (props) => (
             </Row>
             <Row>
               <QuantityIcon mr="xs" size="small" variant="tertiary" />
-              <Subtitle>{'Easy'}</Subtitle>
+              <Subtitle>Easy</Subtitle>
             </Row>
             <Row>
               <UtensilsIcon mr="xs" size="small" variant="tertiary" />

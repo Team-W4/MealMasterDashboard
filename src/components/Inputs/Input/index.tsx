@@ -33,6 +33,8 @@ const Input: React.FC<Props> = ({
     <InputWrapper>
       <Heading variant={ variant }>{title}</Heading>
       <StyledInputWrapper variant={ inputState }>
+        {/*
+        // @ts-ignore */}
         <StyledInputField
           variant={ variant }
           size={ size }

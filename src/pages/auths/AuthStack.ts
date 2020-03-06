@@ -1,4 +1,5 @@
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
 
 export type AuthStackParamList = {
   Login: undefined;
@@ -9,6 +10,11 @@ export type AuthStackParamList = {
   StockDetails: { stockId: number };
   UserDetails: undefined;
   UserEdit: undefined;
+};
+
+export type AuthNavigationProps<T extends keyof AuthStackParamList> = {
+  navigation: StackNavigationProp<AuthStackParamList, T>;
+  route: RouteProp<AuthStackParamList, T>;
 };
 
 const AuthStack = createStackNavigator<AuthStackParamList>();

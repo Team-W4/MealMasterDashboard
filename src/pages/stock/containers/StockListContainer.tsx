@@ -4,20 +4,18 @@ import { connect } from 'react-redux';
 import { LayoutAnimation } from 'react-native';
 // @ts-ignore
 import { CustomLayoutSpring } from 'react-native-animation-layout';
-import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { dateParser } from '../../../utils';
 import { stockActions } from '../../../actions';
-import { HomeTabParamList } from '../../navigator/HomeTab';
-import { AuthStackParamList } from '../../auths/AuthStack';
+import { HomeNavigationProps } from '../../navigator/HomeTab';
+import { AuthNavigationProps } from '../../auths/AuthStack';
 import { Stock } from '../../../constants/dataTypes';
 import Box from '../../../components/Containers/Box';
 import StockListCard from '../components/StockListCard';
 import ScrollList from '../../../components/ScrollList';
 
-export type Props = {
-  navigation: MaterialBottomTabNavigationProp<HomeTabParamList, 'Stocks'>
-    & StackNavigationProp<AuthStackParamList, 'Home'>;
+export type Props = HomeNavigationProps<'Stocks'>
+  & AuthNavigationProps<'Home'>
+  & {
   foodStocks: Array<Stock>;
   getAllStock: () => void;
 };

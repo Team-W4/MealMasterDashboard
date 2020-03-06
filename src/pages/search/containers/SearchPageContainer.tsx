@@ -2,11 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { LayoutAnimation } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 // @ts-ignore
 import { CustomLayoutSpring } from 'react-native-animation-layout';
 import { searchActions } from '../../../actions';
 import SafeView from '../../../components/SafeView';
+import SearchTab from '../components/SearchTab';
 import SearchInput from '../components/SearchInput';
 import SearchFoodTab from './SearchFoodTab';
 import SearchRecipeTab from './SearchRecipeTab';
@@ -17,8 +17,6 @@ export type Props = {
   onSearchRecipe: (term: string) => void;
   onSearchUser: (term: string) => void;
 };
-
-const SearchTab = createMaterialTopTabNavigator();
 
 const SearchPage: React.FC<Props> = ({
   onSearchFood,
