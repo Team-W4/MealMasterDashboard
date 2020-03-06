@@ -13,6 +13,8 @@ import UserDetailsPage, { UserEditPage } from '../user';
 import AuthStack from './AuthStack';
 import AuthContext from './AuthContext';
 
+export const AUTH_TIMEOUT = 5000;
+
 export type Props = {
   logOut: () => void;
   logIn: (email?: string, password?: string) => void;
@@ -38,10 +40,18 @@ const AuthProvider: React.FC<Props> = ({
     retoreTokenAsync();
   });
 
+  let authTimeoutId: number;
   useEffect(() => {
     if (isLoading) {
       navigator.navigate('Loading');
+      authTimeoutId = setTimeout(() => {
+        navigator.navigate('Login');
+      }, AUTH_TIMEOUT);
     } else {
+      if (authTimeoutId) {
+        clearTimeout(authTimeoutId);
+      }
+
       navigator.navigate(userToken ? 'Home' : 'Login');
     }
   }, [userToken, isLoading]);
