@@ -1,16 +1,20 @@
 import React, { PropsWithChildren } from 'react';
-import { space, SpaceProps } from 'styled-system';
+import {
+ space, SpaceProps, flexbox, FlexboxProps,
+} from 'styled-system';
 import { NativeSyntheticEvent, NativeTouchEvent } from 'react-native';
 import styled from '../../../styled';
 import cardColors, { CardColorProps } from '../cardColors';
 
 export type Props = SpaceProps &
+  FlexboxProps &
   CardColorProps & {
     onPress?: (ev: NativeSyntheticEvent<NativeTouchEvent>) => void;
   };
 
 const StyledCardWrapper = styled.View<Props>`
   ${space}
+  ${flexbox}
   width: 100%;
   background-color: ${({ theme: { semanticColors } }) => semanticColors.background};
   ${cardColors}

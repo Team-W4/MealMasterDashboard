@@ -1,13 +1,10 @@
 import React from 'react';
 import styled from '../../../styled';
 import { titleHelper } from '../../../utils';
-import Box from '../../../components/Containers/Box';
-import Grid, { Column } from '../../../components/Containers/Grid';
+import { Column } from '../../../components/Containers/Grid';
 import Card, { Props as CardProps } from '../../../components/Cards/Card';
 import Heading from '../../../components/Texts/Heading';
 import Subtitle from '../../../components/Texts/Subtitle';
-import IconButton from '../../../components/Buttons/IconButton';
-import AddIcon from '../../../components/Icons/Add';
 
 const RoundedImage = styled.Image`
   position: absolute;
@@ -29,23 +26,21 @@ export type Props = CardProps & {
   imageUri?: string;
 };
 
-const IngredientSearchListCard: React.FC<Props> = ({
- title, subtitle, imageUri, ...props
+const FoodSearchListCard: React.FC<Props> = ({
+  title, subtitle, imageUri, onPress, ...props
 }) => (
-  <Box height="100px" alignItems="center" flexDirection="row">
+  <Card
+    alignItems="center"
+    flexDirection="row"
+    variant="transparent"
+    onPress={ onPress }
+  >
     <InfoCard p="m" { ...props }>
-      <Grid>
-        <Column ml="l" justifyContent="center">
-          <Subtitle mb="xs">{subtitle}</Subtitle>
-          <Heading mb="xs">{titleHelper(title)}</Heading>
-          <Subtitle>75kcal • 200g in stock</Subtitle>
-        </Column>
-        <Box justifyContent="center">
-          <IconButton size="small">
-            <AddIcon size="small" variant="warning" />
-          </IconButton>
-        </Box>
-      </Grid>
+      <Column ml="l" justifyContent="center">
+        <Subtitle mb="xs">{subtitle}</Subtitle>
+        <Heading mb="xs">{titleHelper(title)}</Heading>
+        <Subtitle>75kcal • 200g in stock</Subtitle>
+      </Column>
     </InfoCard>
     <RoundedImage
       source={{
@@ -53,7 +48,7 @@ const IngredientSearchListCard: React.FC<Props> = ({
               'https://tmbidigitalassetsazure.blob.core.windows.net/secure/RMS/attachments/37/1200x1200/Peanut-Butter-and-Jelly-French-Toast_EXPS_BMZ19_526_B12_04_10b.jpg',
           }}
     />
-  </Box>
+  </Card>
 );
 
-export default IngredientSearchListCard;
+export default FoodSearchListCard;

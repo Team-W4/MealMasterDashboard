@@ -13,7 +13,8 @@ const SearchTabList = styled.ScrollView`
   padding-bottom: ${({ theme: { space } }) => space.s};
 `;
 
-export type Props = any;
+export type Props = {
+};
 
 const SearchTabBarContainer: React.FC<Props> = ({
   state, descriptors, navigation,

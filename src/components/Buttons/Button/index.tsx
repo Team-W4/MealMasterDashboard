@@ -17,10 +17,10 @@ const Button: React.FC<Props> = ({
 }) => (
   <StyledButtonWrapper variant={ variant } onPress={ onPress } { ...props }>
     {title && (
-    <StyledLabel variant={ variant === 'normal' ? 'warning' : 'inverted' }>
-      {title}
-    </StyledLabel>
-      )}
+      <StyledLabel variant={ variant === 'normal' ? 'warning' : 'inverted' }>
+        {title}
+      </StyledLabel>
+    )}
     {children}
   </StyledButtonWrapper>
   );

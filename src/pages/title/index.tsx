@@ -27,7 +27,7 @@ const greetingsGenerator = (): string => {
 };
 
 const TitleBar: React.FC<Props> = ({ title }) => (
-  <SafeView>
+  <SafeView side="top">
     <Grid mx="xxxl">
       <Column>
         <Title mb="xxs">{title || greetingsGenerator()}</Title>

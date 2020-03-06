@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { GenericFood } from '../../../constants/dataTypes';
 import Box from '../../../components/Containers/Box';
 import DataList from '../../../components/DataList';
-import IngredientSearchListCard from '../components/IngredientSearchListCard';
+import FoodSearchListCard from '../components/FoodSearchListCard';
 
 type Props = {
   data?: Array<GenericFood>;
@@ -16,7 +16,11 @@ const SearchFoodTab: React.FC<Props> = ({ data }) => (
     keyExtractor={ (item: GenericFood) => item.id.toString() }
     renderItem={ ({ item }: { item: GenericFood }) => (
       <Box key={ item.name } px="l" mb="m">
-        <IngredientSearchListCard title={ item.name } subtitle="produce" />
+        <FoodSearchListCard
+          title={ item.name }
+          subtitle="produce"
+          onPress={ () => {} }
+        />
       </Box>
     ) }
   />
