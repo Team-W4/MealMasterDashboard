@@ -13,8 +13,8 @@ const RecipeRecImage = styled.Image`
   border-radius: 10px;
 `;
 
-const RecipeRecCard: React.FC = (props) => (
-  <Box { ...props }>
+const RecipeRecCard: React.FC = () => (
+  <Box>
     <RecipeRecImage
       source={{
         uri: 'https://www.sugarandsoul.co/wp-content/uploads/2017/12/Apple-Granola-0846.jpg',

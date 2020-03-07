@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Animated, PanResponder } from 'react-native';
 import { Box } from '../Containers';
 
+const SWIPE_TRHESHOLD = 100;
+
+const ANIMATION_TIMING = 300;
+
 export type Props = {
   data: Array<any>;
   renderItem: (data?: any) => JSX.Element;
@@ -38,20 +42,20 @@ const SwipeStack: React.FC<Props> = ({
     ]),
     onPanResponderTerminationRequest: () => false,
     onPanResponderRelease: (e, gestureState) => {
-      if (gestureState.dx === 0) {
-        return;
-      }
-
       // bring the translationX back to 0
       Animated.timing(cardsPan, {
         toValue: 0,
-        duration: 300,
+        duration: ANIMATION_TIMING,
       }).start();
+
+      if (Math.abs(gestureState.dx) <= SWIPE_TRHESHOLD) {
+        return;
+      }
 
       // will be used to interpolate values in each view
       Animated.timing(cardStackAnimation, {
         toValue: 1,
-        duration: 300,
+        duration: ANIMATION_TIMING,
       }).start(() => {
         // reset cardsStackedAnim's value to 0 when animation ends
         cardStackAnimation.setValue(0);
@@ -149,7 +153,7 @@ const SwipeStack: React.FC<Props> = ({
   };
 
   return (
-    <Box flexGrow={ 1 } width="100%" alignItems="center">
+    <Box width="100%" alignItems="center">
       {
         data.map((item, index) => (
           <Animated.View
@@ -160,6 +164,9 @@ const SwipeStack: React.FC<Props> = ({
           </Animated.View>
         ))
       }
+      <Box opacity={ 0 }>
+        {renderItem(data[0])}
+      </Box>
     </Box>
   );
 };

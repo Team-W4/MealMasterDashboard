@@ -7,7 +7,7 @@ import { AuthStackParamList } from '../auths/AuthStack';
 
 export type HomeTabParamList = AuthStackParamList & {
   Home: undefined;
-  Search: undefined;
+  Discover: undefined;
   Stocks: undefined;
   Recipes: undefined;
 };

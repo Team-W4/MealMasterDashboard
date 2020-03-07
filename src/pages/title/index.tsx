@@ -2,9 +2,8 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { navigate } from '../navigator/Navigator';
 import { properDateHelper } from '../../utils';
-import { Box, Grid, Column } from '../../components/Containers';
+import { Box, Grid, Column, SafeView } from '../../components/Containers';
 import { Title, Subtitle } from '../../components/Texts';
-import SafeView from '../../components/SafeView';
 import ProfileImage from '../../components/ProfileImage';
 
 export type Props = {

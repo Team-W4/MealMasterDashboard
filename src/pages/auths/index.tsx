@@ -43,16 +43,18 @@ const AuthProvider: React.FC<Props> = ({
   let authTimeoutId: number;
   useEffect(() => {
     if (isLoading) {
-      navigator.navigate('Loading');
+      navigator.reset('Loading');
+
       authTimeoutId = setTimeout(() => {
-        navigator.navigate('Login');
+        navigator.reset('Login');
       }, AUTH_TIMEOUT);
     } else {
       if (authTimeoutId) {
         clearTimeout(authTimeoutId);
       }
 
-      navigator.navigate(userToken ? 'Home' : 'Login');
+      const rootRoute = userToken ? 'Home' : 'Login';
+      navigator.reset(rootRoute);
     }
   }, [userToken, isLoading]);
 
@@ -70,7 +72,7 @@ const AuthProvider: React.FC<Props> = ({
           component={ LoginPage }
           options={{ animationTypeForReplace: isLoggedOut ? 'pop' : 'push' }}
         />
-        {userToken ? (
+        {userToken && (
           <>
             <AuthStack.Screen name="Home" component={ HomeNavigator } />
             <AuthStack.Screen name="Search" component={ SearchPage } />
@@ -79,8 +81,6 @@ const AuthProvider: React.FC<Props> = ({
             <AuthStack.Screen name="UserDetails" component={ UserDetailsPage } />
             <AuthStack.Screen name="UserEdit" component={ UserEditPage } />
           </>
-        ) : (
-          <AuthStack.Screen name="Home" component={ LoginPage } />
         )}
         <AuthStack.Screen name="Loading" component={ LoadingPage } />
       </AuthStack.Navigator>

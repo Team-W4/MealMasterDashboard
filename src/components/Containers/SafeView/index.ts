@@ -1,5 +1,5 @@
 import { SafeAreaView, SafeAreaViewProps } from 'react-native-safe-area-context';
-import styled from '../../styled';
+import styled from '../../../styled';
 
 export type Props = SafeAreaViewProps & {
   full?: boolean;

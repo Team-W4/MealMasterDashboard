@@ -6,7 +6,7 @@ import {
 import colors from '../../styled/variables/colors';
 import TitlePage from '../title';
 import HomePage from '../home';
-import SearchPage from '../search';
+import DiscoverPage from '../discover';
 import RecipesPage from '../recipes';
 import StockPage from '../stock';
 import HomeTab from './HomeTab';
@@ -38,11 +38,11 @@ const HomeNavigator: React.FC = () => {
           }}
         />
         <HomeTab.Screen
-          name="Search"
-          component={ SearchPage }
+          name="Discover"
+          component={ DiscoverPage }
           options={{
             tabBarColor: colors.orange,
-            tabBarLabel: 'Search',
+            tabBarLabel: 'Discover',
             tabBarIcon: () => <SearchIcon variant="inverted" />,
           }}
         />

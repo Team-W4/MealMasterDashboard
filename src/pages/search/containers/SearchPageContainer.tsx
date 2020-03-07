@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 // @ts-ignore
 import { CustomLayoutSpring } from 'react-native-animation-layout';
 import { searchActions } from '../../../actions';
-import SafeView from '../../../components/SafeView';
+import { SafeView } from '../../../components/Containers';
 import SearchTab from '../components/SearchTab';
 import SearchInput from '../components/SearchInput';
 import SearchFoodTab from './SearchFoodTab';

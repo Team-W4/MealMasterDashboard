@@ -17,6 +17,15 @@ export function goBack() {
   navigationRef.current?.goBack();
 }
 
+export function reset(root: string) {
+  navigationRef.current?.reset({
+    key: undefined,
+    index: 0,
+    routes: [{ name: root }],
+    history: [],
+  });
+}
+
 const Navigator: React.FC<NavigationContainerProps> = (props) => (
   <NavigationContainer
     ref={ navigationRef }
