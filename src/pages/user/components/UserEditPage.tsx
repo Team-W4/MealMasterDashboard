@@ -87,7 +87,7 @@ const UserEditPage: React.FC<Props> = ({
               onChangeText={ (e) => setEmail(e) }
             />
           </Box>
-          <Box position="relative" mb="l">
+          <Box mb="l">
             <AboutInput
               multiline
               title="About Me"

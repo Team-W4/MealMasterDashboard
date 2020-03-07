@@ -9,6 +9,7 @@ import StockDetailsPage from '../components/StockDetailsPage';
 type Props = AuthNavigationProps<'StockDetails'> & {
   stockDetails: StockDetails;
   stockItemDetails: StockItem;
+  getFoodStockByFood: (foodId: number) => void;
   getFoodStockById: (stockId: number) => void;
   getStockItemById: (stockItemId: number) => void;
   addToStock: (foodId: number, stockItem: StockItem) => void;
@@ -24,16 +25,24 @@ class StockDetailsContainer extends React.Component<Props> {
   public refresh(): void {
     const {
       route: {
-        params: { stockId },
+        params: { stockId, foodId },
       },
+      getFoodStockByFood,
       getFoodStockById,
     } = this.props;
 
-    getFoodStockById(stockId);
+    if (stockId) {
+      getFoodStockById(stockId);
+    } else if (foodId) {
+      getFoodStockByFood(foodId);
+    }
   }
 
   public render(): JSX.Element {
     const {
+      route: {
+        params: { foodId },
+      },
       navigation,
       getStockItemById,
       addToStock,
@@ -45,6 +54,7 @@ class StockDetailsContainer extends React.Component<Props> {
 
     return (
       <StockDetailsPage
+        editMode={ !!foodId }
         onBack={ () => navigation.pop(1) }
         onRefresh={ () => this.refresh() }
         onItemClick={ getStockItemById }
@@ -65,6 +75,7 @@ const mapStateToProps = (state: any) => ({
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators(
     {
+      getFoodStockByFood: stockActions.getFoodStockByFood,
       getFoodStockById: stockActions.getFoodStockById,
       getStockItemById: stockActions.getStockItemById,
       addToStock: stockActions.addToStock,

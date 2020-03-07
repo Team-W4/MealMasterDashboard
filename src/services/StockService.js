@@ -14,6 +14,7 @@ class StockService {
 
   getFoodStockByFood = (foodId) => {
     const route = `${routes.STOCK}${routes.FOOD}/${foodId}`;
+
     return getHelper(route);
   };
 

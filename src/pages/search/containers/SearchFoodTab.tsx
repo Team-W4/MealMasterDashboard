@@ -1,15 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { GenericFood } from '../../../constants/dataTypes';
+import { SearchNavigationProps } from '../components/SearchTab';
 import { Box } from '../../../components/Containers';
 import DataList from '../../../components/DataList';
 import FoodSearchListCard from '../components/FoodSearchListCard';
 
-type Props = {
+type Props = SearchNavigationProps<'SearchFoods'> & {
   data?: Array<GenericFood>;
 };
 
-const SearchFoodTab: React.FC<Props> = ({ data }) => (
+const SearchFoodTab: React.FC<Props> = ({ navigation, data }) => (
   // @ts-ignore
   <DataList
     data={ data }
@@ -19,7 +20,7 @@ const SearchFoodTab: React.FC<Props> = ({ data }) => (
         <FoodSearchListCard
           title={ item.name }
           subtitle="produce"
-          onPress={ () => {} }
+          onPress={ () => navigation.push('StockDetails', { foodId: item.id }) }
         />
       </Box>
     ) }

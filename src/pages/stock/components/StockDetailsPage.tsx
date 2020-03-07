@@ -51,6 +51,7 @@ export type Props = {
   onAdd: (stockItem: StockItem) => void;
   onUpdate: (stockItem: StockItem) => void;
   onDelete: (stockItemId: number) => void;
+  editMode?: boolean;
   stockDetails: StockDetails;
   stockItemDetails: StockItem;
 };
@@ -61,12 +62,13 @@ const StockDetailsPage: React.FC<Props> = ({
   onAdd,
   onUpdate,
   onDelete,
+  editMode: editModeProp,
   stockDetails: {
     foodName, tags, stockItems, nextExpiration,
   },
   stockItemDetails,
 }) => {
-  const [editMode, setEditMode] = useState(false);
+  const [editMode, setEditMode] = useState(editModeProp);
   const [showDate, setShowDate] = useState(false);
   const [errors, setErrors] = useState(errorInitialState);
   const [date, setDate] = useState(new Date());
@@ -157,7 +159,7 @@ const StockDetailsPage: React.FC<Props> = ({
       dateObtained: date.toISOString(),
     };
 
-    if (stockItemDetails) {
+    if (stockItemDetails && stockItemDetails.id) {
       onUpdate(payload);
     } else {
       onAdd(payload);
@@ -170,7 +172,7 @@ const StockDetailsPage: React.FC<Props> = ({
   return (
     <Box height="100%" width="100%">
       <StockDetailsScroll>
-        <Box position="relative" mb="l">
+        <Box mb="l">
           <Visual
             source={{
               uri:
@@ -211,7 +213,7 @@ const StockDetailsPage: React.FC<Props> = ({
         </Box>
         <Box px="l">
           <Subtitle mb="s">PRODUCE</Subtitle>
-          {foodName && <Title mb="s">{titleHelper(foodName)}</Title>}
+          <Title mb="s">{titleHelper(foodName)}</Title>
         </Box>
         <TagList horizontal showsHorizontalScrollIndicator={ false }>
           <Box mr="xs">{getExpireTag()}</Box>

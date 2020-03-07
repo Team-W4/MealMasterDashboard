@@ -8,11 +8,13 @@ const ANIMATION_TIMING = 300;
 
 export type Props = {
   data: Array<any>;
+  keyExtractor: (data?: any) => string;
   renderItem: (data?: any) => JSX.Element;
 };
 
 const SwipeStack: React.FC<Props> = ({
   data,
+  keyExtractor,
   renderItem,
 }) => {
   const [current, setCurrent] = useState(0);
@@ -158,6 +160,7 @@ const SwipeStack: React.FC<Props> = ({
         data.map((item, index) => (
           <Animated.View
             { ...cardsPanResponder.panHandlers }
+            key={ keyExtractor(item) }
             style={ getCardStyle(index) }
           >
             {renderItem(item)}

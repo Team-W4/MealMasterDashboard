@@ -5,6 +5,8 @@ const DataList = styled(FlatList).attrs(() => ({
   showsHorizontalScrollIndicator: false,
   showsVerticalScrollIndicator: false,
 }))`
+  flex: 1;
+  width: 100%;
   padding-top: ${({ theme: { space } }) => space.l};
 `;
 

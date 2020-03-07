@@ -26,6 +26,7 @@ const DiscoverPage: React.FC<Props> = ({ navigation }) => (
       <Heading mb="xl">Breakfast</Heading>
       <SwipeStack
         data={ ['0', '1', '2', '3', '4', '5'] }
+        keyExtractor={ (item) => item }
         renderItem={ (item) => (
           <Box>
             <Text>{item}</Text>
