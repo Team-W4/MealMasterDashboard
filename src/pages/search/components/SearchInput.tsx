@@ -1,5 +1,5 @@
-import React from 'react';
-import { TextInputProps } from 'react-native';
+import React, { useRef, useEffect } from 'react';
+import { TextInput, TextInputProps } from 'react-native';
 import styled from '../../../styled';
 import { Box, Grid, Column } from '../../../components/Containers';
 import { DeleteIcon, SearchIcon } from '../../../components/Icons';
@@ -24,36 +24,54 @@ const StyledSearchInput = styled.TextInput`
 
 export type Props = TextInputProps & {
   onClear?: () => void;
+  focusOnMount?: boolean;
 };
 
 const SearchInput: React.FC<Props> = ({
   value,
   onClear,
+  focusOnMount = false,
   ...props
-}) => (
-  <StyledSearchInputWrapper py="m" px="l" m="l">
-    <Box mt="-1px">
-      <SearchIcon />
-    </Box>
-    <Column justifyContent="center">
-      <StyledSearchInput
-        value={ value }
-        placeholder="What are you craving?"
-        { ...props }
-      />
-    </Column>
-    {value && value.length > 0 ? (
-      <IconButton
-        size="small"
-        variant="transparent"
-        onPress={ onClear }
-      >
-        <DeleteIcon />
-      </IconButton>
-    ) : (
-      <></>
-    )}
-  </StyledSearchInputWrapper>
-);
+}) => {
+  const inputRef = useRef<TextInput>();
+  useEffect(() => {
+    if (focusOnMount) {
+      inputRef?.current?.focus();
+    }
+  });
+
+  return (
+    <StyledSearchInputWrapper py="m" px="l" m="l">
+      <Box mt="-1px">
+        <SearchIcon />
+      </Box>
+      <Column justifyContent="center">
+        <StyledSearchInput
+          // @ts-ignore
+          ref={ inputRef }
+          value={ value }
+          placeholder="What are you craving?"
+          { ...props }
+        />
+      </Column>
+      {value && value.length > 0 ? (
+        <IconButton
+          size="small"
+          variant="transparent"
+          onPress={ () => {
+            inputRef?.current?.blur();
+            if (onClear) {
+              onClear();
+            }
+          } }
+        >
+          <DeleteIcon />
+        </IconButton>
+      ) : (
+        <></>
+      )}
+    </StyledSearchInputWrapper>
+  );
+};
 
 export default SearchInput;

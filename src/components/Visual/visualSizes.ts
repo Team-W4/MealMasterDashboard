@@ -30,7 +30,7 @@ const visualSizes = variant({
       height: '350px',
     },
     epic: {
-      height: '430px',
+      height: '450px',
     },
   },
 });

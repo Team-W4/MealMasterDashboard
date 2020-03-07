@@ -59,14 +59,15 @@ const RecipeDetailsPage: React.FC<Props> = ({
             'https://tmbidigitalassetsazure.blob.core.windows.net/secure/RMS/attachments/37/1200x1200/Peanut-Butter-and-Jelly-French-Toast_EXPS_BMZ19_526_B12_04_10b.jpg',
         }}
       />
-      <Box position="absolute" right="xxxl" bottom="-25px">
+      <CalorieLabel value="650 kcal/serving" />
+    </Box>
+    <DrawerCard
+      topRightOverlay={ (
         <IconButton onPress={ onFavorite }>
           <FavoriteIcon variant="warning" />
         </IconButton>
-      </Box>
-      <CalorieLabel value="650 kcal/serving" />
-    </Box>
-    <DrawerCard>
+      ) }
+    >
       <Grid px="xxl" mb="m">
         <Column>
           <Rating value={ 4.3 } />

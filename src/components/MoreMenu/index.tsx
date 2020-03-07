@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
 import Modal from 'react-native-modal';
 import styled from '../../styled';
+import { Box } from '../Containers';
 import { IconButton } from '../Buttons';
 import { MoreIcon } from '../Icons';
 import MenuItemCard, { Props as MenuItemProps } from './MenuItemCard';
@@ -20,7 +20,7 @@ const MoreMenu: React.FC<Props> = ({ items }) => {
   const [show, setShow] = useState(false);
 
   return (
-    <View>
+    <Box>
       <IconButton onPress={ () => setShow(true) }>
         <MoreIcon />
       </IconButton>
@@ -28,16 +28,15 @@ const MoreMenu: React.FC<Props> = ({ items }) => {
         isVisible={ show }
         onBackdropPress={ () => setShow(false) }
       >
-        {items.map(({ title, icon, onPress }: MenuItemProps) => (
+        {items.map(({ title, ...props }: MenuItemProps) => (
           <MenuItemCard
             key={ title }
             title={ title }
-            icon={ icon }
-            onPress={ onPress }
+            { ...props }
           />
         ))}
       </StyledModalWrapper>
-    </View>
+    </Box>
   );
 };
 

@@ -14,3 +14,4 @@ export { default as SearchIcon } from './components/Search';
 export { default as ShareIcon } from './components/Share';
 export { default as StockIcon } from './components/Stock';
 export { default as UtensilsIcon } from './components/Utensils';
+export { default as InfoIcon } from './components/Info';

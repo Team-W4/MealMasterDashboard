@@ -2,7 +2,7 @@ import React, { PropsWithChildren } from 'react';
 import { Animated, ScrollView, PanResponder } from 'react-native';
 import { useSafeArea } from 'react-native-safe-area-context';
 import styled from '../../../styled';
-import { SafeView } from '../../Containers';
+import { Box, SafeView } from '../../Containers';
 import Card from '../Card';
 
 const DEFAULT_DRAWER_OFFSET = 430;
@@ -38,10 +38,12 @@ const DrawerCardWrapper = styled(Card)`
 
 export type Props = {
   topOffset?: number;
+  topRightOverlay?: JSX.Element | null;
 };
 
 const DrawerCard: React.FC<PropsWithChildren<Props>> = ({
   topOffset = DEFAULT_DRAWER_OFFSET,
+  topRightOverlay,
   children,
 }) => {
   const { top: topInset } = useSafeArea();
@@ -88,6 +90,9 @@ const DrawerCard: React.FC<PropsWithChildren<Props>> = ({
             {children}
           </ScrollView>
         </DrawerCardWrapper>
+        <Box position="absolute" right="xxxl" top="-25px">
+          {topRightOverlay}
+        </Box>
       </Animated.View>
     </SafeViewDrawer>
   );

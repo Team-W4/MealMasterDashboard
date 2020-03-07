@@ -41,6 +41,7 @@ const SearchPage: React.FC<Props> = ({
   return (
     <SafeView full>
       <SearchInput
+        focusOnMount
         value={ searchTerm }
         onClear={ () => {
           setSearchTerm('');
@@ -48,6 +49,7 @@ const SearchPage: React.FC<Props> = ({
         onChangeText={ (e: string) => setSearchTerm(e) }
       />
       <SearchTab.Navigator
+        backBehavior="none"
         tabBar={ (props: any) => <SearchTabBar { ...props } /> }
       >
         <SearchTab.Screen

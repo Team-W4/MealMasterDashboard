@@ -7,18 +7,20 @@ import {
   titleHelper, dateDifferenceHelper, properDateHelper, dateParser,
 } from '../../../utils';
 import {
-  AddIcon, CheckIcon, CancelIcon, DeleteStockIcon, SearchIcon,
+  AddIcon, CheckIcon, CancelIcon, DeleteStockIcon, SearchIcon, InfoIcon,
 } from '../../../components/Icons';
 import {
   StockItem, StockDetails, Tag as TagType,
 } from '../../../constants/dataTypes';
-import { Box, Grid } from '../../../components/Containers';
+import { Box, Grid, SafeView } from '../../../components/Containers';
 import { IconButton } from '../../../components/Buttons';
 import { Input, DateInput } from '../../../components/Inputs';
 import { Title, Subtitle } from '../../../components/Texts';
 import Tag from '../../../components/Tag';
 import Visual from '../../../components/Visual';
 import StockItemListCard from './StockItemListCard';
+import { DrawerCard } from '../../../components/Cards';
+import MoreMenu from '../../../components/MoreMenu';
 
 const ERROR_MSGS = {
   invalidQuantity: 'Enter a positive quantity',
@@ -29,11 +31,6 @@ const errorInitialState = {
   quantityError: '',
   dateError: '',
 };
-
-const StockDetailsScroll = styled.ScrollView`
-  flex: 1;
-  width: 100%;
-`;
 
 const TagList = styled.ScrollView`
   flex-grow: 0;
@@ -76,7 +73,7 @@ const StockDetailsPage: React.FC<Props> = ({
 
   useEffect(
     () => LayoutAnimation.configureNext(CustomLayoutSpring(null, null, "scaleXY")),
-    [editMode, showDate],
+    [editMode, showDate, errors],
   );
 
   useEffect(() => {
@@ -171,19 +168,18 @@ const StockDetailsPage: React.FC<Props> = ({
 
   return (
     <Box height="100%" width="100%">
-      <StockDetailsScroll>
-        <Box mb="l">
-          <Visual
-            source={{
-              uri:
-                'https://www.chiceats.com/sites/default/files/styles/image_1024x768/public/recipe/photo/homemade-pasta-recipe-1080x810@2x.jpg',
-            }}
-          />
+      <Visual
+        size="large"
+        source={{
+          uri:
+            'https://www.chiceats.com/sites/default/files/styles/image_1024x768/public/recipe/photo/homemade-pasta-recipe-1080x810@2x.jpg',
+        }}
+      />
+      <DrawerCard
+        topOffset={ 300 }
+        topRightOverlay={ (
           <Grid
             justifyContent="flex-end"
-            position="absolute"
-            right="xxxl"
-            bottom="-25px"
             width="100%"
           >
             {
@@ -210,7 +206,8 @@ const StockDetailsPage: React.FC<Props> = ({
               )
             }
           </Grid>
-        </Box>
+        ) }
+      >
         <Box px="l">
           <Subtitle mb="s">PRODUCE</Subtitle>
           <Title mb="s">{titleHelper(foodName)}</Title>
@@ -274,12 +271,30 @@ const StockDetailsPage: React.FC<Props> = ({
                       />
                     </Box>
                   ))}
-                <Box height="90px" />
               </>
             )
           )
         }
-      </StockDetailsScroll>
+      </DrawerCard>
+      <Box position="absolute" top="0" right="xxxl">
+        <SafeView>
+          <MoreMenu
+            items={ [
+              {
+                title: 'See nutritional values',
+                icon: <InfoIcon />,
+                onPress: () => {},
+              },
+              {
+                title: 'Delete this entire stock',
+                textVariant: 'error',
+                icon: <DeleteStockIcon variant="error" />,
+                onPress: () => {},
+              },
+            ] }
+          />
+        </SafeView>
+      </Box>
     </Box>
   );
 };
