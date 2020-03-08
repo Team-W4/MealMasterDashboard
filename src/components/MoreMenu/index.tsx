@@ -28,10 +28,16 @@ const MoreMenu: React.FC<Props> = ({ items }) => {
         isVisible={ show }
         onBackdropPress={ () => setShow(false) }
       >
-        {items.map(({ title, ...props }: MenuItemProps) => (
+        {items.map(({ title, onPress, ...props }: MenuItemProps) => (
           <MenuItemCard
             key={ title }
             title={ title }
+            onPress={ () => {
+              setShow(false);
+              if (onPress) {
+                onPress();
+              }
+            } }
             { ...props }
           />
         ))}

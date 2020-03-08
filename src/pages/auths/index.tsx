@@ -9,6 +9,7 @@ import LoginPage from '../login';
 import SearchPage from '../search';
 import { RecipeDetailsPage } from '../recipes';
 import { StockDetailsPage } from '../stock';
+import FoodDetailsPage from '../food';
 import UserDetailsPage, { UserEditPage } from '../user';
 import AuthStack from './AuthStack';
 import AuthContext from './AuthContext';
@@ -78,6 +79,7 @@ const AuthProvider: React.FC<Props> = ({
             <AuthStack.Screen name="Search" component={ SearchPage } />
             <AuthStack.Screen name="RecipeDetails" component={ RecipeDetailsPage } />
             <AuthStack.Screen name="StockDetails" component={ StockDetailsPage } />
+            <AuthStack.Screen name="FoodDetails" component={ FoodDetailsPage } />
             <AuthStack.Screen name="UserDetails" component={ UserDetailsPage } />
             <AuthStack.Screen name="UserEdit" component={ UserEditPage } />
           </>

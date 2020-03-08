@@ -17,6 +17,7 @@ export type GenericFood = {
   averageExpirationDurations: number;
   gramsPerServing: number;
   foodGroup?: string;
+  tags?: Array<Tag>;
 };
 
 export type Stock = {

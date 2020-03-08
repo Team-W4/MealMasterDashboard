@@ -20,7 +20,8 @@ const SearchFoodTab: React.FC<Props> = ({ navigation, data }) => (
         <FoodSearchListCard
           title={ item.name }
           subtitle="produce"
-          onPress={ () => navigation.push('StockDetails', { foodId: item.id }) }
+          onAdd={ () => navigation.push('StockDetails', { foodId: item.id }) }
+          onPress={ () => navigation.push('FoodDetails', { foodId: item.id }) }
         />
       </Box>
     ) }

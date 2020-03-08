@@ -44,6 +44,7 @@ export type Props = {
   onShare?: () => void;
   onBack: () => void;
   onRefresh: () => void;
+  onMoreDetails: () => void;
   onItemClick: (id: number) => void;
   onAdd: (stockItem: StockItem) => void;
   onUpdate: (stockItem: StockItem) => void;
@@ -59,6 +60,7 @@ const StockDetailsPage: React.FC<Props> = ({
   onAdd,
   onUpdate,
   onDelete,
+  onMoreDetails,
   editMode: editModeProp,
   stockDetails: {
     foodName, tags, stockItems, nextExpiration,
@@ -283,7 +285,7 @@ const StockDetailsPage: React.FC<Props> = ({
               {
                 title: 'See nutritional values',
                 icon: <InfoIcon />,
-                onPress: () => {},
+                onPress: onMoreDetails,
               },
               {
                 title: 'Delete this entire stock',
