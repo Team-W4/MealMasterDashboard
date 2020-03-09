@@ -7,6 +7,7 @@ export type AuthStackParamList = {
   Home: undefined;
   Search: undefined;
   RecipeDetails: { recipeId: number };
+  RecipeEdit: undefined;
   StockDetails: { stockId?: number, foodId?: number };
   FoodDetails: { foodId: number };
   UserDetails: undefined;

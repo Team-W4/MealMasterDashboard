@@ -1,5 +1,4 @@
-import StockDetailsPage from './containers/StockDetailsContainer';
 import StockListPage from './containers/StockListContainer';
 
-export { StockDetailsPage };
+export { default as StockDetailsPage } from './containers/StockDetailsContainer';
 export default StockListPage;
