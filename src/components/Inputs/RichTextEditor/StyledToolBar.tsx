@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList } from 'react-native';
 import { actions as EditorActions } from './actions';
 import {
   BoldIcon, ItalicIcon, UnderlinedIcon, UnorderedListIcon, OrderedListIcon,
