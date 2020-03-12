@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
-import { KeyboardAvoidingView } from 'react-native';
 import {
-  SafeView, Row, Column, Box,
+  SafeView, Row, Column, Box, KeyboardView,
 } from '../../../components/Containers';
 import { Input } from '../../../components/Inputs';
 import { IconButton } from '../../../components/Buttons';
@@ -71,7 +70,7 @@ const RecipeEditStepPage: React.FC<Props> = ({ navigation, route }) => {
 
   return (
     <SafeView full px="xxxl">
-      <KeyboardAvoidingView behavior="padding" style={{ flexGrow: 1 }}>
+      <KeyboardView full behavior="padding">
         <Column justifyContent="flex-end">
           <Box
             mb="l"
@@ -100,7 +99,7 @@ const RecipeEditStepPage: React.FC<Props> = ({ navigation, route }) => {
             <NextIcon variant="warning" />
           </IconButton>
         </Row>
-      </KeyboardAvoidingView>
+      </KeyboardView>
     </SafeView>
   );
 };

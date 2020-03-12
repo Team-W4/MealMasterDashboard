@@ -1,12 +1,12 @@
 import React from 'react';
 import { FlatList } from 'react-native';
-import { actions as EditorActions } from './actions';
 import {
   BoldIcon, ItalicIcon, UnderlinedIcon, UnorderedListIcon, OrderedListIcon,
   LinkIcon, AlignLeftIcon, AlignRightIcon, AlignCenterIcon, AlignFullIcon,
 } from '../../Icons';
 import { IconButton } from '../../Buttons';
 import { Box } from '../../Containers';
+import { actions as EditorActions } from './actions';
 
 const defaultActions = [
   EditorActions.setBold,

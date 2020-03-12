@@ -92,10 +92,10 @@ const DrawerCard: React.FC<PropsWithChildren<Props>> = ({
             {children}
           </Animated.View>
         </DrawerCardWrapper>
+        <Box position="absolute" right="xxxl" top="-25px">
+          {topRightOverlay}
+        </Box>
       </Animated.View>
-      <Box position="absolute" right="xxxl" top="-25px">
-        {topRightOverlay}
-      </Box>
       <ScrollView
         scrollEventThrottle={ 16 }
         showsVerticalScrollIndicator={ false }

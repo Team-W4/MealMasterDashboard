@@ -19,7 +19,7 @@ export type Props = HomeNavigationProps<'Discover'> & {
 
 
 const DiscoverPage: React.FC<Props> = ({ navigation }) => (
-  <ScrollList style={{ flexGrow: 1 }}>
+  <ScrollList full>
     <SearchInput />
     <SearchEntry onPress={ () => navigation.navigate('Search') } />
     <Box px="l" alignItems="center">

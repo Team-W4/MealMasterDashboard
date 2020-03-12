@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import {
-  ScrollView, KeyboardAvoidingView, Keyboard, LayoutAnimation,
+  ScrollView, Keyboard, LayoutAnimation,
 } from 'react-native';
 // @ts-ignore
 import { CustomLayoutSpring } from 'react-native-animation-layout';
-import { Column, Grid } from '../../Containers';
+import { KeyboardView, Column, Grid } from '../../Containers';
 import { IconButton } from '../../Buttons';
 import { NextIcon } from '../../Icons';
 import StyledEditor from './StyledEditor';
@@ -56,7 +56,7 @@ const RichTextEditor: React.FC<Props> = ({
   };
 
   return (
-    <KeyboardAvoidingView behavior="padding" style={{ flexGrow: 1 }}>
+    <KeyboardView behavior="padding">
       <Column m="l" mb="0">
         <ScrollView>
           <StyledEditor
@@ -79,7 +79,7 @@ const RichTextEditor: React.FC<Props> = ({
           </IconButton>
         </Grid>
       )}
-    </KeyboardAvoidingView>
+    </KeyboardView>
   );
 };
 
