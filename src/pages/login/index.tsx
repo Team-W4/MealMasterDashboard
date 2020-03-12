@@ -88,9 +88,11 @@ const LoginPage: React.FC = () => {
     <SafeView full px="xxxl">
       <KeyboardView full behavior="padding">
         <Box flexGrow={ 1 } justifyContent="center">
-          <Text size="large" mb="xxxl">
-            {registerMode ? 'Sign Up' : 'Log In'}
-          </Text>
+          <Box mb="xxxl">
+            <Text size="large">
+              {registerMode ? 'Sign Up' : 'Log In'}
+            </Text>
+          </Box>
           <Box mb="l">
             <Input
               title="Email"

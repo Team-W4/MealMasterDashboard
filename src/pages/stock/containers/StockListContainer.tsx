@@ -2,7 +2,6 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { LayoutAnimation } from 'react-native';
-// @ts-ignore
 import { CustomLayoutSpring } from 'react-native-animation-layout';
 import { dateParser } from '../../../utils';
 import { stockActions } from '../../../actions';

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { LayoutAnimation } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-// @ts-ignore
 import { CustomLayoutSpring } from 'react-native-animation-layout';
 import { searchActions } from '../../../actions';
 import { SafeView } from '../../../components/Containers';

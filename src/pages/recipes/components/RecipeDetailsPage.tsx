@@ -89,7 +89,7 @@ const RecipeDetailsPage: React.FC<Props> = ({
         </TagList>
       )}
       <Paragraph px="xxl">{instructions}</Paragraph>
-      <Box height="130px" />
+      <Box height="58px" />
     </DrawerCard>
     <Box
       position="absolute"

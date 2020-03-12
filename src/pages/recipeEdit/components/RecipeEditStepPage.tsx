@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import {
   SafeView, Row, Column, Box, KeyboardView,
 } from '../../../components/Containers';
-import { Input } from '../../../components/Inputs';
+import { Input, TagInput } from '../../../components/Inputs';
 import { IconButton } from '../../../components/Buttons';
 import { NextIcon, SavedIcon } from '../../../components/Icons';
 import { RecipeEditStackParamList, RecipeEditNavigationProps } from '../RecipeEditStack';
@@ -85,14 +85,27 @@ const RecipeEditStepPage: React.FC<Props> = ({ navigation, route }) => {
             <SavedIcon />
           </Box>
         </Column>
-        <Input
-          autoFocus
-          size="large"
-          title={ currentStep.question }
-          value={ value.toString() }
-          onChangeText={ (e) => setValue(e) }
-          error={ error }
-        />
+        {
+          currentStep.stateKey === 'tags' ? (
+            <TagInput
+              autoFocus
+              title="Tags"
+              placeholder="Separate multiple tags by space or comma"
+              value={ value.toString() }
+              onChangeText={ (e) => setValue(e) }
+              error={ error }
+            />
+          ) : (
+            <Input
+              autoFocus
+              size="large"
+              title={ currentStep.question }
+              value={ value.toString() }
+              onChangeText={ (e) => setValue(e) }
+              error={ error }
+            />
+          )
+        }
         <Row mb="l" alignItems="flex-end" justifyContent="flex-end">
           <IconButton
             onPress={ onSubmit }

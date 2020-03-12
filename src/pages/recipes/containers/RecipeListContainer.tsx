@@ -2,7 +2,6 @@ import React from 'react';
 import { LayoutAnimation } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-// @ts-ignore
 import { CustomLayoutSpring } from 'react-native-animation-layout';
 import { HomeNavigationProps } from '../../navigator/HomeTab';
 import { AuthNavigationProps } from '../../auths/AuthStack';

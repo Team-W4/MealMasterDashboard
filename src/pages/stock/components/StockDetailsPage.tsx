@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { LayoutAnimation, Platform, Alert } from 'react-native';
-// @ts-ignore
 import { CustomLayoutSpring } from 'react-native-animation-layout';
 import styled from '../../../styled';
 import {
   titleHelper, dateDifferenceHelper, properDateHelper, dateParser,
 } from '../../../utils';
 import {
-  AddIcon, CheckIcon, CancelIcon, DeleteStockIcon, SearchIcon, InfoIcon,
+  CheckIcon, CancelIcon, DeleteStockIcon, SearchIcon, InfoIcon,
 } from '../../../components/Icons';
 import {
   StockItem, StockDetails, Tag as TagType,
 } from '../../../constants/dataTypes';
-import { Box, Grid, SafeView } from '../../../components/Containers';
-import { IconButton } from '../../../components/Buttons';
+import { Box, Grid } from '../../../components/Containers';
+import { Button, IconButton } from '../../../components/Buttons';
 import { Input, DateInput } from '../../../components/Inputs';
 import { Title, Subtitle } from '../../../components/Texts';
 import Tag from '../../../components/Tag';
@@ -71,7 +70,7 @@ const StockDetailsPage: React.FC<Props> = ({
   const [showDate, setShowDate] = useState(false);
   const [errors, setErrors] = useState(errorInitialState);
   const [date, setDate] = useState(new Date());
-  const [quantity, setQuantity] = useState();
+  const [quantity, setQuantity] = useState('');
 
   useEffect(
     () => LayoutAnimation.configureNext(CustomLayoutSpring(null, null, "scaleXY")),
@@ -87,20 +86,6 @@ const StockDetailsPage: React.FC<Props> = ({
     }
   }, [editMode]);
 
-  const getExpireTag = (): JSX.Element => {
-    const today = new Date();
-    const nextExp = dateParser(nextExpiration);
-    let expireTag = <></>;
-
-    if (dateDifferenceHelper(nextExp, today) < 0) {
-      expireTag = <Tag value="Expired!!" variant="expired" />;
-    } else if (dateDifferenceHelper(nextExp, today) <= 2) {
-      expireTag = <Tag value="Expires Soon!" variant="soon" />;
-    }
-
-    return expireTag;
-  };
-
   useEffect(() => {
     if (stockItemDetails) {
       const { quantity: quantityProp, dateObtained } = stockItemDetails;
@@ -115,11 +100,25 @@ const StockDetailsPage: React.FC<Props> = ({
     }
   }, [stockItemDetails]);
 
-  const onChange = (e: any, selectedDate?: Date): void => {
+  const onChangeDate = (e: any, selectedDate?: Date): void => {
     const currentDate = selectedDate || date;
 
     setShowDate(Platform.OS === 'ios');
     setDate(currentDate);
+  };
+
+  const getExpireTag = (): JSX.Element => {
+    const today = new Date();
+    const nextExp = dateParser(nextExpiration);
+    let expireTag = <></>;
+
+    if (dateDifferenceHelper(nextExp, today) < 0) {
+      expireTag = <Tag value="Expired!!" variant="expired" />;
+    } else if (dateDifferenceHelper(nextExp, today) <= 2) {
+      expireTag = <Tag value="Expires Soon!" variant="soon" />;
+    }
+
+    return expireTag;
   };
 
   const onDeleteClick = (): void => {
@@ -180,34 +179,21 @@ const StockDetailsPage: React.FC<Props> = ({
       <DrawerCard
         topOffset={ 300 }
         topRightOverlay={ (
-          <Grid
-            justifyContent="flex-end"
-            width="100%"
-          >
-            {
-              editMode ? (
-                <>
-                  <Box mr="s">
-                    <IconButton variant="error" onPress={ onDeleteClick }>
-                      <DeleteStockIcon variant="inverted" />
-                    </IconButton>
-                  </Box>
-                  <Box mr="s">
-                    <IconButton onPress={ () => setEditMode(false) }>
-                      <CancelIcon variant="warning" />
-                    </IconButton>
-                  </Box>
-                  <IconButton variant="warning" onPress={ onSaveClick }>
-                    <CheckIcon variant="inverted" />
-                  </IconButton>
-                </>
-              ) : (
-                <IconButton variant="warning" onPress={ () => setEditMode(true) }>
-                  <AddIcon variant="inverted" />
-                </IconButton>
-              )
-            }
-          </Grid>
+          <MoreMenu
+            items={ [
+              {
+                title: 'See nutritional values',
+                icon: <InfoIcon />,
+                onPress: onMoreDetails,
+              },
+              {
+                title: 'Delete this entire stock',
+                textVariant: 'error',
+                icon: <DeleteStockIcon variant="error" />,
+                onPress: () => {},
+              },
+            ] }
+          />
         ) }
       >
         <Box px="l">
@@ -250,53 +236,71 @@ const StockDetailsPage: React.FC<Props> = ({
                   </Box>
                 </Box>
               </Box>
-              {showDate && <DateInput value={ date } onChange={ onChange } />}
+              {showDate && <DateInput value={ date } onChange={ onChangeDate } />}
             </>
           ) : (
             stockItems && (
               <>
-                {stockItems
-                  .sort(
-                    (a: StockItem, b: StockItem) => dateParser(a.expirationDate).getTime()
-                      - dateParser(b.expirationDate).getTime(),
-                  )
-                  .map((stockItem: StockItem) => (
-                    <Box key={ stockItem.id } px="l" mb="m">
-                      <StockItemListCard
-                        expirationDate={ stockItem.expirationDate }
-                        createdDate={ stockItem.dateObtained }
-                        quantity={ stockItem.quantity }
-                        onPress={ () => {
-                          onItemClick(stockItem.id);
-                          setEditMode(true);
-                        } }
-                      />
-                    </Box>
-                  ))}
+                {
+                  stockItems
+                    .sort(
+                      (a: StockItem, b: StockItem) => dateParser(a.expirationDate).getTime()
+                        - dateParser(b.expirationDate).getTime(),
+                    )
+                    .map((stockItem: StockItem) => (
+                      <Box key={ stockItem.id } px="l" mb="m">
+                        <StockItemListCard
+                          expirationDate={ stockItem.expirationDate }
+                          createdDate={ stockItem.dateObtained }
+                          quantity={ stockItem.quantity }
+                          onPress={ () => {
+                            onItemClick(stockItem.id);
+                            setEditMode(true);
+                          } }
+                        />
+                      </Box>
+                    ))
+                }
+                <Box height="58px" />
               </>
             )
           )
         }
       </DrawerCard>
-      <Box position="absolute" top="0" right="xxxl">
-        <SafeView>
-          <MoreMenu
-            items={ [
-              {
-                title: 'See nutritional values',
-                icon: <InfoIcon />,
-                onPress: onMoreDetails,
-              },
-              {
-                title: 'Delete this entire stock',
-                textVariant: 'error',
-                icon: <DeleteStockIcon variant="error" />,
-                onPress: () => {},
-              },
-            ] }
-          />
-        </SafeView>
-      </Box>
+      <Grid
+        position="absolute"
+        left="0"
+        right="0"
+        bottom="xxxl"
+        px="xl"
+        justifyContent="center"
+      >
+        {
+          editMode ? (
+            <>
+              <Box mr="s">
+                <IconButton variant="error" onPress={ onDeleteClick }>
+                  <DeleteStockIcon variant="inverted" />
+                </IconButton>
+              </Box>
+              <Box mr="s">
+                <IconButton onPress={ () => setEditMode(false) }>
+                  <CancelIcon variant="warning" />
+                </IconButton>
+              </Box>
+              <IconButton variant="warning" onPress={ onSaveClick }>
+                <CheckIcon variant="inverted" />
+              </IconButton>
+            </>
+          ) : (
+            <Button
+              variant="warning"
+              title="Add some more"
+              onPress={ () => setEditMode(true) }
+            />
+          )
+        }
+      </Grid>
     </Box>
   );
 };

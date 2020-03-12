@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {
   ScrollView, Keyboard, LayoutAnimation,
 } from 'react-native';
-// @ts-ignore
 import { CustomLayoutSpring } from 'react-native-animation-layout';
 import { KeyboardView, Column, Grid } from '../../Containers';
 import { IconButton } from '../../Buttons';
@@ -43,9 +42,7 @@ const RichTextEditor: React.FC<Props> = ({
   }, []);
 
   useEffect(() => {
-    if (isKeyboardVisible) {
-      LayoutAnimation.configureNext(CustomLayoutSpring(null, null, "scaleXY"));
-    }
+    LayoutAnimation.configureNext(CustomLayoutSpring(null, null, "scaleXY"));
   }, [isKeyboardVisible]);
 
   const onSaveClick = async () => {
