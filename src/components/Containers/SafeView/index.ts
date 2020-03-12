@@ -1,12 +1,20 @@
+import {
+  layout, LayoutProps, space, SpaceProps,
+} from 'styled-system';
 import { SafeAreaView, SafeAreaViewProps } from 'react-native-safe-area-context';
 import styled from '../../../styled';
 
-export type Props = SafeAreaViewProps & {
-  full?: boolean;
-  side?: 'top' | 'bottom' | 'left' | 'right';
-};
+export type Props = SafeAreaViewProps
+  & LayoutProps
+  & SpaceProps
+  & {
+    full?: boolean;
+    side?: 'top' | 'bottom' | 'left' | 'right';
+  };
 
 const SafeView = styled(SafeAreaView)<Props>`
+  ${space}
+  ${layout}
   ${({ full }) => (full ? 'flex: 1;' : '')}
   ${({ side }) => {
     switch (side) {

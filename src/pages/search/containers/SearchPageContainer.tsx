@@ -83,7 +83,7 @@ const SearchPage: React.FC<Props> = ({
       </SearchTab.Navigator>
     </SafeView>
   );
-}
+};
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators(
     {

@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { titleHelper } from '../../../utils';
 import { Recipe } from '../../../constants/dataTypes';
 import { Box } from '../../../components/Containers';
 import DataList from '../../../components/DataList';
@@ -20,11 +19,7 @@ const SearchRecipeTab: React.FC<Props> = ({
     renderItem={ ({ item }: { item: Recipe }) => (
       <Box key={ item.name } px="l" mb="m">
         <RecipeSearchListCard
-          title={ titleHelper(item.name) }
-          tag="IDK"
-          duration={ item.cookTime }
-          difficulty="Easy"
-          quantity={ item.yield }
+          data={ item }
         />
       </Box>
     ) }

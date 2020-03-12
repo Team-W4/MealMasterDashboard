@@ -139,9 +139,9 @@ export default class RichToolbar extends React.Component<Props, State> {
     const { data } = this.state;
 
     return (
-      <Box height="75px" alignItems="center" justifyContent="center">
+      <Box alignItems="center" justifyContent="center">
         <FlatList
-          contentContainerStyle={{ alignItems: 'center' }}
+          contentContainerStyle={{ alignItems: 'center', padding: 16 }}
           horizontal
           keyExtractor={ (item, index) => `${item.action}-${index}` }
           data={ data }

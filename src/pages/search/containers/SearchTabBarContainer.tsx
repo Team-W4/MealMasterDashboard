@@ -75,7 +75,7 @@ const SearchTabBarContainer: React.FC<Props> = ({
         return (
           <Box
             key={ route.name }
-            ref={ (ref) => { menuItemRef = ref } }
+            ref={ (ref) => { menuItemRef = ref; } }
           >
             <SearchTabLabel
               title={ label }
@@ -89,6 +89,6 @@ const SearchTabBarContainer: React.FC<Props> = ({
       <Box width="16px" />
     </SearchTabList>
   );
-}
+};
 
 export default SearchTabBarContainer;

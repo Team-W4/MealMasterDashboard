@@ -60,13 +60,9 @@ class StockListPage extends React.Component<Props> {
               - dateParser(b.nextExpiration).getTime(),
           )
           .map((item: Stock) => (
-            <Box key={ item.food.name } px="l" mb="xl">
+            <Box key={ item.id } px="l" mb="xl">
               <StockListCard
-                imageURI="https://www.chiceats.com/sites/default/files/styles/image_1024x768/public/recipe/photo/homemade-pasta-recipe-1080x810@2x.jpg"
-                title={ item.food.name }
-                // tag={ (item.tags || [])[0].name }
-                nextExpiration={ item.nextExpiration }
-                quantity={ item.totalQuantity }
+                data={ item }
                 onPress={ () => navigation.push('StockDetails', { stockId: item.id }) }
               />
             </Box>

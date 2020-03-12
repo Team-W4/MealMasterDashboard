@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '../../../styled';
-import { GenericFood, Tag as TagType } from '../../../constants/dataTypes';
+import { RecipeDetails, Tag as TagType } from '../../../constants/dataTypes';
+import { titleHelper } from '../../../utils';
 import { Box, Grid, Column } from '../../../components/Containers';
 import { DrawerCard } from '../../../components/Cards';
 import { Button, IconButton } from '../../../components/Buttons';
@@ -29,14 +30,7 @@ export type Props = {
   onFavorite?: () => void;
   onShare?: () => void;
   onBack: () => void;
-  recipeDetails: {
-    rating?: number;
-    name?: string;
-    cookTime?: string | number;
-    ingredients?: Array<GenericFood>;
-    tags?: Array<TagType>;
-    instructions: string;
-  };
+  recipeDetails: RecipeDetails;
 };
 
 const RecipeDetailsPage: React.FC<Props> = ({
@@ -72,7 +66,7 @@ const RecipeDetailsPage: React.FC<Props> = ({
         <Column>
           <Rating value={ 4.3 } />
           <Title mt="m" mb="s">
-            {name}
+            {titleHelper(name)}
           </Title>
           <Subtitle>
             {`${cookTime || 0} minutes | ${(ingredients
@@ -95,7 +89,7 @@ const RecipeDetailsPage: React.FC<Props> = ({
         </TagList>
       )}
       <Paragraph px="xxl">{instructions}</Paragraph>
-      <Box height="100px" />
+      <Box height="130px" />
     </DrawerCard>
     <Box
       position="absolute"

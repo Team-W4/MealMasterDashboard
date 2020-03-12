@@ -135,7 +135,7 @@ const StockDetailsPage: React.FC<Props> = ({
         },
       },
     ]);
-  }
+  };
 
   const onSaveClick = (): void => {
     if (!quantity || Number(quantity) <= 0) {

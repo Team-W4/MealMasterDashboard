@@ -1,8 +1,9 @@
 import React from 'react';
 import { WebView, WebViewMessageEvent } from 'react-native-webview';
-import { Dimensions, View } from 'react-native';
+import { Dimensions } from 'react-native';
 import { actions, messages } from './actions';
 import editorHTML from './web/editor';
+import { Box } from '../../Containers';
 
 export type Props = {
   initialContentHTML?: string;
@@ -68,17 +69,14 @@ class StyledEditor extends React.Component<Props, State> {
         case messages.LOG:
           console.log('FROM EDIT:', ...message.data);
           break;
-        case messages.SELECTION_CHANGE: {
-          const items = message.data;
+        case messages.SELECTION_CHANGE:
           selectionChangeListeners.forEach((listener) => {
-            listener(items);
+            listener(message.data);
           });
           break;
-        }
-        case messages.CONTENT_FOCUSED: {
+        case messages.CONTENT_FOCUSED:
           this.focusListeners.map((focusHandler: () => void) => focusHandler());
           break;
-        }
         case messages.OFFSET_HEIGHT:
           this.setWebHeight(message.data);
           break;
@@ -105,7 +103,7 @@ class StyledEditor extends React.Component<Props, State> {
     this.sendAction(actions.content, "setHtml", html);
   }
 
-  public async getContentHtml() {
+  public async getContentHtml(): Promise<string> {
     return new Promise((resolve, reject) => {
       this.contentResolve = resolve;
       this.contentReject = reject;
@@ -113,7 +111,7 @@ class StyledEditor extends React.Component<Props, State> {
 
       this.pendingContentHtml = setTimeout(() => {
         if (this.contentReject) {
-          this.contentReject('timeout')
+          this.contentReject('timeout');
         }
       }, 5000);
     });
@@ -145,7 +143,7 @@ class StyledEditor extends React.Component<Props, State> {
     this.sendAction(actions.insertImage, "result", attributes);
   }
 
-  public init() {
+  public init(): void {
     const { initialContentHTML, editorInitializedCallback } = this.props;
 
     this.setContentHTML(initialContentHTML);
@@ -162,7 +160,7 @@ class StyledEditor extends React.Component<Props, State> {
     const { height } = this.state;
 
     return (
-      <View style={{ height: height || Dimensions.get('window').height * 0.7 }}>
+      <Box height={ height || Dimensions.get('window').height * 0.7 }>
         <WebView
           dataDetectorTypes="none"
           javaScriptEnabled
@@ -171,14 +169,14 @@ class StyledEditor extends React.Component<Props, State> {
           scrollEnabled={ false }
           domStorageEnabled={ false }
           keyboardDisplayRequiresUserAction={ false }
-          ref={ (r) => { this.webviewBridge = r } }
+          ref={ (r) => { this.webviewBridge = r; } }
           originWhitelist={ ["*"] }
           source={{ html: editorHTML({ contentEditable: true }) }}
           onLoad={ () => this.init() }
           onMessage={ this.onMessage }
           { ...this.props }
         />
-      </View>
+      </Box>
     );
   }
 }

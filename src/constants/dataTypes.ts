@@ -47,6 +47,13 @@ export type Recipe = {
   id: number;
   name?: string;
   tags?: Array<Tag>;
-  cookTime?: string;
+  cookTime?: string | number;
   yield?: string;
+};
+
+export type RecipeDetails = Recipe & {
+  rating?: number;
+  cookTime?: string | number;
+  ingredients?: Array<GenericFood>;
+  instructions: string;
 };

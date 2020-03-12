@@ -66,8 +66,11 @@ export const restoreToken = () => async (dispatch) => {
     userToken = await AsyncStorage.getItem('userToken');
     if (userToken) {
       const { email, password } = JSON.parse(await AsyncStorage.getItem('savedUser'));
+
       if (email && password) {
-        logIn(email, password);
+        UserService.login(email, password).then(
+          (profile) => storeToken(dispatch, profile, email, password),
+        );
       }
     }
   } catch (e) {

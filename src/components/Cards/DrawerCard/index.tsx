@@ -1,9 +1,13 @@
-import React, { PropsWithChildren } from 'react';
-import { Animated, ScrollView, PanResponder } from 'react-native';
+import React, { PropsWithChildren, useState } from 'react';
+import {
+ Animated, ScrollView, Dimensions, LayoutChangeEvent,
+} from 'react-native';
 import { useSafeArea } from 'react-native-safe-area-context';
 import styled from '../../../styled';
 import { Box, SafeView } from '../../Containers';
 import Card from '../Card';
+
+const { height: DEVICE_HEIGHT } = Dimensions.get('window');
 
 const DEFAULT_DRAWER_OFFSET = 430;
 
@@ -33,6 +37,7 @@ const DrawerMark = styled.View`
 
 const DrawerCardWrapper = styled(Card)`
   flex: 1;
+  overflow: hidden;
 `;
 
 
@@ -46,25 +51,19 @@ const DrawerCard: React.FC<PropsWithChildren<Props>> = ({
   topRightOverlay,
   children,
 }) => {
-  const { top: topInset } = useSafeArea();
-  const cardsPan = new Animated.ValueXY({ x: 0, y: topOffset });
+  const [childrenHeight, setHeight] = useState(0);
+  const { top: topInset, bottom: bottomInset } = useSafeArea();
+  const outerYMapping = new Animated.Value(0);
 
-  const cardsPanResponder = PanResponder.create({
-    onStartShouldSetPanResponder: () => true,
-    onStartShouldSetPanResponderCapture: () => true,
-    onMoveShouldSetPanResponder: () => true,
-    onMoveShouldSetPanResponderCapture: () => true,
-    onPanResponderGrant: () => true,
-    onPanResponderMove: Animated.event([
-      null, { moveX: cardsPan.x, moveY: cardsPan.y },
-    ]),
-    onPanResponderTerminationRequest: () => false,
-    onPanResponderRelease: () => {},
+  const top = outerYMapping.interpolate({
+    inputRange: [0, topOffset],
+    outputRange: [topOffset, topInset],
+    extrapolate: 'clamp',
   });
 
-  const top = cardsPan.y.interpolate({
-    inputRange: [topInset, topOffset],
-    outputRange: [topInset, topOffset],
+  const translateY = outerYMapping.interpolate({
+    inputRange: [topOffset, DEVICE_HEIGHT + topOffset],
+    outputRange: [0, -(DEVICE_HEIGHT + topOffset)],
     extrapolate: 'clamp',
   });
 
@@ -79,21 +78,37 @@ const DrawerCard: React.FC<PropsWithChildren<Props>> = ({
         }}
       >
         <DrawerCardWrapper>
-          <DrawerMarkBox
-            { ...cardsPanResponder.panHandlers }
-          >
+          <DrawerMarkBox>
             <DrawerMark />
           </DrawerMarkBox>
-          <ScrollView
-            showsVerticalScrollIndicator={ false }
+          <Animated.View
+            onLayout={
+              ({ nativeEvent: { layout: { height } } }: LayoutChangeEvent) => setHeight(height)
+            }
+            style={{
+              transform: [{ translateY }],
+            }}
           >
             {children}
-          </ScrollView>
+          </Animated.View>
         </DrawerCardWrapper>
-        <Box position="absolute" right="xxxl" top="-25px">
-          {topRightOverlay}
-        </Box>
       </Animated.View>
+      <Box position="absolute" right="xxxl" top="-25px">
+        {topRightOverlay}
+      </Box>
+      <ScrollView
+        scrollEventThrottle={ 16 }
+        showsVerticalScrollIndicator={ false }
+        onScroll={ (e) => {
+          outerYMapping.setValue(e.nativeEvent.contentOffset.y);
+        } }
+      >
+        <Box
+          height={
+            Math.max(childrenHeight, DEVICE_HEIGHT) - topInset - bottomInset + topOffset
+          }
+        />
+      </ScrollView>
     </SafeViewDrawer>
   );
 };

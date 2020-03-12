@@ -26,9 +26,7 @@ class FoodDetailsContainer extends React.Component<Props> {
 
     return (
       <FoodDetailsPage
-        onBack={ () => {
-          navigation.pop(1);
-        } }
+        onAdd={ () => navigation.navigate('StockDetails', { foodId: foodDetails.id }) }
         foodDetails={ foodDetails }
       />
     );

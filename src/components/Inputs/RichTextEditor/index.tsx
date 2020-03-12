@@ -1,47 +1,85 @@
-import React, { useRef } from 'react';
-import { ScrollView, KeyboardAvoidingView } from 'react-native';
-import { SafeView } from '../../Containers';
-import { Button } from '../../Buttons';
+import React, { useState, useEffect } from 'react';
+import {
+  ScrollView, KeyboardAvoidingView, Keyboard, LayoutAnimation,
+} from 'react-native';
+// @ts-ignore
+import { CustomLayoutSpring } from 'react-native-animation-layout';
+import { Column, Grid } from '../../Containers';
+import { IconButton } from '../../Buttons';
+import { NextIcon } from '../../Icons';
 import StyledEditor from './StyledEditor';
 import StyledToolBar from './StyledToolBar';
 
 export type Props = {
   initialContent?: string;
-  onSave?: () => {};
+  onSave?: (content?: string) => void;
 };
 
 const RichTextEditor: React.FC<Props> = ({
   initialContent,
   onSave,
-  ...props
 }) => {
   const editorRef: React.RefObject<StyledEditor> = React.createRef();
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setKeyboardVisible(true); // or some other action
+      },
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setKeyboardVisible(false); // or some other action
+      },
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
+
+  useEffect(() => {
+    LayoutAnimation.configureNext(CustomLayoutSpring(null, null, "scaleXY"));
+  }, [isKeyboardVisible]);
+
   const onSaveClick = async () => {
     // Get the data here and call the interface to save the data
     const html = await editorRef.current?.getContentHtml();
-    alert(html);
 
     if (onSave) {
-      onSave();
+      onSave(html);
     }
   };
 
   return (
-    <SafeView full>
-      <Button variant="warning" onPress={ onSaveClick } />
-      <ScrollView>
-        <StyledEditor
-          ref={ editorRef }
-          initialContentHTML={ initialContent || '' }
-        />
-      </ScrollView>
-      <KeyboardAvoidingView behavior="padding">
+    <KeyboardAvoidingView behavior="padding" style={{ flexGrow: 1 }}>
+      <Column m="l" mb="0">
+        <ScrollView>
+          <StyledEditor
+            ref={ editorRef }
+            initialContentHTML={ initialContent || '' }
+          />
+        </ScrollView>
+      </Column>
+      {isKeyboardVisible ? (
         <StyledToolBar
           getEditor={ () => editorRef.current }
           onPressAddImage={ () => {} }
         />
-      </KeyboardAvoidingView>
-    </SafeView>
+      ) : (
+        <Grid mb="l" mr="xxl" justifyContent="flex-end">
+          <IconButton
+            onPress={ onSaveClick }
+          >
+            <NextIcon variant="warning" />
+          </IconButton>
+        </Grid>
+      )}
+    </KeyboardAvoidingView>
   );
 };
 

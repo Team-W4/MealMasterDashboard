@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Platform, UIManager } from 'react-native';
 import {
- HomeOutlineIcon, SearchIcon, SavedIcon, StockIcon,
+  HomeOutlineIcon, SearchIcon, SavedIcon, StockIcon,
 } from '../../components/Icons';
 import colors from '../../styled/variables/colors';
 import TitlePage from '../title';
@@ -67,6 +67,6 @@ const HomeNavigator: React.FC = () => {
       </HomeTab.Navigator>
     </>
   );
-}
+};
 
 export default HomeNavigator;

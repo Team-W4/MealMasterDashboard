@@ -5,12 +5,12 @@ import styled from '../../../styled';
 import { Box, Grid, Column } from '../../../components/Containers';
 import { Text, Subtitle } from '../../../components/Texts';
 import { TextButton } from '../../../components/Buttons';
+import ScrollList from '../../../components/ScrollList';
 import ProfileImage from '../../../components/ProfileImage';
 import UserDetailsCard from './UserDetailsCard';
 import {
  StockIcon, QuantityIcon, SavedIcon, UtensilsIcon,
 } from '../../../components/Icons';
-import ScrollList from '../../../components/ScrollList'
 
 export type Props = AuthNavigationProps<'UserDetails'> & {
   profile: {
@@ -38,8 +38,8 @@ const EditProfileButton = styled(TextButton)`
 const UserProfilePage: React.FC<Props> = ({
   navigation,
   profile: {
- firstName, lastName, email,
-},
+    firstName, lastName, email,
+  },
 }) => {
   const { logOut } = useContext(AuthContext);
 

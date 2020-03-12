@@ -30,8 +30,8 @@ const HTMLEditor = ({ contentEditable = true }: Props) => `
       margin: 0;
       padding: 0;
       font-family: 'Sofia Pro';
-      font-size: 16px;
-      line-height: 24px;
+      font-size: 24px;
+      line-height: 32px;
     }
     body {
       overflow-y: hidden;
@@ -44,9 +44,6 @@ const HTMLEditor = ({ contentEditable = true }: Props) => `
       margin-left:auto;
       margin-right:auto;
       display: block;
-    }
-    ol {
-      padding-inline-start: 100px;
     }
     .content {
       color: #000000;

@@ -34,15 +34,9 @@ class RecipeListPage extends React.Component<Props> {
     return (
       <ScrollList>
         {(recipes || []).map((item: Recipe) => (
-          <Box key={ item.name } px="l" mb="xl">
+          <Box key={ item.id } px="l" mb="xl">
             <RecipeCard
-              title={ item.name }
-              tag={ item.tags && item.tags.length > 0 ? item.tags[0].name : '' }
-              // TODO: Adds image & difficulty
-              imageURI="https://tmbidigitalassetsazure.blob.core.windows.net/secure/RMS/attachments/37/1200x1200/Peanut-Butter-and-Jelly-French-Toast_EXPS_BMZ19_526_B12_04_10b.jpg"
-              duration={ item.cookTime }
-              difficulty="Easy"
-              quantity={ item.yield }
+              data={ item }
               onPress={ () => navigation.push('RecipeDetails', { recipeId: item.id }) }
             />
           </Box>

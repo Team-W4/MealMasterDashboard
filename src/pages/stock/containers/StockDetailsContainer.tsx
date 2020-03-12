@@ -57,7 +57,7 @@ class StockDetailsContainer extends React.Component<Props> {
         editMode={ !!foodId }
         onBack={ () => navigation.pop(1) }
         onRefresh={ () => this.refresh() }
-        onMoreDetails={ () => navigation.push('FoodDetails', { foodId: stockDetails.food.id }) }
+        onMoreDetails={ () => navigation.navigate('FoodDetails', { foodId: stockDetails.food.id }) }
         onItemClick={ getStockItemById }
         onAdd={ (stockItem: StockItem) => addToStock(stockDetails.food.id, stockItem) }
         onUpdate={ updateStockItem }

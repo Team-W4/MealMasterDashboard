@@ -7,8 +7,9 @@ import * as navigator from '../navigator/Navigator';
 import LoadingPage from '../loading';
 import LoginPage from '../login';
 import SearchPage from '../search';
-import { RecipeDetailsPage, RecipeEditPage } from '../recipes';
+import { RecipeDetailsPage } from '../recipes';
 import { StockDetailsPage } from '../stock';
+import RecipeEditPage from '../recipeEdit';
 import FoodDetailsPage from '../food';
 import UserDetailsPage, { UserEditPage } from '../user';
 import AuthStack from './AuthStack';
@@ -68,12 +69,7 @@ const AuthProvider: React.FC<Props> = ({
   return (
     <AuthContext.Provider value={ authContext }>
       <AuthStack.Navigator headerMode="none">
-        <AuthStack.Screen
-          name="Login"
-          component={ LoginPage }
-          options={{ animationTypeForReplace: isLoggedOut ? 'pop' : 'push' }}
-        />
-        {userToken && (
+        {userToken ? (
           <>
             <AuthStack.Screen name="Home" component={ HomeNavigator } />
             <AuthStack.Screen name="Search" component={ SearchPage } />
@@ -84,6 +80,12 @@ const AuthProvider: React.FC<Props> = ({
             <AuthStack.Screen name="UserDetails" component={ UserDetailsPage } />
             <AuthStack.Screen name="UserEdit" component={ UserEditPage } />
           </>
+        ) : (
+          <AuthStack.Screen
+            name="Login"
+            component={ LoginPage }
+            options={{ animationTypeForReplace: isLoggedOut ? 'pop' : 'push' }}
+          />
         )}
         <AuthStack.Screen name="Loading" component={ LoadingPage } />
       </AuthStack.Navigator>
