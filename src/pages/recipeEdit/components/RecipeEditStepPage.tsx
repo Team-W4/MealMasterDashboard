@@ -34,7 +34,7 @@ const RecipeEditSteps: {
     next: 'Tags',
     action: 'SET_COOK_TIME',
     verifyFn: (cookTime: Number) => cookTime > 0,
-    errorMessage: 'It sure would take a positive amount of time',
+    errorMessage: 'e.g. 10 minutes for a salad',
   },
   Tags: {
     question: 'How would you describe this recipe?',
@@ -86,6 +86,7 @@ const RecipeEditStepPage: React.FC<Props> = ({ navigation, route }) => {
           </Box>
         </Column>
         <Input
+          autoFocus
           size="large"
           title={ currentStep.question }
           value={ value.toString() }

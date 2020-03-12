@@ -34,7 +34,15 @@ class StyledEditor extends React.Component<Props, State> {
     this.onMessage = this.onMessage.bind(this);
     this.setWebHeight = this.setWebHeight.bind(this);
     this.sendAction = this.sendAction.bind(this);
+    this.setContentFocusHandler = this.setContentFocusHandler.bind(this);
+    this.setContentHTML = this.setContentHTML.bind(this);
+    this.getContentHtml = this.getContentHtml.bind(this);
+    this.sendAction = this.sendAction.bind(this);
     this.registerToolbar = this.registerToolbar.bind(this);
+    this.blurContentEditor = this.blurContentEditor.bind(this);
+    this.focusContentEditor = this.focusContentEditor.bind(this);
+    this.insertImage = this.insertImage.bind(this);
+    this.init = this.init.bind(this);
 
     this.state = {
       selectionChangeListeners: [],
@@ -147,6 +155,8 @@ class StyledEditor extends React.Component<Props, State> {
     const { initialContentHTML, editorInitializedCallback } = this.props;
 
     this.setContentHTML(initialContentHTML);
+    this.focusContentEditor();
+
     if (editorInitializedCallback) {
       editorInitializedCallback();
     }

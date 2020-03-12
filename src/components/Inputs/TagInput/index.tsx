@@ -3,7 +3,6 @@ import Input from '../Input';
 import { Box, Grid } from '../../Containers';
 import Tag from '../../Tag';
 
-
 export type Props = {
 
 };
@@ -13,7 +12,7 @@ const TagInput: React.FC<Props> = () => {
   const [tags, setTags] = useState<Array<string>>([]);
 
   useEffect(() => {
-    setTags(value.split(' '));
+    setTags(value.split(/[ ,]+/));
   }, [value]);
 
   return (
@@ -21,14 +20,15 @@ const TagInput: React.FC<Props> = () => {
       <Input
         multiline
         title="Tags"
+        placeholder="Separate multiple tags by space or comma"
         value={ value }
         onChangeText={ (e) => setValue(e) }
       />
-      <Grid width="100%" flexWrap="wrap">
+      <Grid mt="s" width="100%" flexWrap="wrap">
         {
           tags.map((tag) => (tag && tag.length > 0 ? (
             <Box key={ tag } mr="xs" mb="xs">
-              <Tag value={ tag } />
+              <Tag value={ `#${tag}` } />
             </Box>
           ) : (
             <></>

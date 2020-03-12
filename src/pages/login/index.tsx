@@ -1,13 +1,14 @@
 import React, { useContext, useState } from 'react';
 import styled from '../../styled';
 import { emailChecker } from '../../utils';
-import AuthContext from '../auths/AuthContext';
-import { Box, Grid, Column } from '../../components/Containers';
+import {
+  Box, Grid, Column, SafeView, KeyboardView,
+} from '../../components/Containers';
 import { Text } from '../../components/Texts';
 import { TextButton, IconButton } from '../../components/Buttons';
 import { Input } from '../../components/Inputs';
 import { BackIcon } from '../../components/Icons';
-import ScrollList from '../../components/ScrollList';
+import AuthContext from '../auths/AuthContext';
 
 const ERROR_MSGS = {
   emptyEmail: 'Please enter your email.',
@@ -16,11 +17,6 @@ const ERROR_MSGS = {
   passwordTooShort: 'Use 8 characters or more for your password',
   passwordsDontMatch: "Those passwords don't match. Try again.",
 };
-
-const LoginView = styled(ScrollList)`
-  padding-left: ${({ theme: { space } }) => space.xxxl};
-  padding-right: ${({ theme: { space } }) => space.xxxl};
-`;
 
 const LoginIcon = styled(BackIcon)`
   transform: rotate(180deg);
@@ -89,51 +85,55 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <LoginView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
-      <Box mb="l">
-        <Text size="large" mb="xxxl">
-          {registerMode ? 'Sign Up' : 'Log In'}
-        </Text>
-        <Input
-          title="Email"
-          error={ errors.email || '' }
-          value={ email }
-          onChangeText={ (e) => setEmail(e) }
-        />
-      </Box>
-      <Box mb="l">
-        <Input
-          secureTextEntry
-          title="Password"
-          error={ errors.password || '' }
-          value={ password }
-          onChangeText={ (e) => setPassword(e) }
-        />
-      </Box>
-      {registerMode && (
-        <Box mb="l">
-          <Input
-            secureTextEntry
-            title="Confirm Password"
-            error={ errors.cfPassword || '' }
-            value={ newPassword }
-            onChangeText={ (e) => setNewPassword(e) }
-          />
+    <SafeView full px="xxxl">
+      <KeyboardView full behavior="padding">
+        <Box flexGrow={ 1 } justifyContent="center">
+          <Text size="large" mb="xxxl">
+            {registerMode ? 'Sign Up' : 'Log In'}
+          </Text>
+          <Box mb="l">
+            <Input
+              title="Email"
+              error={ errors.email || '' }
+              value={ email }
+              onChangeText={ (e) => setEmail(e) }
+            />
+          </Box>
+          <Box mb="l">
+            <Input
+              secureTextEntry
+              title="Password"
+              error={ errors.password || '' }
+              value={ password }
+              onChangeText={ (e) => setPassword(e) }
+            />
+          </Box>
+          {registerMode && (
+            <Box mb="l">
+              <Input
+                secureTextEntry
+                title="Confirm Password"
+                error={ errors.cfPassword || '' }
+                value={ newPassword }
+                onChangeText={ (e) => setNewPassword(e) }
+              />
+            </Box>
+          )}
         </Box>
-      )}
-      <Grid mb="l" mr="s">
-        <Column justifyContent="center">
-          <SwitchModeButton onPress={ () => setRegisterMode(!registerMode) }>
-            {registerMode
-              ? 'Already have an account?'
-              : "Don't have an account?"}
-          </SwitchModeButton>
-        </Column>
-        <IconButton size="large" onPress={ handleSubmit }>
-          <LoginIcon size="large" />
-        </IconButton>
-      </Grid>
-    </LoginView>
+        <Grid mb="l" mr="s">
+          <Column justifyContent="center">
+            <SwitchModeButton onPress={ () => setRegisterMode(!registerMode) }>
+              {registerMode
+                ? 'Already have an account?'
+                : "Don't have an account?"}
+            </SwitchModeButton>
+          </Column>
+          <IconButton size="large" onPress={ handleSubmit }>
+            <LoginIcon size="large" />
+          </IconButton>
+        </Grid>
+      </KeyboardView>
+    </SafeView>
   );
 };
 

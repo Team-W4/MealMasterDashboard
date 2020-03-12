@@ -43,7 +43,9 @@ const RichTextEditor: React.FC<Props> = ({
   }, []);
 
   useEffect(() => {
-    LayoutAnimation.configureNext(CustomLayoutSpring(null, null, "scaleXY"));
+    if (isKeyboardVisible) {
+      LayoutAnimation.configureNext(CustomLayoutSpring(null, null, "scaleXY"));
+    }
   }, [isKeyboardVisible]);
 
   const onSaveClick = async () => {
@@ -56,7 +58,7 @@ const RichTextEditor: React.FC<Props> = ({
   };
 
   return (
-    <KeyboardView behavior="padding">
+    <KeyboardView full behavior="padding">
       <Column m="l" mb="0">
         <ScrollView>
           <StyledEditor
@@ -71,7 +73,7 @@ const RichTextEditor: React.FC<Props> = ({
           onPressAddImage={ () => {} }
         />
       ) : (
-        <Grid mb="l" mr="xxl" justifyContent="flex-end">
+        <Grid py="s" mr="xxl" justifyContent="flex-end" alignItems="center">
           <IconButton
             onPress={ onSaveClick }
           >

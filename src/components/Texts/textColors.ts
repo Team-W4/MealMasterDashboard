@@ -2,6 +2,7 @@ import { variant } from 'styled-system';
 
 enum textColorEnum {
   inherit,
+  transparent,
   normal,
   inverted,
   warning,
@@ -23,6 +24,9 @@ const textColors = variant({
   variants: {
     inherit: {
       color: 'inherit',
+    },
+    transparent: {
+      color: 'transparent',
     },
     normal: {
       color: 'black',

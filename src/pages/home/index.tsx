@@ -2,7 +2,6 @@ import React from 'react';
 import { Box } from '../../components/Containers';
 import { Button } from '../../components/Buttons';
 import { Text } from '../../components/Texts';
-import TagInput from '../../components/Inputs/TagInput';
 import { HomeNavigationProps } from '../navigator/HomeTab';
 import { AuthNavigationProps } from '../auths/AuthStack';
 
@@ -14,7 +13,6 @@ const HomePage: React.FC<Props> = ({ navigation }) => (
     <Button onPress={ () => navigation.push('RecipeEdit') }>
       <Text>+</Text>
     </Button>
-    <TagInput />
   </Box>
 );
 
