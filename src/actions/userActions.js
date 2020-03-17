@@ -20,7 +20,7 @@ const storeToken = async (dispatch, profile, email, password) => {
 
     dispatch(receiveProfile(profile));
   } catch (error) {
-    console.log('Failed to store user token');
+    console.error('Failed to store user token');
   }
 };
 
@@ -47,7 +47,7 @@ export const logOut = () => (dispatch) => {
       await AsyncStorage.removeItem('userToken');
       dispatch({ type: actionTypes.LOGOUT });
     } catch (error) {
-      console.log('Failed to clear user token');
+      console.error('Failed to clear user token');
     }
   });
 };
@@ -74,7 +74,7 @@ export const restoreToken = () => async (dispatch) => {
       }
     }
   } catch (e) {
-    console.log('Failed to retrieve user token');
+    console.error('Failed to retrieve user token');
   }
 
   dispatch({

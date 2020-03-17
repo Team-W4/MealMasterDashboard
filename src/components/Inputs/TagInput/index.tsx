@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { LayoutAnimation } from 'react-native';
 import { CustomLayoutSpring } from 'react-native-animation-layout';
-import Input from '../Input';
+import Input, { Props as InputProps } from '../Input';
 import { Box, Grid } from '../../Containers';
 import Tag from '../../Tag';
-import { InputProps } from '..';
 
 export type Props = InputProps;
 

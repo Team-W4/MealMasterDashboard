@@ -3,6 +3,7 @@ import RecipeEditStack from './RecipeEditStack';
 import RecipeEditContext, { RecipeEditReducer, initialRecipeEditState } from './RecipeEditContext';
 import RecipeEditStepPage from './components/RecipeEditStepPage';
 import RecipeInstructionEdit from './components/RecipeInstructionsEdit';
+import RecipeEditAllSet from './components/RecipeEditAllSet';
 
 export type Props = {
 
@@ -21,6 +22,7 @@ const RecipeEditContainer: React.FC<Props> = () => {
         <RecipeEditStack.Screen name="Instructions" component={ RecipeInstructionEdit } />
         <RecipeEditStack.Screen name="CookTime" component={ RecipeEditStepPage } />
         <RecipeEditStack.Screen name="Tags" component={ RecipeEditStepPage } />
+        <RecipeEditStack.Screen name="AllSet" component={ RecipeEditAllSet } />
       </RecipeEditStack.Navigator>
     </RecipeEditContext.Provider>
   );
