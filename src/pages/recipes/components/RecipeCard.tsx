@@ -1,13 +1,11 @@
 import React from 'react';
 import styled from '../../../styled';
-import Box from '../../../components/Containers/Box';
-import Grid, { Row } from '../../../components/Containers/Grid';
-import ClockIcon from '../../../components/Icons/Clock';
-import QuantityIcon from '../../../components/Icons/Quantity';
-import UtensilsIcon from '../../../components/Icons/Utensils';
-import Heading from '../../../components/Texts/Heading';
-import Subtitle from '../../../components/Texts/Subtitle';
-import Card, { Props as CardProps } from '../../../components/Cards/Card';
+import { Recipe } from '../../../constants/dataTypes';
+import { titleHelper } from '../../../utils';
+import { Box, Grid, Row } from '../../../components/Containers';
+import { Card, CardProps } from '../../../components/Cards';
+import { Heading, Subtitle } from '../../../components/Texts';
+import { ClockIcon, QuantityIcon, UtensilsIcon } from '../../../components/Icons';
 
 const StyledImage = styled.Image`
   height: 100px;
@@ -16,40 +14,39 @@ const StyledImage = styled.Image`
 `;
 
 export type Props = CardProps & {
-  imageURI?: string;
-  title?: string;
-  tag?: string;
-  duration?: string;
-  difficulty?: string;
-  quantity?: string;
+  data: Recipe;
 };
 
 const RecipeCard: React.FC<Props> = ({
-  imageURI,
-  title,
-  tag,
-  duration,
-  difficulty,
-  quantity,
+  data: {
+    name,
+    tags,
+    cookTime,
+    yield: quantity,
+  },
   ...props
 }) => (
   <Card { ...props }>
-    <StyledImage source={{ uri: imageURI }} />
+    <StyledImage source={{ uri: 'https://tmbidigitalassetsazure.blob.core.windows.net/secure/RMS/attachments/37/1200x1200/Peanut-Butter-and-Jelly-French-Toast_EXPS_BMZ19_526_B12_04_10b.jpg' }} />
     <Box px="m" py="s">
-      {tag && tag.length > 0 ? <Subtitle mb="xs">{tag}</Subtitle> : <></>}
-      <Heading mb="xs">{title}</Heading>
+      {tags && tags.length > 0 ? (
+        <Subtitle mb="xs">{tags[0].name || ''}</Subtitle>
+      ) : (
+        <></>
+      )}
+      <Heading mb="xs">{titleHelper(name)}</Heading>
       <Grid>
         <Row>
           <ClockIcon mr="xs" size="small" variant="tertiary" />
           <Subtitle>
-            {`${duration || 0} min${
-              Number(duration) > 1 ? 's' : ''
+            {`${cookTime || 0} min${
+              Number(cookTime) > 1 ? 's' : ''
             }`}
           </Subtitle>
         </Row>
         <Row>
           <QuantityIcon mr="xs" size="small" variant="tertiary" />
-          <Subtitle>{difficulty}</Subtitle>
+          <Subtitle>Easy</Subtitle>
         </Row>
         <Row>
           <UtensilsIcon mr="xs" size="small" variant="tertiary" />

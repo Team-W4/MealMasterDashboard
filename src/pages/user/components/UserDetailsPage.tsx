@@ -1,23 +1,18 @@
 import React, { useContext } from 'react';
-import { StackNavigationProp } from '@react-navigation/stack';
 import AuthContext from '../../auths/AuthContext';
-import { AuthStackParamList } from '../../auths/AuthStack';
+import { AuthNavigationProps } from '../../auths/AuthStack';
 import styled from '../../../styled';
-import Box from '../../../components/Containers/Box';
-import Grid, { Column } from '../../../components/Containers/Grid';
-import Text from '../../../components/Texts/Text';
-import Subtitle from '../../../components/Texts/Subtitle';
-import TextButton from '../../../components/Buttons/TextButton';
+import { Box, Grid, Column } from '../../../components/Containers';
+import { Text, Subtitle } from '../../../components/Texts';
+import { TextButton } from '../../../components/Buttons';
+import ScrollList from '../../../components/ScrollList';
 import ProfileImage from '../../../components/ProfileImage';
 import UserDetailsCard from './UserDetailsCard';
-import StockIcon from '../../../components/Icons/Stock';
-import QuantityIcon from '../../../components/Icons/Quantity';
-import SavedIcon from '../../../components/Icons/Saved';
-import UtensilsIcon from '../../../components/Icons/Utensils';
-import ScrollList from '../../../components/ScrollList'
+import {
+ StockIcon, QuantityIcon, SavedIcon, UtensilsIcon,
+} from '../../../components/Icons';
 
-export type Props = {
-  navigation: StackNavigationProp<AuthStackParamList, 'UserDetails'>;
+export type Props = AuthNavigationProps<'UserDetails'> & {
   profile: {
     firstName: string;
     lastName: string;
@@ -43,8 +38,8 @@ const EditProfileButton = styled(TextButton)`
 const UserProfilePage: React.FC<Props> = ({
   navigation,
   profile: {
- firstName, lastName, email,
-},
+    firstName, lastName, email,
+  },
 }) => {
   const { logOut } = useContext(AuthContext);
 
@@ -54,8 +49,7 @@ const UserProfilePage: React.FC<Props> = ({
         <Box alignItems="center" justifyContent="center" pt="xxxl">
           <UserProfile rounded />
           <Text mt="m" size="large">
-            {`${firstName || 'Meal'} ${lastName
-            || 'Master'}`}
+            {`${firstName || 'Meal'} ${lastName || 'Master'}`}
           </Text>
           <Subtitle mb="m">{email || ''}</Subtitle>
           <Text>{`${0 || 0} Followers | ${0 || 0} Following`}</Text>

@@ -3,26 +3,35 @@ export type Tag = {
   name: string;
 };
 
+export type User = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  createDate: string;
+}
+
 export type GenericFood = {
   id: number;
   name: string;
   averageExpirationDurations: number;
   gramsPerServing: number;
   foodGroup?: string;
+  tags?: Array<Tag>;
 };
 
 export type Stock = {
   id: number;
-  totalQuantity: number;
-  quantityInGrams: number;
+  totalQuantity?: number;
+  quantityInGrams?: number;
   food: GenericFood;
-  foodName: string;
-  nextExpiration: string;
-  tags: Array<Tag>;
+  foodName?: string;
+  nextExpiration?: string;
+  tags?: Array<Tag>;
 };
 
 export type StockItem = {
-  id?: number;
+  id: number;
   location?: string;
   dateObtained: string;
   expirationDate?: string;
@@ -36,5 +45,15 @@ export type StockDetails = Stock & {
 
 export type Recipe = {
   id: number;
-  tags: Array<Tag>;
+  name?: string;
+  tags?: Array<Tag>;
+  cookTime?: string | number;
+  yield?: string;
+};
+
+export type RecipeDetails = Recipe & {
+  rating?: number;
+  cookTime?: string | number;
+  ingredients?: Array<GenericFood>;
+  instructions: string;
 };

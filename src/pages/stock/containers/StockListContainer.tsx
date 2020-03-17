@@ -1,17 +1,20 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs';
+import { LayoutAnimation } from 'react-native';
+import { CustomLayoutSpring } from 'react-native-animation-layout';
 import { dateParser } from '../../../utils';
 import { stockActions } from '../../../actions';
-import { HomeTabParamList } from '../../navigator/HomeTab';
+import { HomeNavigationProps } from '../../navigator/HomeTab';
+import { AuthNavigationProps } from '../../auths/AuthStack';
 import { Stock } from '../../../constants/dataTypes';
-import Box from '../../../components/Containers/Box';
+import { Box } from '../../../components/Containers';
 import StockListCard from '../components/StockListCard';
 import ScrollList from '../../../components/ScrollList';
 
-export type Props = {
-  navigation: MaterialBottomTabNavigationProp<HomeTabParamList, 'Stocks'>;
+export type Props = HomeNavigationProps<'Stocks'>
+  & AuthNavigationProps<'Home'>
+  & {
   foodStocks: Array<Stock>;
   getAllStock: () => void;
 };
@@ -24,6 +27,15 @@ class StockListPage extends React.Component<Props> {
 
     this.refresh();
     this.willFocusSubscription = navigation.addListener('focus', () => this.refresh());
+  }
+
+  public componentDidUpdate(prevProps: Props): void {
+    const { foodStocks } = this.props;
+    const { foodStocks: prevStocks } = prevProps;
+
+    if (foodStocks !== prevStocks) {
+      LayoutAnimation.configureNext(CustomLayoutSpring(null, null, "scaleXY"));
+    }
   }
 
   public componentWillUnmount(): void {
@@ -46,14 +58,10 @@ class StockListPage extends React.Component<Props> {
             (a, b) => dateParser(a.nextExpiration).getTime()
               - dateParser(b.nextExpiration).getTime(),
           )
-          .map((item) => (
-            <Box key={ item.food.name } px="l" mb="xl">
+          .map((item: Stock) => (
+            <Box key={ item.id } px="l" mb="xl">
               <StockListCard
-                imageURI="https://www.chiceats.com/sites/default/files/styles/image_1024x768/public/recipe/photo/homemade-pasta-recipe-1080x810@2x.jpg"
-                title={ item.food.name }
-                // tag={ (item.tags || [])[0].name }
-                nextExpiration={ item.nextExpiration }
-                quantity={ item.totalQuantity }
+                data={ item }
                 onPress={ () => navigation.push('StockDetails', { stockId: item.id }) }
               />
             </Box>

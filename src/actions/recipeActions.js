@@ -11,12 +11,6 @@ const receiveRecipes = (recipes) => ({
   recipes,
 });
 
-export const searchRecipes = (searchTerms) => (dispatch) => {
-  dispatch({ type: actionTypes.FETCH_RECIPES });
-
-  RecipeService.searchRecipes(searchTerms).then((recipes) => dispatch(receiveRecipes(recipes)));
-};
-
 export const getRecipeById = (recipeId) => (dispatch) => {
   dispatch({ type: actionTypes.FETCH_RECIPE });
 

@@ -3,14 +3,11 @@ import React from 'react';
 import styled from '../../../styled';
 import { titleHelper, dateDifferenceHelper, dateParser } from '../../../utils';
 import { expiryLabelHelper } from '../expiryHelper';
-import { Props as CardProps } from '../../../components/Cards/Card';
-import Box from '../../../components/Containers/Box';
-import Text from '../../../components/Texts/Text';
-import Heading from '../../../components/Texts/Heading';
-import Subtitle from '../../../components/Texts/Subtitle';
-import Grid, { Row } from '../../../components/Containers/Grid';
-import ClockIcon from '../../../components/Icons/Clock';
-import QuantityIcon from '../../../components/Icons/Quantity';
+import { Stock } from '../../../constants/dataTypes';
+import { CardProps } from '../../../components/Cards';
+import { Box, Grid, Row } from '../../../components/Containers';
+import { Text, Heading, Subtitle } from '../../../components/Texts';
+import { ClockIcon, QuantityIcon } from '../../../components/Icons';
 import StockListCardWrapper from './StockListCardWrapper';
 
 const StyledImage = styled.Image`
@@ -20,19 +17,16 @@ const StyledImage = styled.Image`
 `;
 
 export type Props = CardProps & {
-  imageURI?: string;
-  title?: string;
-  tag?: string;
-  nextExpiration?: string;
-  quantity?: number;
+  data: Stock;
 };
 
 const StockListCard: React.FC<Props> = ({
-  imageURI,
-  title,
-  tag,
-  nextExpiration,
-  quantity,
+  data: {
+    totalQuantity,
+    foodName,
+    nextExpiration,
+    tags,
+  },
   ...props
 }) => {
   const expDate = dateParser(nextExpiration);
@@ -44,12 +38,16 @@ const StockListCard: React.FC<Props> = ({
 
   return (
     <StockListCardWrapper shadowVariant={ stockVariant } { ...props }>
-      <StyledImage source={{ uri: imageURI }} />
+      <StyledImage source={{ uri: 'https://www.chiceats.com/sites/default/files/styles/image_1024x768/public/recipe/photo/homemade-pasta-recipe-1080x810@2x.jpg' }} />
       <Box p="m">
-        {tag && <Subtitle mb="s">{tag}</Subtitle>}
-        {title && (
+        {tags && tags.length > 0 ? (
+          <Subtitle mb="xs">{tags[0].name || ''}</Subtitle>
+        ) : (
+          <></>
+        )}
+        {foodName && (
           <Heading mb="s" variant={ titleVariant }>
-            {titleHelper(title)}
+            {titleHelper(foodName)}
           </Heading>
         )}
         <Grid>
@@ -60,8 +58,7 @@ const StockListCard: React.FC<Props> = ({
           <Row>
             <QuantityIcon variant={ stockVariant } mr="xs" size="small" />
             <Text size="h2" variant={ stockVariant }>
-              {`${quantity
-              || 0} servings`}
+              {`${totalQuantity || 0} servings`}
             </Text>
           </Row>
         </Grid>

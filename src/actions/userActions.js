@@ -2,11 +2,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { userActionTypes as actionTypes } from '../constants/actionTypes';
 import { UserService } from '../services';
 
-const receiveUsers = (users) => ({
-  type: actionTypes.RECEIVE_USERS,
-  users,
-});
-
 const receiveUser = (user) => ({
   type: actionTypes.RECEIVE_USER,
   user,
@@ -18,14 +13,19 @@ const receiveProfile = (profile) => ({
   userToken: `${profile.id}`,
 });
 
+const storeToken = async (dispatch, profile, email, password) => {
+  try {
+    await AsyncStorage.setItem('savedUser', JSON.stringify({ email, password }));
+    await AsyncStorage.setItem('userToken', `${profile.id}`);
+
+    dispatch(receiveProfile(profile));
+  } catch (error) {
+    console.error('Failed to store user token');
+  }
+};
+
 // Note: Several of these are very optimistic.
 // Will likely need to add success and failure actionTypes.
-
-export const searchUsers = (searchTerms) => (dispatch) => {
-  dispatch({ type: actionTypes.FETCH_USERS });
-
-  UserService.searchUsers(searchTerms).then((users) => dispatch(receiveUsers(users)));
-};
 
 export const getUserById = (userId) => (dispatch) => {
   dispatch({ type: actionTypes.FETCH_USER });
@@ -36,14 +36,9 @@ export const getUserById = (userId) => (dispatch) => {
 export const logIn = (email, password) => (dispatch) => {
   dispatch({ type: actionTypes.LOGIN });
 
-  UserService.login(email, password).then(async (profile) => {
-    try {
-      await AsyncStorage.setItem('userToken', `${profile.id}`);
-      dispatch(receiveProfile(profile));
-    } catch (error) {
-      console.log('Failed to store user token');
-    }
-  });
+  UserService.login(email, password).then(
+    (profile) => storeToken(dispatch, profile, email, password),
+  );
 };
 
 export const logOut = () => (dispatch) => {
@@ -52,19 +47,40 @@ export const logOut = () => (dispatch) => {
       await AsyncStorage.removeItem('userToken');
       dispatch({ type: actionTypes.LOGOUT });
     } catch (error) {
-      console.log('Failed to clear user token');
+      console.error('Failed to clear user token');
     }
   });
 };
 
 // TODO: adds response && errors here
-export const register = (email, password) => () => {
-  UserService.register(email, password);
+export const register = (email, password) => (dispatch) => {
+  UserService.register(email, password).then(
+    (profile) => storeToken(dispatch, profile, email, password),
+  );
 };
 
-export const restoreToken = (userToken) => (dispatch) => dispatch({
-  type: actionTypes.RESTORE_TOKEN, token: userToken,
-});
+export const restoreToken = () => async (dispatch) => {
+  let userToken = null;
+
+  try {
+    userToken = await AsyncStorage.getItem('userToken');
+    if (userToken) {
+      const { email, password } = JSON.parse(await AsyncStorage.getItem('savedUser'));
+
+      if (email && password) {
+        UserService.login(email, password).then(
+          (profile) => storeToken(dispatch, profile, email, password),
+        );
+      }
+    }
+  } catch (e) {
+    console.error('Failed to retrieve user token');
+  }
+
+  dispatch({
+    type: actionTypes.RESTORE_TOKEN, userToken,
+  });
+};
 
 export const updateProfile = (profileData) => (dispatch) => {
   dispatch({ type: actionTypes.UPDATE_PROFILE });

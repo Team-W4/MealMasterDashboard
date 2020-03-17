@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from '../../../styled';
-import { Column } from '../../../components/Containers/Grid';
-import Text from '../../../components/Texts/Text';
-import Heading from '../../../components/Texts/Heading';
-import Card, { Props as CardProps } from '../../../components/Cards/Card';
+import { Column } from '../../../components/Containers';
+import { Card, CardProps } from '../../../components/Cards';
+import { Text, Heading } from '../../../components/Texts';
 import UserDetailCategories from './UserDetailCategories';
 
 const DetailCard = styled(Card)`

@@ -1,12 +1,23 @@
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { AuthStackParamList } from '../auths/AuthStack';
+import {
+  createMaterialBottomTabNavigator,
+  MaterialBottomTabNavigationProp,
+} from '@react-navigation/material-bottom-tabs';
+import { RouteProp } from '@react-navigation/native';
+import { AuthStackParamList, AuthNavigationProps } from '../auths/AuthStack';
 
 export type HomeTabParamList = AuthStackParamList & {
   Home: undefined;
-  Search: undefined;
+  Discover: undefined;
   Stocks: undefined;
   Recipes: undefined;
 };
+
+export type HomeNavigationProps<T extends keyof HomeTabParamList> =
+  AuthNavigationProps<'Home'>
+  & {
+    navigation: MaterialBottomTabNavigationProp<HomeTabParamList, T>;
+    route: RouteProp<HomeTabParamList, T>;
+  };
 
 const HomeTab = createMaterialBottomTabNavigator<HomeTabParamList>();
 

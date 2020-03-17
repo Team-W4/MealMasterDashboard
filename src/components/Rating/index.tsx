@@ -1,8 +1,8 @@
 import React from 'react';
-import { Row } from '../Containers/Grid';
-import Text from '../Texts/Text';
-import StyledRatingWrapper from './StyledRatingWrapper';
 import styled from '../../styled';
+import { Row } from '../Containers';
+import { Text } from '../Texts';
+import StyledRatingWrapper from './StyledRatingWrapper';
 
 const MAX_RATING = 5;
 

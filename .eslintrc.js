@@ -14,6 +14,7 @@ module.exports = {
     'prettier/@typescript-eslint',
   ],
   rules: {
+    'semi': ['error', 'always'],
     'react/jsx-curly-spacing': [
       2, 
       {
@@ -23,6 +24,11 @@ module.exports = {
         },
       }
     ],
+    'no-console': ['warn', { 'allow': ['warn', 'error'] }],
+    'jsx-quotes': ['error', 'prefer-double'],
+    'react/jsx-curly-newline': 'off',
+    'react/static-property-placement': 'off',
+    'react/state-in-constructor': 'off',
     'react/jsx-props-no-spreading': 'off',
     'react/prop-types': 'off',
   }

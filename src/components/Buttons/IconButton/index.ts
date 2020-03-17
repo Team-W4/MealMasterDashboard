@@ -7,8 +7,8 @@ export const iconButtonSizes = variant({
   prop: 'size',
   variants: {
     small: {
-      width: '25px',
-      height: '25px',
+      width: '30px',
+      height: '30px',
     },
     normal: {
       width: '50px',

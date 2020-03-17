@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { AuthStackParamList } from '../../auths/AuthStack';
 import styled from '../../../styled';
-import Box from '../../../components/Containers/Box';
-import { Column } from '../../../components/Containers/Grid';
+import { AuthNavigationProps } from '../../auths/AuthStack';
+import { Box, Column } from '../../../components/Containers';
+import { Input } from '../../../components/Inputs';
+import { Button } from '../../../components/Buttons';
+import { Subtitle } from '../../../components/Texts';
 import ProfileImage from '../../../components/ProfileImage';
-import Input from '../../../components/Inputs/Input';
-import Button from '../../../components/Buttons/Button';
-import Subtitle from '../../../components/Texts/Subtitle';
 
-export type Props = {
-  navigation: StackNavigationProp<AuthStackParamList, 'UserEdit'>;
+export type Props = AuthNavigationProps<'UserEdit'> & {
   updateProfile: (profile: any) => void;
   profile: {
     firstName: string;
@@ -90,7 +87,7 @@ const UserEditPage: React.FC<Props> = ({
               onChangeText={ (e) => setEmail(e) }
             />
           </Box>
-          <Box position="relative" mb="l">
+          <Box mb="l">
             <AboutInput
               multiline
               title="About Me"

@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { TextInputProps } from 'react-native';
+import { Heading, Text } from '../../Texts';
 import InputWrapper from './InputWrapper';
 import StyledInputWrapper, { Keys as SWKeys } from './StyledInputWrapper';
 import StyledInputField, { Props as SIProps } from './StyledInputField';
-import Heading from '../../Texts/Heading';
-import Text from '../../Texts/Text';
 
 export type Props = TextInputProps &
   SIProps & {
     title?: string;
     error?: string;
+    bordered?: boolean;
   };
 
 const Input: React.FC<Props> = ({
@@ -18,6 +18,7 @@ const Input: React.FC<Props> = ({
   editable,
   error,
   size,
+  bordered,
   ...props
 }) => {
   const [focused, setFocused] = useState(false);
@@ -32,7 +33,9 @@ const Input: React.FC<Props> = ({
   return (
     <InputWrapper>
       <Heading variant={ variant }>{title}</Heading>
-      <StyledInputWrapper variant={ inputState }>
+      <StyledInputWrapper bordered={ bordered } variant={ inputState }>
+        {/*
+        // @ts-ignore */}
         <StyledInputField
           variant={ variant }
           size={ size }
@@ -55,6 +58,7 @@ const Input: React.FC<Props> = ({
 
 Input.defaultProps = {
   size: 'normal',
+  bordered: true,
 };
 
 export default Input;

@@ -2,6 +2,7 @@ import { variant } from 'styled-system';
 
 enum cardColorEnum {
   inherit,
+  transparent,
   normal,
   warning,
   active,
@@ -23,6 +24,9 @@ const cardColors = variant({
   variants: {
     inherit: {
       backgroundColor: 'inherit',
+    },
+    transparent: {
+      backgroundColor: 'transparent',
     },
     normal: {
       backgroundColor: 'white',

@@ -1,6 +1,8 @@
 import {
-  borderColor,
-  BorderColorProps,
+  border,
+  BordersProps,
+  color,
+  ColorProps,
   display,
   DisplayProps,
   flexbox,
@@ -16,7 +18,8 @@ import {
 } from 'styled-system';
 import styled from '../../../styled';
 
-export type Props = BorderColorProps &
+export type Props = ColorProps &
+  BordersProps &
   DisplayProps &
   FlexboxProps &
   LayoutProps &
@@ -25,7 +28,8 @@ export type Props = BorderColorProps &
   TextAlignProps;
 
 const Box = styled.View<Props>`
-  ${borderColor}
+  ${color}
+  ${border}
   ${display}
   ${flexbox}
   ${layout}

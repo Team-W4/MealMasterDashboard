@@ -1,16 +1,19 @@
 import React from 'react';
+import { LayoutAnimation } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs';
-import { HomeTabParamList } from '../../navigator/HomeTab';
+import { CustomLayoutSpring } from 'react-native-animation-layout';
+import { HomeNavigationProps } from '../../navigator/HomeTab';
+import { AuthNavigationProps } from '../../auths/AuthStack';
 import { recipeActions } from '../../../actions';
 import { Recipe } from '../../../constants/dataTypes';
-import Box from '../../../components/Containers/Box';
+import { Box } from '../../../components/Containers';
 import ScrollList from '../../../components/ScrollList';
 import RecipeCard from '../components/RecipeCard';
 
-export type Props = {
-  navigation: MaterialBottomTabNavigationProp<HomeTabParamList, 'Recipes'>;
+export type Props = HomeNavigationProps<'Recipes'>
+  & AuthNavigationProps<'Home'>
+  & {
   userId: number;
   recipes: Array<Recipe>;
   getRecipesByUser: (id: number) => void;
@@ -20,6 +23,8 @@ class RecipeListPage extends React.Component<Props> {
   public componentDidMount(): void {
     const { userId, getRecipesByUser } = this.props;
     getRecipesByUser(userId);
+
+    LayoutAnimation.configureNext(CustomLayoutSpring(null, null, "scaleXY"));
   }
 
   public render(): JSX.Element {
@@ -28,15 +33,9 @@ class RecipeListPage extends React.Component<Props> {
     return (
       <ScrollList>
         {(recipes || []).map((item: Recipe) => (
-          <Box key={ item.name } px="l" mb="xl">
+          <Box key={ item.id } px="l" mb="xl">
             <RecipeCard
-              title={ item.name }
-              tag={ item.tags && item.tags.length > 0 ? item.tags[0].name : '' }
-              // TODO: Adds image & difficulty
-              imageURI="https://tmbidigitalassetsazure.blob.core.windows.net/secure/RMS/attachments/37/1200x1200/Peanut-Butter-and-Jelly-French-Toast_EXPS_BMZ19_526_B12_04_10b.jpg"
-              duration={ item.cookTime }
-              difficulty="Easy"
-              quantity={ item.yield }
+              data={ item }
               onPress={ () => navigation.push('RecipeDetails', { recipeId: item.id }) }
             />
           </Box>
@@ -47,7 +46,7 @@ class RecipeListPage extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: any) => ({
-  userId: state.user.profile.id,
+  userId: state.user.userToken,
   recipes: state.recipe.recipes,
 });
 

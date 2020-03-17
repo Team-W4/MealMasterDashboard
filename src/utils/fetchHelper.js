@@ -8,7 +8,7 @@ export const getHelper = (route) => {
   })
     .then((res) => res.json())
     .then((json) => json.body)
-    .catch((e) => console.log(e));
+    .catch((e) => console.error(e));
 };
 
 export const postHelper = (route, body) => {

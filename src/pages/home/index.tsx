@@ -1,18 +1,19 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
-import styled from '../../styled';
-import Card from '../../components/Cards/Card';
+import { Box } from '../../components/Containers';
+import { Button } from '../../components/Buttons';
+import { Text } from '../../components/Texts';
+import { HomeNavigationProps } from '../navigator/HomeTab';
+import { AuthNavigationProps } from '../auths/AuthStack';
 
-const SuggestionCard = styled(Card)`
-  aspect-ratio: 1;
-`;
+export type Props = HomeNavigationProps<'Home'>
+  & AuthNavigationProps<'Home'>;
 
-const HomePage: React.FC = () => (
-  <ScrollView>
-    <ScrollView horizontal showsHorizontalScrollIndicator={ false }>
-      <SuggestionCard />
-    </ScrollView>
-  </ScrollView>
+const HomePage: React.FC<Props> = ({ navigation }) => (
+  <Box height="100%">
+    <Button onPress={ () => navigation.push('RecipeEdit') }>
+      <Text>+</Text>
+    </Button>
+  </Box>
 );
 
 export default HomePage;

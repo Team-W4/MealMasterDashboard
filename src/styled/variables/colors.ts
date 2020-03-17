@@ -4,7 +4,7 @@ const colors = {
   transparent:  'transparent',
   inherit:      '',
   white:        '#FFFFFF',
-  black:        '#000000',
+  black:        '#333333',
   neoncarrot:   '#FF8C2B',
   orange:       '#FF6B24',
   athensgray:   '#F3F3F5',

@@ -2,8 +2,10 @@ import * as recipeActions from './recipeActions';
 import * as userActions from './userActions';
 import * as stockActions from './stockActions';
 import * as genericFoodActions from './genericFoodActions';
+import * as searchActions from './searchActions';
 
 export { genericFoodActions };
 export { recipeActions };
 export { userActions };
 export { stockActions };
+export { searchActions };

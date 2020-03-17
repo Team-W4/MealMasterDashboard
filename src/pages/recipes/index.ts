@@ -1,5 +1,4 @@
-import RecipeDetailsPage from './containers/RecipeDetailsContainer';
 import RecipeListPage from './containers/RecipeListContainer';
 
-export { RecipeDetailsPage };
+export { default as RecipeDetailsPage } from './containers/RecipeDetailsContainer';
 export default RecipeListPage;

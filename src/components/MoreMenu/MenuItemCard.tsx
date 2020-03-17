@@ -1,31 +1,34 @@
 import React from 'react';
 import styled from '../../styled';
-import Box from '../Containers/Box';
-import Grid, { Column } from '../Containers/Grid';
-import Card from '../Cards/Card';
-import Text from '../Texts/Text';
+import { Box, Grid, Column } from '../Containers';
+import { Card } from '../Cards';
+import { Text } from '../Texts';
+import { TextColorKeys } from '../Texts/textColors';
 
-const StyledCardItem = styled(Card)`
+const MenuItemCardWrapper = styled(Card)`
   border-radius: 0px;
 `;
 
 export type Props = {
   title: string;
+  textVariant?: TextColorKeys;
   icon: JSX.Element;
   onPress: (e?: any) => void;
 };
 
-const MenuItemCard: React.FC<Props> = ({ title, icon, onPress }) => (
-  <StyledCardItem onPress={ onPress }>
+const MenuItemCard: React.FC<Props> = ({
+  title, textVariant, icon, onPress,
+}) => (
+  <MenuItemCardWrapper onPress={ onPress }>
     <Grid px="l">
       <Box width="50px" justifyContent="center" alignItems="center">
         {icon}
       </Box>
       <Column>
-        <Text py="xl">{title}</Text>
+        <Text py="xl" variant={ textVariant }>{title}</Text>
       </Column>
     </Grid>
-  </StyledCardItem>
+  </MenuItemCardWrapper>
 );
 
 export default MenuItemCard;
