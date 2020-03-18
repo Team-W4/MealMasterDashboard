@@ -6,6 +6,7 @@ import editorHTML from './web/editor';
 import { Box } from '../../Containers';
 
 export type Props = {
+  contentEditable?: boolean;
   initialContentHTML?: string;
   editorInitializedCallback?: () => void;
 };
@@ -75,6 +76,7 @@ class StyledEditor extends React.Component<Props, State> {
           }
           break;
         case messages.LOG:
+          // eslint-disable-next-line no-console
           console.log('FROM EDIT:', ...message.data);
           break;
         case messages.SELECTION_CHANGE:
@@ -167,6 +169,7 @@ class StyledEditor extends React.Component<Props, State> {
   }
 
   public render(): JSX.Element {
+    const { contentEditable } = this.props;
     const { height } = this.state;
 
     return (
@@ -181,7 +184,7 @@ class StyledEditor extends React.Component<Props, State> {
           keyboardDisplayRequiresUserAction={ false }
           ref={ (r) => { this.webviewBridge = r; } }
           originWhitelist={ ["*"] }
-          source={{ html: editorHTML({ contentEditable: true }) }}
+          source={{ html: editorHTML({ contentEditable }) }}
           onLoad={ () => this.init() }
           onMessage={ this.onMessage }
           { ...this.props }

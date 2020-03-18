@@ -61,6 +61,7 @@ const RecipeEditStepPage: React.FC<Props> = ({ navigation, route }) => {
       const payload: any = {};
       payload[currentStep.stateKey] = value;
 
+      setError('');
       dispatch({ type: currentStep.action, payload });
       navigation.push(currentStep.next);
     } else {
@@ -88,17 +89,14 @@ const RecipeEditStepPage: React.FC<Props> = ({ navigation, route }) => {
         {
           currentStep.stateKey === 'tags' ? (
             <TagInput
-              autoFocus
               title="Tags"
-              placeholder="Separate multiple tags by space or comma"
-              value={ value.toString() }
-              onChangeText={ (e) => setValue(e) }
+              // @ts-ignore
+              tags={ value || [] }
+              onTagsChange={ (e) => setValue(e) }
               error={ error }
             />
           ) : (
             <Input
-              autoFocus
-              size="large"
               title={ currentStep.question }
               value={ value.toString() }
               onChangeText={ (e) => setValue(e) }

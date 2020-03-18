@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Modal from 'react-native-modal';
 import styled from '../../styled';
+import { useBoolean } from '../../hooks';
 import { Box } from '../Containers';
 import { IconButton } from '../Buttons';
 import { MoreIcon } from '../Icons';
@@ -17,23 +18,24 @@ const StyledModalWrapper = styled(Modal)`
 `;
 
 const MoreMenu: React.FC<Props> = ({ items }) => {
-  const [show, setShow] = useState(false);
+  const [show, { setTrue, setFalse }] = useBoolean(false);
 
   return (
     <Box>
-      <IconButton onPress={ () => setShow(true) }>
+      <IconButton onPress={ () => setTrue() }>
         <MoreIcon />
       </IconButton>
       <StyledModalWrapper
         isVisible={ show }
-        onBackdropPress={ () => setShow(false) }
+        onBackdropPress={ () => setFalse() }
       >
-        {items.map(({ title, onPress, ...props }: MenuItemProps) => (
+        {items.map(({ title, onPress, ...props }: MenuItemProps, index) => (
           <MenuItemCard
             key={ title }
             title={ title }
+            last={ index === items.length - 1 }
             onPress={ () => {
-              setShow(false);
+              setFalse();
               if (onPress) {
                 onPress();
               }

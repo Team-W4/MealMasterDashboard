@@ -19,8 +19,8 @@ const StyledButtonWrapper = styled.TouchableOpacity<Props>`
   ${({ flat, theme: { semanticColors } }) => (flat
       ? ''
       : `
-        box-shadow: 0 15px 18px ${semanticColors.shadow}};
         elevation: 10;
+        box-shadow: 0 15px 18px ${semanticColors.shadow}};
       `)}
 `;
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { LayoutAnimation, Platform, Alert } from 'react-native';
 import { CustomLayoutSpring } from 'react-native-animation-layout';
+import { useSafeArea } from 'react-native-safe-area-context';
 import styled from '../../../styled';
 import {
   titleHelper, dateDifferenceHelper, properDateHelper, dateParser,
@@ -35,7 +36,7 @@ const TagList = styled.ScrollView`
   flex-grow: 0;
   flex-shrink: 0;
   padding-left: ${({ theme: { space } }) => space.l};
-  margin-bottom: ${({ theme: { space } }) => space.xl};
+  margin-bottom: ${({ theme: { space } }) => space.l};
 `;
 
 export type Props = {
@@ -48,24 +49,28 @@ export type Props = {
   onAdd: (stockItem: StockItem) => void;
   onUpdate: (stockItem: StockItem) => void;
   onDelete: (stockItemId: number) => void;
+  onDeleteAll: (stockId: number) => void;
   editMode?: boolean;
   stockDetails: StockDetails;
   stockItemDetails: StockItem;
 };
 
 const StockDetailsPage: React.FC<Props> = ({
+  onBack,
   onRefresh,
   onItemClick,
   onAdd,
   onUpdate,
   onDelete,
+  onDeleteAll,
   onMoreDetails,
   editMode: editModeProp,
   stockDetails: {
-    foodName, tags, stockItems, nextExpiration,
+    id, foodName, tags, stockItems, nextExpiration,
   },
   stockItemDetails,
 }) => {
+  const { bottom } = useSafeArea();
   const [editMode, setEditMode] = useState(editModeProp);
   const [showDate, setShowDate] = useState(false);
   const [errors, setErrors] = useState(errorInitialState);
@@ -136,6 +141,21 @@ const StockDetailsPage: React.FC<Props> = ({
     ]);
   };
 
+  const onDeleteAllClick = (): void => {
+    setTimeout(() => {
+      Alert.alert('Are you sure?', 'This whole stock will be deleted', [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'OK',
+          onPress: () => {
+            onDeleteAll(id);
+            onBack();
+          },
+        },
+      ]);
+    }, 500);
+  };
+
   const onSaveClick = (): void => {
     if (!quantity || Number(quantity) <= 0) {
       setErrors({
@@ -190,7 +210,7 @@ const StockDetailsPage: React.FC<Props> = ({
                 title: 'Delete this entire stock',
                 textVariant: 'error',
                 icon: <DeleteStockIcon variant="error" />,
-                onPress: () => {},
+                onPress: onDeleteAllClick,
               },
             ] }
           />
@@ -198,7 +218,7 @@ const StockDetailsPage: React.FC<Props> = ({
       >
         <Box px="l">
           <Subtitle mb="s">PRODUCE</Subtitle>
-          <Title mb="s">{titleHelper(foodName)}</Title>
+          <Title mb="xs">{titleHelper(foodName)}</Title>
         </Box>
         <TagList horizontal showsHorizontalScrollIndicator={ false }>
           <Box mr="xs">{getExpireTag()}</Box>
@@ -271,8 +291,8 @@ const StockDetailsPage: React.FC<Props> = ({
         position="absolute"
         left="0"
         right="0"
-        bottom="xxxl"
-        px="xl"
+        bottom={ bottom > 0 ? bottom : 'xxxl' }
+        px="l"
         justifyContent="center"
       >
         {

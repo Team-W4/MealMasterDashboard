@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
 import RecipeEditContext from '../RecipeEditContext';
 import {
-  SafeView, Column, Box, Row,
+  SafeView, Column, Box,
 } from '../../../components/Containers';
+import { RichTextInput } from '../../../components/Inputs';
 import { Heading, Title } from '../../../components/Texts';
 import { IconButton } from '../../../components/Buttons';
 import { SavedIcon, NextIcon } from '../../../components/Icons';
@@ -11,6 +12,8 @@ const RecipeEditAllSet: React.FC = () => {
   const {
     state: {
       name,
+      instructions,
+      cookTime,
     },
   } = useContext(RecipeEditContext);
 
@@ -19,7 +22,7 @@ const RecipeEditAllSet: React.FC = () => {
 
   return (
     <SafeView full px="xxxl">
-      <Column justifyContent="flex-end">
+      <Box justifyContent="flex-end">
         <Box
           mb="l"
           width={ 50 }
@@ -32,16 +35,18 @@ const RecipeEditAllSet: React.FC = () => {
         >
           <SavedIcon />
         </Box>
-      </Column>
+      </Box>
       <Heading mb="s">Congratulations!</Heading>
-      <Title>{name}</Title>
-      <Row mb="l" alignItems="flex-end" justifyContent="flex-end">
-        <IconButton
-          onPress={ onSubmit }
-        >
+      <Title mb="s">{name}</Title>
+      <Heading mb="s">{`${cookTime} mins`}</Heading>
+      <Column>
+        <RichTextInput editable={ false } initialContent={ instructions } />
+      </Column>
+      <Box mb="l" alignItems="flex-end" justifyContent="flex-end">
+        <IconButton onPress={ onSubmit }>
           <NextIcon variant="warning" />
         </IconButton>
-      </Row>
+      </Box>
     </SafeView>
   );
 };

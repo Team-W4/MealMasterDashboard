@@ -6,7 +6,6 @@ import RecipeInstructionEdit from './components/RecipeInstructionsEdit';
 import RecipeEditAllSet from './components/RecipeEditAllSet';
 
 export type Props = {
-
 };
 
 const RecipeEditContainer: React.FC<Props> = () => {

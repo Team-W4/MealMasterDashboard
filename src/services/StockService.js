@@ -32,6 +32,8 @@ class StockService {
 
   updateStockItem = (stockItem) => putHelper(routes.STOCK_ITEM, stockItem);
 
+  deleteStock = (stockId) => deleteHelper(`${routes.STOCK}/${stockId}`);
+
   deleteStockItem = (stockItemId) => deleteHelper(`${routes.STOCK_ITEM}/${stockItemId}`);
 
   // TODO: accept image has param

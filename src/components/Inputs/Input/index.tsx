@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { TextInputProps } from 'react-native';
+import { useBoolean } from '../../../hooks';
 import { Heading, Text } from '../../Texts';
 import InputWrapper from './InputWrapper';
 import StyledInputWrapper, { Keys as SWKeys } from './StyledInputWrapper';
@@ -21,7 +22,7 @@ const Input: React.FC<Props> = ({
   bordered,
   ...props
 }) => {
-  const [focused, setFocused] = useState(false);
+  const [focused, { setTrue, setFalse }] = useBoolean(false);
 
   let inputState: SWKeys = 'normal';
   if (focused) {
@@ -39,9 +40,8 @@ const Input: React.FC<Props> = ({
         <StyledInputField
           variant={ variant }
           size={ size }
-          editable={ editable }
-          onFocus={ () => setFocused(true) }
-          onBlur={ () => setFocused(false) }
+          onFocus={ () => setTrue() }
+          onBlur={ () => setFalse() }
           { ...props }
         />
       </StyledInputWrapper>

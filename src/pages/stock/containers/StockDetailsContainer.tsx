@@ -15,6 +15,7 @@ type Props = AuthNavigationProps<'StockDetails'> & {
   addToStock: (foodId: number, stockItem: StockItem) => void;
   updateStockItem: (stockItem: StockItem) => void;
   deleteStockitem: (stockItemId: number) => void;
+  deleteStock: (stockId: number) => void;
 };
 
 class StockDetailsContainer extends React.Component<Props> {
@@ -48,6 +49,7 @@ class StockDetailsContainer extends React.Component<Props> {
       addToStock,
       updateStockItem,
       deleteStockitem,
+      deleteStock,
       stockDetails,
       stockItemDetails,
     } = this.props;
@@ -62,6 +64,7 @@ class StockDetailsContainer extends React.Component<Props> {
         onAdd={ (stockItem: StockItem) => addToStock(stockDetails.food.id, stockItem) }
         onUpdate={ updateStockItem }
         onDelete={ deleteStockitem }
+        onDeleteAll={ deleteStock }
         stockDetails={ stockDetails }
         stockItemDetails={ stockItemDetails }
       />
@@ -82,6 +85,7 @@ const mapDispatchToProps = (dispatch: any) => bindActionCreators(
       addToStock: stockActions.addToStock,
       updateStockItem: stockActions.updateStockItem,
       deleteStockitem: stockActions.deleteStockItem,
+      deleteStock: stockActions.deleteFoodStock,
     },
     dispatch,
   );

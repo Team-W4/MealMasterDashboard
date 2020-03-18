@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSafeArea } from 'react-native-safe-area-context';
 import styled from '../../styled';
 import { Box, Grid, Column } from '../Containers';
 import { Card } from '../Cards';
@@ -13,22 +14,34 @@ export type Props = {
   title: string;
   textVariant?: TextColorKeys;
   icon: JSX.Element;
+  last?: boolean;
   onPress: (e?: any) => void;
 };
 
 const MenuItemCard: React.FC<Props> = ({
-  title, textVariant, icon, onPress,
-}) => (
-  <MenuItemCardWrapper onPress={ onPress }>
-    <Grid px="l">
-      <Box width="50px" justifyContent="center" alignItems="center">
-        {icon}
-      </Box>
-      <Column>
-        <Text py="xl" variant={ textVariant }>{title}</Text>
-      </Column>
-    </Grid>
-  </MenuItemCardWrapper>
-);
+  title, textVariant, icon, onPress, last,
+}) => {
+  const { bottom } = useSafeArea();
+
+  return (
+    <MenuItemCardWrapper
+      onPress={ onPress }
+    >
+      <Grid px="l" pt="xl" pb={ last ? bottom : 'xl' }>
+        <Box width="50px" justifyContent="center" alignItems="center">
+          {icon}
+        </Box>
+        <Column justifyContent="center">
+          <Text variant={ textVariant }>{title}</Text>
+        </Column>
+      </Grid>
+    </MenuItemCardWrapper>
+  );
+};
+
+
+MenuItemCard.defaultProps = {
+  last: false,
+};
 
 export default MenuItemCard;

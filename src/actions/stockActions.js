@@ -48,6 +48,18 @@ export const getFoodStockById = (stockId) => (dispatch) => {
   );
 };
 
+export const deleteFoodStock = (stockId) => (dispatch) => {
+  dispatch({ type: actionTypes.DELETE_STOCK });
+  StockService.deleteStock(stockId)
+    .then(() => {
+      dispatch({ type: actionTypes.DELETE_STOCK_SUCCESS });
+    })
+    .catch((e) => {
+      console.error(e);
+      dispatch({ type: actionTypes.DELETE_STOCK_FAIL });
+    });
+};
+
 export const getStockItemById = (stockItemId) => (dispatch) => {
   dispatch({ type: actionTypes.FETCH_STOCK_ITEM });
 

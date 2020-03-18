@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
   ScrollView, Keyboard, LayoutAnimation,
 } from 'react-native';
 import { CustomLayoutSpring } from 'react-native-animation-layout';
+import { useBoolean } from '../../../hooks';
 import { KeyboardView, Column, Grid } from '../../Containers';
 import { IconButton } from '../../Buttons';
 import { NextIcon } from '../../Icons';
@@ -10,29 +11,28 @@ import StyledEditor from './StyledEditor';
 import StyledToolBar from './StyledToolBar';
 
 export type Props = {
+  scrollable?: boolean;
+  editable?: boolean;
   initialContent?: string;
   onSave?: (content?: string) => void;
 };
 
 const RichTextEditor: React.FC<Props> = ({
+  editable,
   initialContent,
   onSave,
 }) => {
   const editorRef: React.RefObject<StyledEditor> = React.createRef();
-  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+  const [isKeyboardVisible, { setTrue, setFalse }] = useBoolean(false);
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
-      () => {
-        setKeyboardVisible(true); // or some other action
-      },
+      () => setTrue(),
     );
     const keyboardDidHideListener = Keyboard.addListener(
       'keyboardDidHide',
-      () => {
-        setKeyboardVisible(false); // or some other action
-      },
+      () => setFalse(),
     );
 
     return () => {
@@ -56,30 +56,40 @@ const RichTextEditor: React.FC<Props> = ({
 
   return (
     <KeyboardView full behavior="padding">
-      <Column m="l" mb="0">
+      <Column>
         <ScrollView>
           <StyledEditor
             ref={ editorRef }
+            contentEditable={ editable }
             initialContentHTML={ initialContent || '' }
           />
         </ScrollView>
       </Column>
-      {isKeyboardVisible ? (
-        <StyledToolBar
-          getEditor={ () => editorRef.current }
-          onPressAddImage={ () => {} }
-        />
-      ) : (
-        <Grid py="s" mr="xxl" justifyContent="flex-end" alignItems="center">
-          <IconButton
-            onPress={ onSaveClick }
-          >
-            <NextIcon variant="warning" />
-          </IconButton>
-        </Grid>
-      )}
+      {
+        isKeyboardVisible && editable ? (
+          <StyledToolBar
+            getEditor={ () => editorRef.current }
+            onPressAddImage={ () => {} }
+          />
+        ) : (
+          onSave && (
+            <Grid py="s" mr="xxl" justifyContent="flex-end" alignItems="center">
+              <IconButton
+                onPress={ onSaveClick }
+              >
+                <NextIcon variant="warning" />
+              </IconButton>
+            </Grid>
+          )
+        )
+      }
     </KeyboardView>
   );
+};
+
+RichTextEditor.defaultProps = {
+  scrollable: true,
+  editable: true,
 };
 
 export default RichTextEditor;
