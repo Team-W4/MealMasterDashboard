@@ -24,6 +24,8 @@ const CalorieLabel = styled(Label)`
   position: absolute;
   bottom: 0;
   left: 0;
+  justify-content: flex-start;
+  height: 70px;
 `;
 
 export type Props = {
@@ -53,7 +55,7 @@ const RecipeDetailsPage: React.FC<Props> = ({
             'https://tmbidigitalassetsazure.blob.core.windows.net/secure/RMS/attachments/37/1200x1200/Peanut-Butter-and-Jelly-French-Toast_EXPS_BMZ19_526_B12_04_10b.jpg',
         }}
       />
-      <CalorieLabel value="650 kcal/serving" />
+      <CalorieLabel value="650 kcal / serving" />
     </Box>
     <DrawerCard
       topRightOverlay={ (

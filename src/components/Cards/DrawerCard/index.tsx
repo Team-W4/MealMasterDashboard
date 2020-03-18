@@ -1,11 +1,15 @@
-import React, { PropsWithChildren } from 'react';
-import { Animated, ScrollView, Dimensions } from 'react-native';
+import React, { PropsWithChildren, useState } from 'react';
+import {
+  Animated, ScrollView, Dimensions, LayoutChangeEvent,
+} from 'react-native';
 import { useSafeArea } from 'react-native-safe-area-context';
 import styled from '../../../styled';
 import { Box, SafeView } from '../../Containers';
 import Card from '../Card';
 
 const { height: DEVICE_HEIGHT } = Dimensions.get('window');
+
+const DRAWER_HEIGHT = 32;
 
 const DEFAULT_DRAWER_OFFSET = 430;
 
@@ -21,15 +25,17 @@ const DrawerMarkBox = styled.View`
   top: 0;
   left: 0;
   right: 0;
-  align-items: center;
-  justify-content: center;
-  height: ${({ theme: { space } }) => space.xxxl};
+  height: ${DRAWER_HEIGHT}px;
 `;
 
 const DrawerMark = styled.View`
   width: 80px;
   height: 5px;
   border-radius: 5px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-40px, -2.5px);
   background-color: ${({ theme: { semanticColors } }) => semanticColors.shadow};
 `;
 
@@ -49,18 +55,31 @@ const DrawerCard: React.FC<PropsWithChildren<Props>> = ({
   topRightOverlay,
   children,
 }) => {
-  const { top: topInset } = useSafeArea();
+  const { top: topInset, bottom: botInset } = useSafeArea();
   const outerYMapping = new Animated.Value(0);
+  const [overlayHeight, setHeight] = useState(0);
 
   const top = outerYMapping.interpolate({
-    inputRange: [0, topOffset - topInset],
-    outputRange: [topOffset, topInset + (topRightOverlay ? 16 : 0)],
+    inputRange: [
+      0,
+      topOffset - topInset - overlayHeight / 2,
+    ],
+    outputRange: [
+      topOffset,
+      topInset + overlayHeight / 2,
+    ],
     extrapolate: 'clamp',
   });
 
   const topOverlay = outerYMapping.interpolate({
-    inputRange: [0, topOffset - topInset],
-    outputRange: [topOffset - 25, topInset + (topRightOverlay ? 16 : 0) - 25],
+    inputRange: [
+      0,
+      topOffset - topInset - overlayHeight / 2,
+    ],
+    outputRange: [
+      topOffset - overlayHeight / 2,
+      topInset,
+    ],
     extrapolate: 'clamp',
   });
 
@@ -68,6 +87,7 @@ const DrawerCard: React.FC<PropsWithChildren<Props>> = ({
     <SafeViewDrawer>
       <Animated.View
         style={{
+          backgroundColor: 'transparent',
           position: 'absolute',
           top,
           bottom: 0,
@@ -81,7 +101,10 @@ const DrawerCard: React.FC<PropsWithChildren<Props>> = ({
         </DrawerCardWrapper>
       </Animated.View>
       <ScrollView
-        style={{ marginTop: topInset }}
+        style={{
+          marginTop: DRAWER_HEIGHT + (topRightOverlay ? overlayHeight / 2 : 0),
+          marginBottom: botInset > 0 ? 0 : 32,
+        }}
         scrollEventThrottle={ 16 }
         showsVerticalScrollIndicator={ false }
         onScroll={ (e) => {
@@ -89,14 +112,17 @@ const DrawerCard: React.FC<PropsWithChildren<Props>> = ({
         } }
       >
         <Box
-          mt={ topOffset - topInset }
-          minHeight={ DEVICE_HEIGHT - topInset * 3 }
+          mt={ topOffset - topInset - DRAWER_HEIGHT }
+          minHeight={
+            DEVICE_HEIGHT - topInset - (botInset > 0 ? botInset : 60)
+            - DRAWER_HEIGHT - overlayHeight / 2
+          }
         >
           {children}
         </Box>
       </ScrollView>
-
       <Animated.View
+        onLayout={ (e: LayoutChangeEvent) => setHeight(e.nativeEvent.layout.height) }
         style={{
           position: 'absolute',
           top: topOverlay,

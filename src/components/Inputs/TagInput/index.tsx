@@ -15,13 +15,16 @@ const TagInputWrapper = styled(StyledInputWrapper)`
   align-items: center;
   flex-direction: row;
   flex-wrap: wrap;
-  padding-left: ${({ theme: { space } }) => space.m};
-  padding-right: ${({ theme: { space } }) => space.m};
 `;
 
-export type Props = InputProps;
+export type Props = InputProps & {
+  tags?: Array<string>;
+  onTagsChange?: (t: Array<string>) => void;
+};
 
 const TagInput: React.FC<Props> = ({
+  tags: tagsProps,
+  onTagsChange,
   title,
   variant,
   error,
@@ -41,7 +44,7 @@ const TagInput: React.FC<Props> = ({
   }
 
   const input = useInput();
-  const tags = useArray<string>([]);
+  const tags = useArray<string>(tagsProps || []);
 
   useEffect(() => {
     const inputValue = input.value;
@@ -55,11 +58,14 @@ const TagInput: React.FC<Props> = ({
 
   useEffect(() => {
     LayoutAnimation.configureNext(CustomLayoutSpring(null, null, "scaleXY"));
+    if (onTagsChange) {
+      onTagsChange(tags.value);
+    }
   }, [tags]);
 
   return (
     <InputWrapper>
-      <Heading variant={ variant }>{title}</Heading>
+      <Heading mb="xs" variant={ variant }>{title}</Heading>
       <TagInputWrapper bordered={ bordered } variant={ inputState }>
         {
           tags.value.map((tag, index) => (tag && tag.length > 0 ? (

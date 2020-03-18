@@ -30,7 +30,7 @@ const HTMLEditor = ({ contentEditable = true }: Props) => `
       margin: 0;
       padding: 0;
       font-family: 'Sofia Pro';
-      font-size: 24px;
+      font-size: 16px;
       line-height: 32px;
     }
     body {
@@ -59,7 +59,6 @@ const HTMLEditor = ({ contentEditable = true }: Props) => `
     .rte-content {
       outline: 0;
       overflow-y: auto;
-      padding: 10px;
       height: 100%;
     }
   </style>

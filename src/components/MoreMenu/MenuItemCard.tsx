@@ -20,20 +20,25 @@ export type Props = {
 
 const MenuItemCard: React.FC<Props> = ({
   title, textVariant, icon, onPress, last,
-}) => (
-  <MenuItemCardWrapper
-    onPress={ onPress }
-  >
-    <Grid px="l" pt="xl" pb={ last ? useSafeArea().bottom : 'xl' }>
-      <Box width="50px" justifyContent="center" alignItems="center">
-        {icon}
-      </Box>
-      <Column justifyContent="center">
-        <Text variant={ textVariant }>{title}</Text>
-      </Column>
-    </Grid>
-  </MenuItemCardWrapper>
-);
+}) => {
+  const { bottom } = useSafeArea();
+
+  return (
+    <MenuItemCardWrapper
+      onPress={ onPress }
+    >
+      <Grid px="l" pt="xl" pb={ last ? bottom : 'xl' }>
+        <Box width="50px" justifyContent="center" alignItems="center">
+          {icon}
+        </Box>
+        <Column justifyContent="center">
+          <Text variant={ textVariant }>{title}</Text>
+        </Column>
+      </Grid>
+    </MenuItemCardWrapper>
+  );
+};
+
 
 MenuItemCard.defaultProps = {
   last: false,

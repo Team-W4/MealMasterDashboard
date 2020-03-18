@@ -11,11 +11,14 @@ import StyledEditor from './StyledEditor';
 import StyledToolBar from './StyledToolBar';
 
 export type Props = {
+  scrollable?: boolean;
+  editable?: boolean;
   initialContent?: string;
   onSave?: (content?: string) => void;
 };
 
 const RichTextEditor: React.FC<Props> = ({
+  editable,
   initialContent,
   onSave,
 }) => {
@@ -53,30 +56,40 @@ const RichTextEditor: React.FC<Props> = ({
 
   return (
     <KeyboardView full behavior="padding">
-      <Column m="l" mb="0">
+      <Column>
         <ScrollView>
           <StyledEditor
             ref={ editorRef }
+            contentEditable={ editable }
             initialContentHTML={ initialContent || '' }
           />
         </ScrollView>
       </Column>
-      {isKeyboardVisible ? (
-        <StyledToolBar
-          getEditor={ () => editorRef.current }
-          onPressAddImage={ () => {} }
-        />
-      ) : (
-        <Grid py="s" mr="xxl" justifyContent="flex-end" alignItems="center">
-          <IconButton
-            onPress={ onSaveClick }
-          >
-            <NextIcon variant="warning" />
-          </IconButton>
-        </Grid>
-      )}
+      {
+        isKeyboardVisible && editable ? (
+          <StyledToolBar
+            getEditor={ () => editorRef.current }
+            onPressAddImage={ () => {} }
+          />
+        ) : (
+          onSave && (
+            <Grid py="s" mr="xxl" justifyContent="flex-end" alignItems="center">
+              <IconButton
+                onPress={ onSaveClick }
+              >
+                <NextIcon variant="warning" />
+              </IconButton>
+            </Grid>
+          )
+        )
+      }
     </KeyboardView>
   );
+};
+
+RichTextEditor.defaultProps = {
+  scrollable: true,
+  editable: true,
 };
 
 export default RichTextEditor;
