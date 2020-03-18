@@ -20,6 +20,11 @@ export type GenericFood = {
   tags?: Array<Tag>;
 };
 
+export type Nutrition = {
+  name: string;
+  value: number;
+}
+
 export type Stock = {
   id: number;
   totalQuantity?: number;
