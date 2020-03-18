@@ -90,7 +90,6 @@ const RecipeEditStepPage: React.FC<Props> = ({ navigation, route }) => {
             <TagInput
               autoFocus
               title="Tags"
-              placeholder="Separate multiple tags by space or comma"
               value={ value.toString() }
               onChangeText={ (e) => setValue(e) }
               error={ error }

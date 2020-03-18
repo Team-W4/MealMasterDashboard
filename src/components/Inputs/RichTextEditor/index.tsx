@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
   ScrollView, Keyboard, LayoutAnimation,
 } from 'react-native';
 import { CustomLayoutSpring } from 'react-native-animation-layout';
+import { useBoolean } from '../../../hooks';
 import { KeyboardView, Column, Grid } from '../../Containers';
 import { IconButton } from '../../Buttons';
 import { NextIcon } from '../../Icons';
@@ -19,20 +20,16 @@ const RichTextEditor: React.FC<Props> = ({
   onSave,
 }) => {
   const editorRef: React.RefObject<StyledEditor> = React.createRef();
-  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+  const [isKeyboardVisible, { setTrue, setFalse }] = useBoolean(false);
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
-      () => {
-        setKeyboardVisible(true); // or some other action
-      },
+      () => setTrue(),
     );
     const keyboardDidHideListener = Keyboard.addListener(
       'keyboardDidHide',
-      () => {
-        setKeyboardVisible(false); // or some other action
-      },
+      () => setFalse(),
     );
 
     return () => {
