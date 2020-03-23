@@ -23,10 +23,11 @@ class FoodDetailsContainer extends React.Component<Props> {
   }
 
   public render(): JSX.Element {
-    const { foodDetails, nutrition } = this.props;
+    const { navigation, foodDetails, nutrition } = this.props;
 
     return (
       <FoodDetailsPage
+        onAdd={ () => navigation.navigate('StockDetails', { foodId: foodDetails.id }) }
         foodDetails={ foodDetails }
         nutrition={ nutrition }
       />

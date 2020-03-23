@@ -31,6 +31,7 @@ export type Props = {
 };
 
 const FoodDetailsPage: React.FC<Props> = ({
+  onAdd,
   foodDetails: {
     name, tags,
   },
@@ -60,7 +61,7 @@ const FoodDetailsPage: React.FC<Props> = ({
       }}
       />
       <DrawerCard topOffset={ 300 }>
-        <Box px="l" mt="s">
+        <Box px="l" mt="l">
           <Subtitle mb="s">PRODUCE</Subtitle>
           <Title mb="s">{titleHelper(name)}</Title>
         </Box>
@@ -128,7 +129,7 @@ const FoodDetailsPage: React.FC<Props> = ({
         </Box>
       </DrawerCard>
       <Grid position="absolute" left="0" right="0" bottom={ bottom > 0 ? bottom : 'xxxl' } px="l" justifyContent="center">
-        <Button variant="warning" title="Add to stock" />
+        <Button variant="warning" title="Add to stock" onPress={ onAdd } />
       </Grid>
     </Box>
   );
