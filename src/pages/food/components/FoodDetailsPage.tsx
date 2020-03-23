@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ProgressCircle } from 'react-native-svg-charts';
 import { useSafeArea } from 'react-native-safe-area-context';
+import { Animated } from 'react-native';
 import styled from '../../../styled';
 import { titleHelper } from '../../../utils';
 import { GenericFood, Tag as TagType, Nutrition } from '../../../constants/dataTypes';
@@ -51,6 +52,28 @@ const FoodDetailsPage: React.FC<Props> = ({
 
   const { bottom } = useSafeArea();
 
+  type AnimatedNutritionChartProps = {
+    nutritionPercent: number;
+  };
+
+  const AnimatedNutritionChart: React.FC<AnimatedNutritionChartProps> = ({ nutritionPercent }) => {
+    const [percent] = useState(new Animated.Value(0));
+    const [displayPercent, setDisplayPercent] = useState(0);
+
+    useEffect(() => {
+      Animated.timing(
+        percent,
+        {
+          toValue: nutritionPercent,
+          duration: 5000,
+        },
+      ).start();
+    }, []);
+
+    requestAnimationFrame(() => percent.addListener(({ value }) => setDisplayPercent(value)));
+    return <NutritionChart progress={ displayPercent } progressColor={ colors.neoncarrot } />;
+  };
+
   return (
     <Box height="100%" width="100%">
       <Visual
@@ -74,7 +97,7 @@ const FoodDetailsPage: React.FC<Props> = ({
         </TagList>
         <Grid>
           <Column>
-            <NutritionChart progress={ carbsPercent / 100 } progressColor={ colors.neoncarrot } />
+            <AnimatedNutritionChart nutritionPercent={ carbsPercent / 100 } />
             <Box alignItems="center">
               <Box position="absolute" top="-65px">
                 <Title>
@@ -86,7 +109,7 @@ const FoodDetailsPage: React.FC<Props> = ({
             </Box>
           </Column>
           <Column>
-            <NutritionChart progress={ proteinPercent / 100 } progressColor={ colors.neoncarrot } />
+            <AnimatedNutritionChart nutritionPercent={ proteinPercent / 100 } />
             <Box alignItems="center">
               <Box position="absolute" top="-65px">
                 <Title>
@@ -98,7 +121,7 @@ const FoodDetailsPage: React.FC<Props> = ({
             </Box>
           </Column>
           <Column>
-            <NutritionChart progress={ fatPercent / 100 } progressColor={ colors.neoncarrot } />
+            <AnimatedNutritionChart nutritionPercent={ fatPercent / 100 } />
             <Box alignItems="center">
               <Box position="absolute" top="-65px">
                 <Title>
