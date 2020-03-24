@@ -66,4 +66,5 @@ export const searchActionTypes = {
 
 export const recipeRecommendationActionTypes = {
   FETCH_RECIPE_RECS: 'FETCH_RECIPES_RECS',
+  RECEIVE_RECIPE_RECS: 'RECEIVE_RECIPES_RECS',
 };
