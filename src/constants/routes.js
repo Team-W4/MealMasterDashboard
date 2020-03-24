@@ -18,6 +18,7 @@ export const REGISTER = '/register';
 
 // Recipe Routes
 export const RECIPE = '/recipe';
+export const RECS = '/recommendations';
 
 // Stock Routes
 export const STOCK = '/stock';

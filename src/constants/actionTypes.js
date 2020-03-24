@@ -63,3 +63,7 @@ export const searchActionTypes = {
   RECEIVE_SEARCH_TAGS: 'RECEIVE_SEARCH_TAGS',
   CLEAR_SEARCH: 'CLEAR_SEARCH',
 };
+
+export const recipeRecommendationActionTypes = {
+  FETCH_RECIPE_RECS: 'FETCH_RECIPES_RECS',
+};
