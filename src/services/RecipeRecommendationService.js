@@ -11,9 +11,3 @@ class RecipeRecommendationService {
 const singleton = new RecipeRecommendationService();
 
 export default singleton;
-
-
-
-
-
-
