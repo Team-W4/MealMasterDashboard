@@ -14,13 +14,15 @@ const receiveProfile = (profile) => ({
 });
 
 const storeToken = async (dispatch, profile, email, password) => {
-  try {
-    await AsyncStorage.setItem('savedUser', JSON.stringify({ email, password }));
-    await AsyncStorage.setItem('userToken', `${profile.id}`);
+  if (profile && profile.id) {
+    try {
+      await AsyncStorage.setItem('savedUser', JSON.stringify({ email, password }));
+      await AsyncStorage.setItem('userToken', `${profile.id}`);
 
-    dispatch(receiveProfile(profile));
-  } catch (error) {
-    console.error('Failed to store user token');
+      dispatch(receiveProfile(profile));
+    } catch (error) {
+      console.error('Failed to store user token');
+    }
   }
 };
 
@@ -76,10 +78,6 @@ export const restoreToken = () => async (dispatch) => {
   } catch (e) {
     console.error('Failed to retrieve user token');
   }
-
-  dispatch({
-    type: actionTypes.RESTORE_TOKEN, userToken,
-  });
 };
 
 export const updateProfile = (profileData) => (dispatch) => {

@@ -30,10 +30,6 @@ const UserReducer = createReducer(initialState, {
     isFetching: false,
     isLoggedOut: false,
   }),
-  [actionTypes.RESTORE_TOKEN]: (state, { userToken }) => ({
-    ...state,
-    userToken,
-  }),
   [actionTypes.LOGIN]: (state) => ({
     ...state,
     isFetching: true,
