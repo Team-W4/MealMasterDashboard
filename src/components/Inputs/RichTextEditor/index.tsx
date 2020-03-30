@@ -1,14 +1,20 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { ScrollView } from 'react-native';
 import {
-  ScrollView, Keyboard, LayoutAnimation,
-} from 'react-native';
-import { CustomLayoutSpring } from 'react-native-animation-layout';
-import { useBoolean } from '../../../hooks';
-import { KeyboardView, Column, Grid } from '../../Containers';
+  KeyboardView, Column, Grid, Box,
+} from '../../Containers';
 import { IconButton } from '../../Buttons';
 import { NextIcon } from '../../Icons';
 import StyledEditor from './StyledEditor';
 import StyledToolBar from './StyledToolBar';
+
+const EditorWrapper: React.FC<{ editable?: boolean }> = ({ editable, ...props }) => (
+  editable ? (
+    <ScrollView { ...props } />
+  ) : (
+    <Box { ...props } />
+  )
+);
 
 export type Props = {
   scrollable?: boolean;
@@ -23,27 +29,6 @@ const RichTextEditor: React.FC<Props> = ({
   onSave,
 }) => {
   const editorRef: React.RefObject<StyledEditor> = React.createRef();
-  const [isKeyboardVisible, { setTrue, setFalse }] = useBoolean(false);
-
-  useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener(
-      'keyboardDidShow',
-      () => setTrue(),
-    );
-    const keyboardDidHideListener = Keyboard.addListener(
-      'keyboardDidHide',
-      () => setFalse(),
-    );
-
-    return () => {
-      keyboardDidHideListener.remove();
-      keyboardDidShowListener.remove();
-    };
-  }, []);
-
-  useEffect(() => {
-    LayoutAnimation.configureNext(CustomLayoutSpring(null, null, "scaleXY"));
-  }, [isKeyboardVisible]);
 
   const onSaveClick = async () => {
     // Get the data here and call the interface to save the data
@@ -56,31 +41,36 @@ const RichTextEditor: React.FC<Props> = ({
 
   return (
     <KeyboardView full behavior="padding">
-      <Column>
-        <ScrollView>
+      <Column m="l" my="0">
+        <EditorWrapper editable={ editable }>
           <StyledEditor
             ref={ editorRef }
             contentEditable={ editable }
             initialContentHTML={ initialContent || '' }
           />
-        </ScrollView>
+        </EditorWrapper>
       </Column>
       {
-        isKeyboardVisible && editable ? (
-          <StyledToolBar
-            getEditor={ () => editorRef.current }
-            onPressAddImage={ () => {} }
-          />
-        ) : (
-          onSave && (
-            <Grid py="s" mr="xxl" justifyContent="flex-end" alignItems="center">
-              <IconButton
-                onPress={ onSaveClick }
-              >
-                <NextIcon variant="warning" />
-              </IconButton>
-            </Grid>
-          )
+        editable && (
+          <Grid alignItems="center">
+            <Column>
+              <StyledToolBar
+                getEditor={ () => editorRef.current }
+                onPressAddImage={ () => {} }
+              />
+            </Column>
+            {
+              onSave && (
+                <Box px="m">
+                  <IconButton
+                    onPress={ onSaveClick }
+                  >
+                    <NextIcon variant="warning" />
+                  </IconButton>
+                </Box>
+              )
+            }
+          </Grid>
         )
       }
     </KeyboardView>
