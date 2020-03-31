@@ -4,7 +4,6 @@ import UserReducer from './UserReducer';
 import StockReducer from './StockReducer';
 import GenericFoodReducer from './GenericFoodReducer';
 import SearchReducer from './SearchReducer';
-import RecipeRecommendationReducer from './RecipeRecommendationReducer';
 
 const RootReducer = combineReducers({
   recipe: RecipeReducer,
@@ -12,7 +11,6 @@ const RootReducer = combineReducers({
   stock: StockReducer,
   food: GenericFoodReducer,
   search: SearchReducer,
-  recipeRecommendations: RecipeRecommendationReducer,
 });
 
 export default RootReducer;

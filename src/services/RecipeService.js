@@ -18,6 +18,11 @@ class RecipeService {
     const route = `${routes.RECIPE}/${recipeId}`;
     return getHelper(route);
   };
+
+  getRecipeRecommendations = () => {
+    const route = `${routes.RECIPE}/${routes.RECS}`;
+    return getHelper(route);
+  };
 }
 
 const singleton = new RecipeService();
