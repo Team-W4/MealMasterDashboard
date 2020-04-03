@@ -65,7 +65,7 @@ const FoodDetailsPage: React.FC<Props> = ({
         percent,
         {
           toValue: nutritionPercent,
-          duration: 5000,
+          duration: 1000,
         },
       ).start();
     }, []);
