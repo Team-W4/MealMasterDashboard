@@ -1,5 +1,6 @@
 import React from 'react';
 import { FlatList } from 'react-native';
+import styled from '../../../styled';
 import {
   BoldIcon, ItalicIcon, UnderlinedIcon, UnorderedListIcon, OrderedListIcon,
   LinkIcon, AlignLeftIcon, AlignRightIcon, AlignCenterIcon, AlignFullIcon,
@@ -7,6 +8,11 @@ import {
 import { IconButton } from '../../Buttons';
 import { Box } from '../../Containers';
 import { actions as EditorActions } from './actions';
+
+const ToolbarFlatList = styled(FlatList)`
+  padding: ${({ theme: { space } }) => space.m};
+  padding-top: ${({ theme: { space } }) => space.s};
+`;
 
 const defaultActions = [
   EditorActions.setBold,
@@ -19,7 +25,6 @@ const defaultActions = [
   EditorActions.insertBulletsList,
   EditorActions.insertOrderedList,
   EditorActions.insertLink,
-  EditorActions.insertImage,
 ];
 
 const icons = {
@@ -49,6 +54,11 @@ type State = {
   selectedItems: Array<string>;
   actions: Array<string>;
   data: Array<Data>;
+};
+
+type Item = {
+  action: string;
+  selected: boolean;
 };
 
 export default class RichToolbar extends React.Component<Props, State> {
@@ -140,13 +150,15 @@ export default class RichToolbar extends React.Component<Props, State> {
 
     return (
       <Box alignItems="center" justifyContent="center">
-        <FlatList
-          contentContainerStyle={{ alignItems: 'center', padding: 16 }}
+        {/*
+        // @ts-ignore */}
+        <ToolbarFlatList
+          contentContainerStyle={{ alignItems: 'center' }}
           horizontal
-          keyExtractor={ (item, index) => `${item.action}-${index}` }
+          keyExtractor={ (item: Item, index) => `${item.action}-${index}` }
           data={ data }
           showsHorizontalScrollIndicator={ false }
-          renderItem={ ({ item: { action, selected } }) => (
+          renderItem={ ({ item: { action, selected } }: { item: Item }) => (
             <IconButton variant={ selected ? 'warning' : 'transparent' } onPress={ () => this.onPress(action) }>
               {icons[action]}
             </IconButton>
