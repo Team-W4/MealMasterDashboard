@@ -4,6 +4,7 @@ import { createReducer } from '../utils';
 const initialState = {
   recipes: [],
   recipeDetails: {},
+  recipeRecs: [],
   isFetching: false,
 };
 
@@ -29,6 +30,15 @@ const RecipeReducer = createReducer(initialState, {
   [actionTypes.CLEAR_RECIPE_DETAILS]: (state) => ({
     ...state,
     recipeDetails: {},
+  }),
+  [actionTypes.FETCH_RECIPE_RECS]: (state) => ({
+    ...state,
+    isFetching: true,
+  }),
+  [actionTypes.RECEIVE_RECIPE_RECS]: (state, { recipeRecs }) => ({
+    ...state,
+    isFetching: false,
+    recipeRecs,
   }),
 });
 

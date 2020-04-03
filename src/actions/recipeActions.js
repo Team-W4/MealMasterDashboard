@@ -11,6 +11,11 @@ const receiveRecipes = (recipes) => ({
   recipes,
 });
 
+const receiveRecipeRecommendations = (recipeRecs) => ({
+  type: actionTypes.RECEIVE_RECIPE_RECS,
+  recipeRecs,
+});
+
 export const getRecipeById = (recipeId) => (dispatch) => {
   dispatch({ type: actionTypes.FETCH_RECIPE });
 
@@ -25,4 +30,10 @@ export const getRecipesByUser = (userId) => (dispatch) => {
   dispatch({ type: actionTypes.FETCH_RECIPES });
 
   RecipeService.getRecipesByUser(userId).then((recipes) => dispatch(receiveRecipes(recipes)));
+};
+
+export const getRecipeRecommendations= () => (dispatch) => {
+  dispatch({ type: actionTypes.FETCH_RECIPE_RECS });
+
+  RecipeRecommendationService.getRecipeRecommendations().then((recipeRecs) => dispatch(receiveRecipeRecommendations(recipeRecs)));
 };
