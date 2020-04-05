@@ -23,6 +23,21 @@ class RecipeService {
     const route = `${routes.RECIPE}/${routes.RECS}`;
     return getHelper(route);
   };
+
+  getLikedRecipes = () => {
+    const route = `${routes.RECIPE}/${routes.LIKE}`;
+    return getHelper(route);
+  }
+
+  getRecipeToLike = (recipeId) => {
+    const route = `${routes.RECIPE}/${routes.LIKE}/${recipeId}`;
+    return getHelper(route);
+  }
+
+  getRecipeToUnlike = (recipeId) => {
+    const route = `${routes.RECIPE}/${routes.LIKE}/${recipeId}`;
+    return getHelper(route);
+  }
 }
 
 const singleton = new RecipeService();
