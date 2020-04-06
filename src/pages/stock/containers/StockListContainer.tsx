@@ -15,9 +15,9 @@ import ScrollList from '../../../components/ScrollList';
 export type Props = HomeNavigationProps<'Stocks'>
   & AuthNavigationProps<'Home'>
   & {
-  foodStocks: Array<Stock>;
-  getAllStock: () => void;
-};
+    foodStocks: Array<Stock>;
+    getAllStock: () => void;
+  };
 
 class StockListPage extends React.Component<Props> {
   private willFocusSubscription!: () => void;

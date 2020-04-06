@@ -281,7 +281,7 @@ const StockDetailsPage: React.FC<Props> = ({
                       </Box>
                     ))
                 }
-                <Box height="58px" />
+                <Box height="80px" />
               </>
             )
           )

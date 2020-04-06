@@ -12,6 +12,7 @@ export type AuthStackParamList = {
   FoodDetails: { foodId: number };
   UserDetails: undefined;
   UserEdit: undefined;
+  ReceiptParse: undefined;
 };
 
 export type AuthNavigationProps<T extends keyof AuthStackParamList> = {

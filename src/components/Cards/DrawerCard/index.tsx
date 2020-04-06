@@ -84,7 +84,7 @@ const DrawerCard: React.FC<PropsWithChildren<Props>> = ({
   });
 
   return (
-    <SafeViewDrawer>
+    <SafeViewDrawer side="top">
       <Animated.View
         style={{
           backgroundColor: 'transparent',
@@ -114,7 +114,7 @@ const DrawerCard: React.FC<PropsWithChildren<Props>> = ({
         <Box
           mt={ topOffset - topInset - DRAWER_HEIGHT }
           minHeight={
-            DEVICE_HEIGHT - topInset - (botInset > 0 ? botInset : 60)
+            DEVICE_HEIGHT - (botInset > 0 ? botInset : 60)
             - DRAWER_HEIGHT - overlayHeight / 2
           }
         >

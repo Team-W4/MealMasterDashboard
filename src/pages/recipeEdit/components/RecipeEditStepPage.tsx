@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import {
-  SafeView, Row, Column, Box, KeyboardView,
+  SafeView, Row, Column, KeyboardView,
 } from '../../../components/Containers';
 import { Input, TagInput } from '../../../components/Inputs';
 import { IconButton } from '../../../components/Buttons';
@@ -73,18 +73,7 @@ const RecipeEditStepPage: React.FC<Props> = ({ navigation, route }) => {
     <SafeView full px="xxxl">
       <KeyboardView full behavior="padding">
         <Column justifyContent="flex-end">
-          <Box
-            mb="l"
-            width={ 50 }
-            height={ 50 }
-            borderRadius={ 25 }
-            borderWidth={ 5 }
-            borderColor="neoncarrot"
-            alignItems="center"
-            justifyContent="center"
-          >
-            <SavedIcon />
-          </Box>
+          <SavedIcon wrapperVariant="warning" />
         </Column>
         {
           currentStep.stateKey === 'tags' ? (

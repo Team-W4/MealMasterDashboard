@@ -36,8 +36,8 @@ const FoodSearchListCard: React.FC<Props> = ({
   >
     <InfoCard p="m" { ...props }>
       <Column ml="l" justifyContent="center">
-        <Subtitle mb="xs">{subtitle}</Subtitle>
-        <Heading mb="xs">{titleHelper(title)}</Heading>
+        {subtitle ? <Subtitle mb="xs">{subtitle}</Subtitle> : <></>}
+        {title ? <Heading mb="xs">{titleHelper(title)}</Heading> : <></>}
         <Subtitle>75kcal • 200g in stock</Subtitle>
       </Column>
     </InfoCard>

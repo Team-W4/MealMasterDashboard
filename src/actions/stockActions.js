@@ -100,9 +100,7 @@ export const deleteStockItem = (stockItemId) => (dispatch) => {
 export const parseReceipt = () => (dispatch) => {
   dispatch({ type: actionTypes.FETCH_RECEIPT_FOODS });
   StockService.parseReceipt()
-    .then((parsedFoodIds) => {
-      dispatch({ type: actionTypes.RECEIVE_RECEIPT_FOODS, parsedFoodIds });
-    })
+    .then((parsedFoods) => dispatch({ type: actionTypes.RECEIVE_RECEIPT_FOODS, parsedFoods }))
     .catch((e) => {
       console.error(e);
       dispatch({ type: actionTypes.FETCH_RECEIPT_FOODS_FAIL });
