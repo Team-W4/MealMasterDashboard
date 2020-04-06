@@ -24,11 +24,11 @@ export type Props = ReceiptParseNavigationProps<'ReceiptReview'> & {
 };
 
 const ReceiptParseReview: React.FC<Props> = ({
-  navigation, receiptFoods, addToStock,
+  navigation, parseReceipt, receiptFoods, addToStock,
 }) => {
   const [foodMap, setMap] = useState(new Map<number, number>());
 
-  // useEffect(() => parseReceipt(), []);
+  useEffect(() => parseReceipt(), []);
 
   useEffect(() => {
     if (receiptFoods && receiptFoods.length > 0) {
