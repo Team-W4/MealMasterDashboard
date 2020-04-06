@@ -1,4 +1,4 @@
-import { getHelper } from '../utils/fetchHelper';
+import { getHelper, postHelper, deleteHelper } from '../utils/fetchHelper';
 import * as routes from '../constants/routes';
 
 class RecipeService {
@@ -31,12 +31,12 @@ class RecipeService {
 
   getRecipeToLike = (recipeId) => {
     const route = `${routes.RECIPE}/${routes.LIKE}/${recipeId}`;
-    return getHelper(route);
+    return postHelper(route);
   }
 
   getRecipeToUnlike = (recipeId) => {
     const route = `${routes.RECIPE}/${routes.LIKE}/${recipeId}`;
-    return getHelper(route);
+    return deleteHelper(route);
   }
 }
 
