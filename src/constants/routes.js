@@ -28,5 +28,9 @@ export const STOCK_ITEM = '/stockItem';
 // Food Routes
 export const FOOD = '/food';
 
+// Meal Routes
+export const MEAL = '/meal';
+export const CONSUME = '/consume';
+
 // Azure Routes
 export const AZURE = '/azure';
