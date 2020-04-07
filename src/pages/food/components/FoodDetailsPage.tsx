@@ -79,9 +79,8 @@ const FoodDetailsPage: React.FC<Props> = ({
       <Visual
         size="large"
         source={{
-        uri:
-        'https://www.chiceats.com/sites/default/files/styles/image_1024x768/public/recipe/photo/homemade-pasta-recipe-1080x810@2x.jpg',
-      }}
+          uri: 'https://www.chiceats.com/sites/default/files/styles/image_1024x768/public/recipe/photo/homemade-pasta-recipe-1080x810@2x.jpg',
+        }}
       />
       <DrawerCard topOffset={ 300 }>
         <Box px="l" mt="l">

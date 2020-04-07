@@ -10,34 +10,50 @@ import {
   SafeView, Box, Grid,
 } from '../../../components/Containers';
 import { DrawerCard } from '../../../components/Cards';
-import { Title } from '../../../components/Texts';
+import { Title, Subtitle } from '../../../components/Texts';
 import { IconButton } from '../../../components/Buttons';
-import { StockIcon, CheckIcon } from '../../../components/Icons';
+import { StockIcon, CheckIcon, CameraIcon } from '../../../components/Icons';
 import { ReceiptParseNavigationProps } from '../ReceiptParseStack';
 import DataList from '../../../components/DataList';
 import FoodSearchListCard from '../../search/components/FoodSearchListCard';
 
 export type Props = ReceiptParseNavigationProps<'ReceiptReview'> & {
   receiptFoods: Array<GenericFood>;
-  parseReceipt: () => void;
+  parseReceipt: (base64?: string) => void;
   addToStock: (id: number, amount: Omit<StockItem, 'id'>) => void;
 };
 
 const ReceiptParseReview: React.FC<Props> = ({
   navigation, parseReceipt, receiptFoods, addToStock,
 }) => {
+  const cameraRef = React.createRef<RNCamera>();
+  const [reviewMode, setReviewMode] = useState(false);
   const [foodMap, setMap] = useState(new Map<number, number>());
-
-  useEffect(() => parseReceipt(), []);
 
   useEffect(() => {
     if (receiptFoods && receiptFoods.length > 0) {
-      receiptFoods.forEach((food) => foodMap.set(food.id, 1));
+      receiptFoods.forEach((food) => {
+        if (food) {
+          foodMap.set(food.id, 1);
+        }
+      });
     }
   }, [receiptFoods]);
 
-  useEffect(() => {
-  }, []);
+  const takePicture = async () => {
+    if (cameraRef) {
+      const data = await cameraRef.current?.takePictureAsync({
+        quality: 0.5,
+        base64: true,
+        pauseAfterCapture: true,
+      });
+
+      if (data) {
+        setReviewMode(true);
+        parseReceipt(data.base64);
+      }
+    }
+  };
 
   const addReceiptToStock = () => {
     if (foodMap.size > 0) {
@@ -51,15 +67,24 @@ const ReceiptParseReview: React.FC<Props> = ({
   };
 
   return (
-    <SafeView full side="bottom">
+    <SafeView full side="bottom" style={{ backgroundColor: 'orange' }}>
       <RNCamera
-        style={{ height: 500, width: 500 }}
-      />
+        ref={ cameraRef }
+        style={{ height: 450 }}
+        autoFocus="on"
+      >
+        <SafeView full>
+          <Box m={ 64 } borderWidth={ 3 } borderColor="white" borderRadius={ 20 } flexGrow={ 1 } />
+        </SafeView>
+      </RNCamera>
       <DrawerCard
-        topOffset={ 480 }
-        topRightOverlay={ (
+        topRightOverlay={ reviewMode ? (
           <IconButton variant="warning" onPress={ addReceiptToStock }>
             <CheckIcon variant="inverted" />
+          </IconButton>
+        ) : (
+          <IconButton variant="warning" onPress={ takePicture }>
+            <CameraIcon variant="inverted" />
           </IconButton>
         ) }
       >
@@ -78,9 +103,9 @@ const ReceiptParseReview: React.FC<Props> = ({
                   return 0;
                 })
               }
-              keyExtractor={ (item: GenericFood) => item && (item.id || '').toString() }
+              keyExtractor={ (item: GenericFood) => ((item && item.name) || '').toString() }
               renderItem={ ({ item: { id, name } }: { item: GenericFood }) => (
-                <Box key={ name } mx="l" mb="xl">
+                <Box key={ name } mx="l" my="xs">
                   <FoodSearchListCard
                     title={ name }
                     subtitle="produce"
@@ -97,7 +122,7 @@ const ReceiptParseReview: React.FC<Props> = ({
                     >
                       {
                         range(1, 21).map(((i: number) => (
-                          <Picker.Item label={ i.toString() } value={ i } />
+                          <Picker.Item key={ i } label={ i.toString() } value={ i } />
                         )))
                       }
                     </Picker>
@@ -106,8 +131,14 @@ const ReceiptParseReview: React.FC<Props> = ({
               ) }
             />
           ) : (
-            <Box mt="xxxl">
-              <ActivityIndicator />
+            <Box pt="xxxl" mt="xxxl">
+              {
+                reviewMode ? (
+                  <ActivityIndicator />
+                ) : (
+                  <Subtitle textAlign="center" mb="xxl">Try taking a picture of your receipt</Subtitle>
+                )
+              }
             </Box>
           )
         }

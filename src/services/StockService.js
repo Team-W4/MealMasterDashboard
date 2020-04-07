@@ -37,7 +37,7 @@ class StockService {
   deleteStockItem = (stockItemId) => deleteHelper(`${routes.STOCK_ITEM}/${stockItemId}`);
 
   // TODO: accept image has param
-  parseReceipt = () => postHelper(routes.AZURE, {});
+  parseReceipt = (base64) => postHelper(routes.AZURE, base64);
 }
 
 const singleton = new StockService();

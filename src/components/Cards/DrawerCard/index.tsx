@@ -55,7 +55,7 @@ const DrawerCard: React.FC<PropsWithChildren<Props>> = ({
   topRightOverlay,
   children,
 }) => {
-  const { top: topInset, bottom: botInset } = useSafeArea();
+  const { top: topInset } = useSafeArea();
   const outerYMapping = new Animated.Value(0);
   const [overlayHeight, setHeight] = useState(0);
 
@@ -103,7 +103,6 @@ const DrawerCard: React.FC<PropsWithChildren<Props>> = ({
       <ScrollView
         style={{
           marginTop: DRAWER_HEIGHT + (topRightOverlay ? overlayHeight / 2 : 0),
-          marginBottom: botInset > 0 ? 0 : 32,
         }}
         scrollEventThrottle={ 16 }
         showsVerticalScrollIndicator={ false }
@@ -114,8 +113,7 @@ const DrawerCard: React.FC<PropsWithChildren<Props>> = ({
         <Box
           mt={ topOffset - topInset - DRAWER_HEIGHT }
           minHeight={
-            DEVICE_HEIGHT - (botInset > 0 ? botInset : 60)
-            - DRAWER_HEIGHT - overlayHeight / 2
+            DEVICE_HEIGHT - DRAWER_HEIGHT - overlayHeight / 2
           }
         >
           {children}

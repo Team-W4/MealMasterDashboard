@@ -7,6 +7,7 @@ import { Heading, Subtitle } from '../../../components/Texts';
 
 const RoundedImage = styled.Image`
   position: absolute;
+  elevation: 11;
   width: 100px;
   height: 75px;
   border-radius: 10px;

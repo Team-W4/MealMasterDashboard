@@ -16,6 +16,11 @@ const HomePage: React.FC<Props> = ({ navigation }) => (
 
     <Box p="xxxl">
       <Box mb="s">
+        <Button variant="transparent">
+          <Text>Transparent</Text>
+        </Button>
+      </Box>
+      <Box mb="s">
         <Button>
           <Text>Normal</Text>
         </Button>

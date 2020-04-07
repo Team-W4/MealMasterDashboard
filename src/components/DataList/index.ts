@@ -8,6 +8,7 @@ const DataList = styled(FlatList).attrs(() => ({
   flex: 1;
   width: 100%;
   padding-top: ${({ theme: { space } }) => space.l};
+  padding-bottom: ${({ theme: { space } }) => space.xxxl};
 `;
 
 export default DataList;

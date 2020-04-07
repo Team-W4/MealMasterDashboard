@@ -26,3 +26,4 @@ export { default as AlignRightIcon } from './components/AlignRight';
 export { default as AlignCenterIcon } from './components/AlignCenter';
 export { default as AlignFullIcon } from './components/AlignFull';
 export { default as NextIcon } from './components/Next';
+export { default as CameraIcon } from './components/Camera';

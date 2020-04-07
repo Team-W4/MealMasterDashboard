@@ -17,7 +17,7 @@ const SearchRecipeTab: React.FC<Props> = ({
     data={ data }
     keyExtractor={ (item: Recipe) => item.id.toString() }
     renderItem={ ({ item }: { item: Recipe }) => (
-      <Box key={ item.name } px="l" mb="m">
+      <Box key={ item.name } px="l" py="xs">
         <RecipeSearchListCard
           data={ item }
         />

@@ -16,7 +16,7 @@ const StyledButtonWrapper = styled.TouchableOpacity<Props>`
   align-items: center;
   border-radius: ${({ theme: { space } }) => space.s};
   ${({ rounded, theme: { space } }) => `border-radius: ${rounded ? '100px' : space.s};`}
-  ${({ flat, theme: { semanticColors } }) => (flat
+  ${({ flat, variant, theme: { semanticColors } }) => (flat || variant === 'transparent'
       ? ''
       : `
         elevation: 10;
