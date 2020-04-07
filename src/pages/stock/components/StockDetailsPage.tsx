@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { LayoutAnimation, Platform, Alert } from 'react-native';
+import {
+  LayoutAnimation, Platform, Alert, StatusBar,
+} from 'react-native';
 import { CustomLayoutSpring } from 'react-native-animation-layout';
 import { useSafeArea } from 'react-native-safe-area-context';
 import styled from '../../../styled';
@@ -189,6 +191,7 @@ const StockDetailsPage: React.FC<Props> = ({
 
   return (
     <Box height="100%" width="100%">
+      <StatusBar barStyle="light-content" />
       <Visual
         size="large"
         source={{
@@ -281,7 +284,7 @@ const StockDetailsPage: React.FC<Props> = ({
                       </Box>
                     ))
                 }
-                <Box height="58px" />
+                <Box height="100px" />
               </>
             )
           )

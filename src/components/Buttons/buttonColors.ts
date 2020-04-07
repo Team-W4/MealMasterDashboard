@@ -27,6 +27,7 @@ const buttonColors = variant({
     },
     transparent: {
       backgroundColor: 'transparent',
+      elevation: 0,
     },
     normal: {
       backgroundColor: 'white',

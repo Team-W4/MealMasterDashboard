@@ -19,8 +19,10 @@ const StyledCardWrapper = styled.View<Props>`
   background-color: ${({ theme: { semanticColors } }) => semanticColors.background};
   ${cardColors}
   border-radius: ${({ theme: { space: spaces } }) => spaces.s};
-  elevation: 10;
-  box-shadow: 0 15px 18px ${({ theme: { semanticColors } }) => semanticColors.shadow};
+  ${({ variant, theme: { semanticColors } }) => (variant === 'transparent' ? '' : `
+    elevation: 10;
+    box-shadow: 0 15px 18px ${semanticColors.shadow};
+  `)}
 `;
 
 const StyledButtonWrapper = styled.TouchableOpacity`

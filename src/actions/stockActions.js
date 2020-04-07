@@ -96,12 +96,13 @@ export const deleteStockItem = (stockItemId) => (dispatch) => {
     });
 };
 
-// TODO: upload image here to API here
-export const parseReceipt = () => (dispatch) => {
+export const parseReceipt = (base64) => (dispatch) => {
   dispatch({ type: actionTypes.FETCH_RECEIPT_FOODS });
-  StockService.parseReceipt()
-    .then((parsedFoodIds) => {
-      dispatch({ type: actionTypes.RECEIVE_RECEIPT_FOODS, parsedFoodIds });
+  StockService.parseReceipt(base64)
+    .then((parsedFoods) => {
+      if (parsedFoods) {
+        dispatch({ type: actionTypes.RECEIVE_RECEIPT_FOODS, parsedFoods });
+      }
     })
     .catch((e) => {
       console.error(e);

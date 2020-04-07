@@ -1,5 +1,6 @@
 import React from 'react';
 import throttle from 'lodash.throttle';
+import { ActivityIndicator } from 'react-native';
 import styled from '../../styled';
 import { Paragraph } from '../../components/Texts';
 
@@ -250,7 +251,8 @@ const messageChoser = throttle(
 
 const LoadingPage: React.FC = () => (
   <LoadingView>
-    <Paragraph px="xxxl" textAlign="center" variant="inverted">
+    <ActivityIndicator size="large" color="white" />
+    <Paragraph px="xxxl" mt="xxl" textAlign="center" variant="inverted">
       {LOADING_MSGS[messageChoser()]}
       ...
     </Paragraph>

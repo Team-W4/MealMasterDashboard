@@ -16,7 +16,7 @@ const SearchUserTab: React.FC<Props> = ({
     data={ data }
     keyExtractor={ (item: User) => item.id.toString() }
     renderItem={ ({ item }: { item: User }) => (
-      <Box key={ item.id.toString() } px="l" mb="m" />
+      <Box key={ item.id.toString() } px="l" py="xs" />
     ) }
   />
 );

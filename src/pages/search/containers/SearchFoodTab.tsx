@@ -16,7 +16,7 @@ const SearchFoodTab: React.FC<Props> = ({ navigation, data }) => (
     data={ data }
     keyExtractor={ (item: GenericFood) => item.id.toString() }
     renderItem={ ({ item }: { item: GenericFood }) => (
-      <Box key={ item.name } px="l" mb="m">
+      <Box key={ item.name } px="l" py="xs">
         <FoodSearchListCard
           title={ item.name }
           subtitle="produce"
