@@ -16,6 +16,21 @@ const receiveRecipeRecommendations = (recipeRecs) => ({
   recipeRecs,
 });
 
+const receiveLikedRecipes = (likedRecipes) => ({
+  type: actionTypes.RECEIVE_LIKED_RECIPES,
+  likedRecipes,
+});
+
+const receiveRecipeToLike = (recipeToLike) => ({
+  type: actionTypes.RECEIVE_RECIPE_TO_LIKE,
+  recipeToLike,
+});
+
+const receiveRecipeToUnlike = (recipeToUnlike) => ({
+  type: actionTypes.RECEIVE_RECIPE_TO_UNLIKE,
+  recipeToUnlike,
+});
+
 export const getRecipeById = (recipeId) => (dispatch) => {
   dispatch({ type: actionTypes.FETCH_RECIPE });
 
@@ -32,8 +47,26 @@ export const getRecipesByUser = (userId) => (dispatch) => {
   RecipeService.getRecipesByUser(userId).then((recipes) => dispatch(receiveRecipes(recipes)));
 };
 
-export const getRecipeRecommendations= () => (dispatch) => {
+export const getRecipeRecommendations = () => (dispatch) => {
   dispatch({ type: actionTypes.FETCH_RECIPE_RECS });
 
-  RecipeRecommendationService.getRecipeRecommendations().then((recipeRecs) => dispatch(receiveRecipeRecommendations(recipeRecs)));
+  RecipeService.getRecipeRecommendations().then((recipeRecs) => dispatch(receiveRecipeRecommendations(recipeRecs)));
 };
+
+export const getLikedRecipes = () => (dispatch) => {
+  dispatch({ type: actionTypes.FETCH_LIKED_RECIPES});
+
+  RecipeService.getLikedRecipes().then((likedRecipes) => dispatch(receiveLikedRecipes(likedRecipes)));
+}
+
+export const getRecipeToLike = () => (dispatch) => {
+  dispatch({ type: actionTypes.FETCH_RECIPE_TO_LIKE});
+
+  RecipeService.getRecipeToLike().then((recipeToLike) => dispatch(receiveRecipeToLike(recipeToLike)));
+}
+
+export const getRecipeToUnike = () => (dispatch) => {
+  dispatch({ type: actionTypes.FETCH_RECIPE_TO_UNLIKE});
+
+  RecipeService.getRecipeToUnike().then((recipeToUnike) => dispatch(receiveRecipeToUnlike(recipeToUnike)));
+}

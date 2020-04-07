@@ -5,6 +5,7 @@ const initialState = {
   recipes: [],
   recipeDetails: {},
   recipeRecs: [],
+  likedRecipes: [],
   isFetching: false,
 };
 
@@ -39,6 +40,33 @@ const RecipeReducer = createReducer(initialState, {
     ...state,
     isFetching: false,
     recipeRecs,
+  }),
+  [actionTypes.FETCH_LIKED_RECIPES]: (state) => ({
+    ...state,
+    isFetching: true,
+  }),
+  [actionTypes.FETCH_RECIPE_TO_LIKE]: (state) => ({
+    ...state,
+    isFetching: true,
+  }),
+  [actionTypes.FETCH_RECIPE_TO_UNLIKE]: (state) => ({
+    ...state,
+    isFetching: true,
+  }),
+  [actionTypes.RECEIVE_LIKED_RECIPES]: (state, { likedRecipes }) => ({
+    ...state,
+    isFetching: false,
+    likedRecipes,
+  }),
+  [actionTypes.RECEIVE_RECIPE_TO_LIKE]: (state, { recipeDetails }) => ({
+    ...state,
+    isFetching: false,
+    recipeDetails,
+  }),
+  [actionTypes.RECEIVE_RECIPE_TO_UNLIKE]: (state, { recipeDetails }) => ({
+    ...state,
+    isFetching: false,
+    recipeDetails,
   }),
 });
 
