@@ -1,4 +1,5 @@
 import React from 'react';
+import { StatusBar } from 'react-native';
 import styled from '../../../styled';
 import { RecipeDetails, Tag as TagType } from '../../../constants/dataTypes';
 import { titleHelper } from '../../../utils';
@@ -47,6 +48,7 @@ const RecipeDetailsPage: React.FC<Props> = ({
   },
 }) => (
   <Box height="100%" width="100%">
+    <StatusBar barStyle="light-content" />
     <Box mb="xxl">
       <Visual
         size="epic"

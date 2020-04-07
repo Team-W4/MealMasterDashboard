@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import range from 'lodash.range';
 import { connect } from 'react-redux';
-import { Picker, ActivityIndicator } from 'react-native';
+import { Picker, ActivityIndicator, StatusBar } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { RNCamera } from 'react-native-camera';
 import { stockActions } from '../../../actions';
@@ -68,6 +68,7 @@ const ReceiptParseReview: React.FC<Props> = ({
 
   return (
     <SafeView full side="bottom" style={{ backgroundColor: 'orange' }}>
+      <StatusBar barStyle="light-content" />
       <RNCamera
         ref={ cameraRef }
         style={{ height: 450 }}

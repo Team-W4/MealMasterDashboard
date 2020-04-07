@@ -113,7 +113,7 @@ const DrawerCard: React.FC<PropsWithChildren<Props>> = ({
         <Box
           mt={ topOffset - topInset - DRAWER_HEIGHT }
           minHeight={
-            DEVICE_HEIGHT - DRAWER_HEIGHT - overlayHeight / 2
+            DEVICE_HEIGHT - topInset - DRAWER_HEIGHT - overlayHeight / 2
           }
         >
           {children}
