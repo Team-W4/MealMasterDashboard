@@ -6,14 +6,12 @@ import { CustomLayoutSpring } from 'react-native-animation-layout';
 import { dateParser } from '../../../utils';
 import { stockActions } from '../../../actions';
 import { HomeNavigationProps } from '../../navigator/HomeTab';
-import { AuthNavigationProps } from '../../auths/AuthStack';
 import { Stock } from '../../../constants/dataTypes';
 import { Box } from '../../../components/Containers';
 import StockListCard from '../components/StockListCard';
 import ScrollList from '../../../components/ScrollList';
 
 export type Props = HomeNavigationProps<'Stocks'>
-  & AuthNavigationProps<'Home'>
   & {
     foodStocks: Array<Stock>;
     getAllStock: () => void;

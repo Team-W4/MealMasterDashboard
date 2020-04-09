@@ -72,7 +72,7 @@ const RecipeEditStepPage: React.FC<Props> = ({ navigation, route }) => {
   return (
     <SafeView full px="xxxl">
       <KeyboardView full behavior="padding">
-        <Column justifyContent="flex-end">
+        <Column justifyContent="flex-end" mb="l">
           <SavedIcon wrapperVariant="warning" />
         </Column>
         {

@@ -1,15 +1,15 @@
 import { variant } from 'styled-system';
 
 enum iconWrapperColorEnum {
-  inherit,
   normal,
+  inverted,
   warning,
-  active,
   error,
   success,
   secondary,
   tertiary,
   link,
+  active,
 }
 
 export type IconWrapperColorKeys = keyof typeof iconWrapperColorEnum;
@@ -21,10 +21,10 @@ export type IconWrapperColorProps = {
 const iconWrapperColors = variant({
   prop: 'wrapperVariant',
   variants: {
-    inherit: {
-      borderColor: 'inherit',
-    },
     normal: {
+      borderColor: 'black',
+    },
+    inverted: {
       borderColor: 'white',
     },
     warning: {
