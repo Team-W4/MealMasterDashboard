@@ -51,3 +51,9 @@ export const unlikeRecipe = (recipeId) => (dispatch) => {
     (recipe) => dispatch(getRecipeById(recipe.id)),
   );
 };
+
+export const createRecipe = (recipeDetails) => (dispatch) => {
+  RecipeService.createRecipe(recipeDetails).then(
+    (recipe) => dispatch(getRecipeById(recipe.id)),
+  );
+};
