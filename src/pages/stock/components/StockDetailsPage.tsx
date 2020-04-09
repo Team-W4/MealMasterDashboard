@@ -24,7 +24,7 @@ import StockItemListCard from './StockItemListCard';
 import { DrawerCard } from '../../../components/Cards';
 import MoreMenu from '../../../components/MoreMenu';
 
-const STOCK_PLACEHOLDER = 'https://www.chiceats.com/sites/default/files/styles/image_1024x768/public/recipe/photo/homemade-pasta-recipe-1080x810@2x.jpg';
+const STOCK_PLACEHOLDER = '';
 
 const ERROR_MSGS = {
   invalidQuantity: 'Enter a positive quantity',
@@ -74,10 +74,7 @@ const StockDetailsPage: React.FC<Props> = ({
     foodName,
     stockItems,
     nextExpiration,
-    food: {
-      image,
-      tags,
-    },
+    food,
   },
   stockItemDetails,
 }) => {
@@ -204,7 +201,7 @@ const StockDetailsPage: React.FC<Props> = ({
       <Visual
         size="large"
         source={{
-          uri: image || STOCK_PLACEHOLDER,
+          uri: (food && food.image) || STOCK_PLACEHOLDER,
         }}
       />
       <DrawerCard
@@ -233,7 +230,7 @@ const StockDetailsPage: React.FC<Props> = ({
         </Box>
         <TagList horizontal showsHorizontalScrollIndicator={ false }>
           <Box mr="xs">{getExpireTag()}</Box>
-          {tags && tags.map((tag: TagType) => (
+          {food && food.tags && food.tags.map((tag: TagType) => (
             <Box key={ tag.id } alignSelf="flex-start" mr="xs">
               <Tag value={ tag.name } />
             </Box>
