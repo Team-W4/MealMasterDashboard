@@ -6,11 +6,13 @@ import { Input, TagInput } from '../../../components/Inputs';
 import { IconButton } from '../../../components/Buttons';
 import { NextIcon, SavedIcon } from '../../../components/Icons';
 import { RecipeEditStackParamList, RecipeEditNavigationProps } from '../RecipeEditStack';
+import StepIndicator from '../../../components/StepIndicator';
 import RecipeEditContext, { RecipeEditState, ActionTypes } from '../RecipeEditContext';
 
 type StepContent = {
   question: string;
   stateKey: keyof RecipeEditState;
+  index: number;
   next: keyof RecipeEditStackParamList;
   action: keyof typeof ActionTypes;
   verifyFn: (value: any) => boolean;
@@ -23,6 +25,7 @@ const RecipeEditSteps: {
   Name: {
     question: 'Name your recipe',
     stateKey: 'name',
+    index: 0,
     next: 'Instructions',
     action: 'SET_NAME',
     verifyFn: (name: string) => !!name && name.length > 0,
@@ -31,14 +34,16 @@ const RecipeEditSteps: {
   CookTime: {
     question: 'How long does it take to cook?',
     stateKey: 'cookTime',
+    index: 2,
     next: 'Tags',
     action: 'SET_COOK_TIME',
-    verifyFn: (cookTime: Number) => cookTime > 0,
+    verifyFn: (cookTime: number) => cookTime > 0,
     errorMessage: 'e.g. 10 minutes for a salad',
   },
   Tags: {
     question: 'How would you describe this recipe?',
     stateKey: 'tags',
+    index: 3,
     next: 'AllSet',
     action: 'SET_TAGS',
     verifyFn: (tags: Array<string>) => !!tags && tags.length > 0,
@@ -73,7 +78,9 @@ const RecipeEditStepPage: React.FC<Props> = ({ navigation, route }) => {
     <SafeView full px="xxxl">
       <KeyboardView full behavior="padding">
         <Column justifyContent="flex-end" mb="l">
-          <SavedIcon wrapperVariant="warning" />
+          <StepIndicator stepLength={ 5 } currentStep={ currentStep.index }>
+            <SavedIcon wrapperVariant="warning" />
+          </StepIndicator>
         </Column>
         {
           currentStep.stateKey === 'tags' ? (

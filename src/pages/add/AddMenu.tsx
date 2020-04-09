@@ -5,7 +5,7 @@ import { ProgressCircle } from 'react-native-svg-charts';
 import colors from '../../styled/variables/colors';
 import styled from '../../styled';
 import {
-  AddIcon, ScanIcon, SavedIcon, SearchIcon,
+  AddIcon, ScanIcon, AddRecipeIcon, SearchIcon,
 } from '../../components/Icons';
 import { Box } from '../../components/Containers';
 import { IconButton } from '../../components/Buttons';
@@ -174,7 +174,7 @@ const AddMenu: React.FC = () => {
                         onAddClick();
                       } }
                     >
-                      <SavedIcon variant="inverted" />
+                      <AddRecipeIcon variant="inverted" />
                     </IconButton>
                   </Box>
                 </Box>
