@@ -14,10 +14,11 @@ export type User = {
 export type GenericFood = {
   id: number;
   name: string;
-  averageExpirationDurations: number;
-  gramsPerServing: number;
+  averageExpirationDurations?: number;
+  gramsPerServing?: number;
   foodGroup?: string;
   tags?: Array<Tag>;
+  image?: string;
 };
 
 export type Nutrition = {
@@ -54,11 +55,17 @@ export type Recipe = {
   tags?: Array<Tag>;
   cookTime?: string | number;
   yield?: string;
+  image?: string;
+  likes?: number;
 };
 
 export type RecipeDetails = Recipe & {
+  creator?: number;
+  createdDate?: string;
+  formattedCreatedDate?: string;
   rating?: number;
   cookTime?: string | number;
-  ingredients?: Array<GenericFood>;
+  ingredients?: Array<{ ingredient: number, servings: number }>;
+  savedByUsers?: Array<User>;
   instructions: string;
 };

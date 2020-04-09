@@ -33,11 +33,13 @@ export type Props = {
   onFavorite?: () => void;
   onShare?: () => void;
   onBack: () => void;
+  favorited?: boolean;
   recipeDetails: RecipeDetails;
 };
 
 const RecipeDetailsPage: React.FC<Props> = ({
   onFavorite,
+  favorited,
   recipeDetails: {
     // rating,
     name,
@@ -61,8 +63,8 @@ const RecipeDetailsPage: React.FC<Props> = ({
     </Box>
     <DrawerCard
       topRightOverlay={ (
-        <IconButton onPress={ onFavorite }>
-          <FavoriteIcon variant="warning" />
+        <IconButton variant={ favorited ? 'warning' : 'normal' } onPress={ onFavorite }>
+          <FavoriteIcon variant={ favorited ? 'inverted' : 'warning' } />
         </IconButton>
       ) }
     >
@@ -84,11 +86,19 @@ const RecipeDetailsPage: React.FC<Props> = ({
       </Grid>
       {tags && tags.length > 0 && (
         <TagList horizontal showsHorizontalScrollIndicator={ false }>
-          {tags.map((tag: TagType) => (
-            <Box key={ tag.id } alignSelf="flex-start" mr="xs">
-              <Tag value={ tag.name } />
-            </Box>
-          ))}
+          {
+            (
+              tags.sort((a,b) => {
+                if (a.name > b.name) return 1;
+                if (a.name < b.name) return -1;
+                return 0;
+              })
+            ).map((tag: TagType) => (
+              <Box key={ tag.id } alignSelf="flex-start" mr="xs">
+                <Tag value={ tag.name } />
+              </Box>
+            ))
+          }
           <Box width="48px" />
         </TagList>
       )}

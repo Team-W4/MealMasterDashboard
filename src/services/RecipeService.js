@@ -29,12 +29,12 @@ class RecipeService {
     return getHelper(route);
   }
 
-  getRecipeToLike = (recipeId) => {
+  likeRecipe = (recipeId) => {
     const route = `${routes.RECIPE}/${routes.LIKE}/${recipeId}`;
     return postHelper(route);
   }
 
-  getRecipeToUnlike = (recipeId) => {
+  unlikeRecipe = (recipeId) => {
     const route = `${routes.RECIPE}/${routes.LIKE}/${recipeId}`;
     return deleteHelper(route);
   }
