@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { CustomLayoutSpring } from 'react-native-animation-layout';
 import { HomeNavigationProps } from '../../navigator/HomeTab';
-import { AuthNavigationProps } from '../../auths/AuthStack';
 import { recipeActions } from '../../../actions';
 import { Recipe } from '../../../constants/dataTypes';
 import { Box } from '../../../components/Containers';
@@ -12,7 +11,6 @@ import ScrollList from '../../../components/ScrollList';
 import RecipeCard from '../components/RecipeCard';
 
 export type Props = HomeNavigationProps<'Recipes'>
-  & AuthNavigationProps<'Home'>
   & {
   userId: number;
   recipes: Array<Recipe>;

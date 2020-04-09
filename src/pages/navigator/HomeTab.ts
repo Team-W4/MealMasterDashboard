@@ -10,6 +10,7 @@ export type HomeTabParamList = AuthStackParamList & {
   Discover: undefined;
   Stocks: undefined;
   Recipes: undefined;
+  AddMenu: undefined;
 };
 
 export type HomeNavigationProps<T extends keyof HomeTabParamList> =
