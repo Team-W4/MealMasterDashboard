@@ -13,6 +13,7 @@ import RecipeEditPage from '../recipeEdit';
 import FoodDetailsPage from '../food';
 import UserDetailsPage, { UserEditPage } from '../user';
 import ReceiptParsePage from '../receiptParse';
+import ConsumePage from '../consume';
 import AuthStack from './AuthStack';
 import AuthContext from './AuthContext';
 
@@ -81,6 +82,7 @@ const AuthProvider: React.FC<Props> = ({
             <AuthStack.Screen name="UserDetails" component={ UserDetailsPage } />
             <AuthStack.Screen name="UserEdit" component={ UserEditPage } />
             <AuthStack.Screen name="ReceiptParse" component={ ReceiptParsePage } />
+            <AuthStack.Screen name="Consume" component={ ConsumePage } />
           </>
         ) : (
           <AuthStack.Screen

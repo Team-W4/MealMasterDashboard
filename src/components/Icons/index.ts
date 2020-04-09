@@ -31,3 +31,4 @@ export { default as RetryIcon } from './components/Retry';
 export { default as ScanIcon } from './components/Scan';
 export { default as CookIcon } from './components/Cook';
 export { default as AddRecipeIcon } from './components/AddRecipe';
+export { default as EatIcon } from './components/Eat';

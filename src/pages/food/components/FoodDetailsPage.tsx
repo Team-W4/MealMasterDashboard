@@ -13,6 +13,8 @@ import colors from '../../../styled/variables/colors';
 import { DrawerCard } from '../../../components/Cards';
 import { Button } from '../../../components/Buttons';
 
+const FOOD_PLACEHOLDER = 'https://www.chiceats.com/sites/default/files/styles/image_1024x768/public/recipe/photo/homemade-pasta-recipe-1080x810@2x.jpg';
+
 const TagList = styled.ScrollView`
   flex-grow: 0;
   flex-shrink: 0;
@@ -34,7 +36,7 @@ export type Props = {
 const FoodDetailsPage: React.FC<Props> = ({
   onAdd,
   foodDetails: {
-    name, tags,
+    name, tags, image,
   },
   nutrition,
 }) => {
@@ -79,7 +81,7 @@ const FoodDetailsPage: React.FC<Props> = ({
       <Visual
         size="large"
         source={{
-          uri: 'https://www.chiceats.com/sites/default/files/styles/image_1024x768/public/recipe/photo/homemade-pasta-recipe-1080x810@2x.jpg',
+          uri: image || FOOD_PLACEHOLDER,
         }}
       />
       <DrawerCard topOffset={ 300 }>

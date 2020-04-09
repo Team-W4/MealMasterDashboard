@@ -7,6 +7,8 @@ import { Card, CardProps } from '../../../components/Cards';
 import { Heading, Subtitle } from '../../../components/Texts';
 import { ClockIcon, QuantityIcon, UtensilsIcon } from '../../../components/Icons';
 
+const RECIPE_PLACEHOLDER = 'https://tmbidigitalassetsazure.blob.core.windows.net/secure/RMS/attachments/37/1200x1200/Peanut-Butter-and-Jelly-French-Toast_EXPS_BMZ19_526_B12_04_10b.jpg';
+
 const StyledImage = styled.Image`
   height: 100px;
   border-top-right-radius: ${({ theme: { space } }) => space.s};
@@ -22,12 +24,13 @@ const RecipeCard: React.FC<Props> = ({
     name,
     tags,
     cookTime,
+    image,
     yield: quantity,
   },
   ...props
 }) => (
   <Card { ...props }>
-    <StyledImage source={{ uri: 'https://tmbidigitalassetsazure.blob.core.windows.net/secure/RMS/attachments/37/1200x1200/Peanut-Butter-and-Jelly-French-Toast_EXPS_BMZ19_526_B12_04_10b.jpg' }} />
+    <StyledImage source={{ uri: image || RECIPE_PLACEHOLDER }} />
     <Box px="m" py="s">
       {tags && tags.length > 0 ? (
         <Subtitle mb="xs">{tags[0].name || ''}</Subtitle>
