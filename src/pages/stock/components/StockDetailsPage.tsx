@@ -24,6 +24,8 @@ import StockItemListCard from './StockItemListCard';
 import { DrawerCard } from '../../../components/Cards';
 import MoreMenu from '../../../components/MoreMenu';
 
+const STOCK_PLACEHOLDER = 'https://www.chiceats.com/sites/default/files/styles/image_1024x768/public/recipe/photo/homemade-pasta-recipe-1080x810@2x.jpg';
+
 const ERROR_MSGS = {
   invalidQuantity: 'Enter a positive quantity',
   invalidDate: 'Choose a date before or including today',
@@ -68,7 +70,14 @@ const StockDetailsPage: React.FC<Props> = ({
   onMoreDetails,
   editMode: editModeProp,
   stockDetails: {
-    id, foodName, tags, stockItems, nextExpiration,
+    id,
+    foodName,
+    stockItems,
+    nextExpiration,
+    food: {
+      image,
+      tags,
+    },
   },
   stockItemDetails,
 }) => {
@@ -195,8 +204,7 @@ const StockDetailsPage: React.FC<Props> = ({
       <Visual
         size="large"
         source={{
-          uri:
-            'https://www.chiceats.com/sites/default/files/styles/image_1024x768/public/recipe/photo/homemade-pasta-recipe-1080x810@2x.jpg',
+          uri: image || STOCK_PLACEHOLDER,
         }}
       />
       <DrawerCard

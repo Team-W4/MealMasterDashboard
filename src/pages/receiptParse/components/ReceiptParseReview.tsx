@@ -105,19 +105,18 @@ const ReceiptParseReview: React.FC<Props> = ({
                 })
               }
               keyExtractor={ (item: GenericFood) => ((item && item.name) || '').toString() }
-              renderItem={ ({ item: { id, name } }: { item: GenericFood }) => (
-                <Box key={ name } mx="l" my="xs">
+              renderItem={ (item: GenericFood) => (
+                <Box key={ item.name } mx="l" my="xs">
                   <FoodSearchListCard
-                    title={ name }
-                    subtitle="produce"
+                    data={ item }
                   />
                   <Box position="absolute" right="xl" top="0" left="80%">
                     <Picker
                       mode="dropdown"
-                      selectedValue={ foodMap.get(id) }
+                      selectedValue={ foodMap.get(item.id) }
                       itemStyle={{ height: 100 }}
                       onValueChange={ (itemValue) => {
-                        foodMap.set(id, itemValue);
+                        foodMap.set(item.id, itemValue);
                         setMap(new Map(foodMap));
                       } }
                     >

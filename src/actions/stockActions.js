@@ -1,3 +1,4 @@
+import { Alert } from 'react-native';
 import { stockActionTypes as actionTypes } from '../constants/actionTypes';
 import { StockService } from '../services';
 
@@ -99,9 +100,16 @@ export const deleteStockItem = (stockItemId) => (dispatch) => {
 export const parseReceipt = (base64) => (dispatch) => {
   dispatch({ type: actionTypes.FETCH_RECEIPT_FOODS });
   StockService.parseReceipt(base64)
-    .then((parsedFoods) => {
-      if (parsedFoods) {
-        dispatch({ type: actionTypes.RECEIVE_RECEIPT_FOODS, parsedFoods });
+    .then((receiptFoods) => {
+      dispatch({
+        type: actionTypes.RECEIVE_RECEIPT_FOODS,
+        receiptFoods,
+      });
+
+      if (!receiptFoods || receiptFoods.length <= 0 || !receiptFoods.every((food) => !!food)) {
+        Alert.alert('', 'We could not find any food on your receipt. Try again', [
+          { text: 'Sure', style: 'cancel' },
+        ]);
       }
     })
     .catch((e) => {

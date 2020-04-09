@@ -10,6 +10,8 @@ import { Text, Heading, Subtitle } from '../../../components/Texts';
 import { ClockIcon, QuantityIcon } from '../../../components/Icons';
 import StockListCardWrapper from './StockListCardWrapper';
 
+const STOCK_PLACEHOLDER = 'https://www.chiceats.com/sites/default/files/styles/image_1024x768/public/recipe/photo/homemade-pasta-recipe-1080x810@2x.jpg';
+
 const StyledImage = styled.Image`
   height: 75px;
   border-top-right-radius: ${({ theme: { space } }) => space.s};
@@ -26,6 +28,7 @@ const StockListCard: React.FC<Props> = ({
     foodName,
     nextExpiration,
     tags,
+    food: { image },
   },
   ...props
 }) => {
@@ -38,7 +41,7 @@ const StockListCard: React.FC<Props> = ({
 
   return (
     <StockListCardWrapper shadowVariant={ stockVariant } { ...props }>
-      <StyledImage source={{ uri: 'https://www.chiceats.com/sites/default/files/styles/image_1024x768/public/recipe/photo/homemade-pasta-recipe-1080x810@2x.jpg' }} />
+      <StyledImage source={{ uri: image || STOCK_PLACEHOLDER }} />
       <Box p="m">
         {tags && tags.length > 0 ? (
           <Subtitle mb="xs">{tags[0].name || ''}</Subtitle>

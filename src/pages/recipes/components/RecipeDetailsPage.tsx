@@ -14,6 +14,8 @@ import Tag from '../../../components/Tag';
 import Visual from '../../../components/Visual';
 import Label from '../../../components/Label';
 
+const RECIPE_PLACEHOLDER = 'https://tmbidigitalassetsazure.blob.core.windows.net/secure/RMS/attachments/37/1200x1200/Peanut-Butter-and-Jelly-French-Toast_EXPS_BMZ19_526_B12_04_10b.jpg';
+
 const TagList = styled.ScrollView`
   flex-grow: 0;
   flex-shrink: 0;
@@ -41,12 +43,12 @@ const RecipeDetailsPage: React.FC<Props> = ({
   onFavorite,
   favorited,
   recipeDetails: {
-    // rating,
     name,
     cookTime,
     ingredients,
     tags,
     instructions,
+    image,
   },
 }) => (
   <Box height="100%" width="100%">
@@ -55,8 +57,7 @@ const RecipeDetailsPage: React.FC<Props> = ({
       <Visual
         size="epic"
         source={{
-          uri:
-            'https://tmbidigitalassetsazure.blob.core.windows.net/secure/RMS/attachments/37/1200x1200/Peanut-Butter-and-Jelly-French-Toast_EXPS_BMZ19_526_B12_04_10b.jpg',
+          uri: image || RECIPE_PLACEHOLDER,
         }}
       />
       <CalorieLabel value="650 kcal / serving" />

@@ -5,7 +5,7 @@ import { ProgressCircle } from 'react-native-svg-charts';
 import colors from '../../styled/variables/colors';
 import styled from '../../styled';
 import {
-  AddIcon, ScanIcon, AddRecipeIcon, SearchIcon,
+  AddIcon, ScanIcon, AddRecipeIcon, EatIcon,
 } from '../../components/Icons';
 import { Box } from '../../components/Containers';
 import { IconButton } from '../../components/Buttons';
@@ -149,16 +149,21 @@ const AddMenu: React.FC = () => {
                   justifyContent="space-around"
                 >
                   <Box px="m" py="xs">
-                    <IconButton variant="transparent">
-                      <SearchIcon variant="inverted" />
+                    <IconButton
+                      variant="transparent"
+                      onPress={ () => {
+                        navigation.navigate('Consume');
+                        onAddClick();
+                      } }
+                    >
+                      <EatIcon variant="inverted" />
                     </IconButton>
                   </Box>
                   <Box mt="xxs" pb="l" mb="xxxl">
                     <IconButton
                       variant="transparent"
                       onPress={ () => {
-                        // @ts-ignore
-                        navigation.push('ReceiptParse');
+                        navigation.navigate('ReceiptParse');
                         onAddClick();
                       } }
                     >
@@ -169,8 +174,7 @@ const AddMenu: React.FC = () => {
                     <IconButton
                       variant="transparent"
                       onPress={ () => {
-                        // @ts-ignore
-                        navigation.push('RecipeEdit');
+                        navigation.navigate('RecipeEdit');
                         onAddClick();
                       } }
                     >
