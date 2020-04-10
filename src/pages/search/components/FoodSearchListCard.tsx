@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '../../../styled';
 import { titleHelper } from '../../../utils';
 import { GenericFood } from '../../../constants/dataTypes';
-import { Column } from '../../../components/Containers';
+import { Grid, Column } from '../../../components/Containers';
 import { Card, CardProps } from '../../../components/Cards';
 import { Heading, Subtitle } from '../../../components/Texts';
 
@@ -25,10 +25,11 @@ const InfoCard = styled(Card)`
 
 export type Props = CardProps & {
   data: GenericFood;
+  rightOverlay?: JSX.Element;
 };
 
 const FoodSearchListCard: React.FC<Props> = ({
-  data: { name, image }, onPress, ...props
+  data: { name, image, tags }, rightOverlay, onPress, ...props
 }) => (
   <Card
     alignItems="center"
@@ -37,11 +38,14 @@ const FoodSearchListCard: React.FC<Props> = ({
     onPress={ onPress }
   >
     <InfoCard p="m" { ...props }>
-      <Column ml="l" justifyContent="center">
-        {'produce' ? <Subtitle mb="xs">produce</Subtitle> : <></>}
-        {name ? <Heading mb="xs">{titleHelper(name)}</Heading> : <></>}
-        <Subtitle>75kcal • 200g in stock</Subtitle>
-      </Column>
+      <Grid>
+        <Column ml="l" justifyContent="center">
+          {tags && tags.length > 0 ? <Subtitle mb="xs">{tags[0]}</Subtitle> : <></>}
+          {name ? <Heading mb="xs">{titleHelper(name)}</Heading> : <></>}
+          <Subtitle>75kcal • 200g in stock</Subtitle>
+        </Column>
+        {rightOverlay}
+      </Grid>
     </InfoCard>
     <RoundedImage
       source={{ uri: image || FOOD_PLACEHOLDER }}
