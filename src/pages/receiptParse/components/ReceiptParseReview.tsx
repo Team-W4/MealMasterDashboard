@@ -25,10 +25,11 @@ export type Props = ReceiptParseNavigationProps<'ReceiptReview'> & {
   receiptFoods: Array<GenericFood>;
   parseReceipt: (base64?: string) => void;
   addToStock: (id: number, amount: Omit<StockItem, 'id'>) => void;
+  clearReceiptFoods: () => void;
 };
 
 const ReceiptParseReview: React.FC<Props> = ({
-  navigation, parseReceipt, receiptFoods, addToStock,
+  navigation, parseReceipt, receiptFoods, addToStock, clearReceiptFoods,
 }) => {
   const { bottom } = useSafeArea();
   const cameraRef = React.createRef<RNCamera>();
@@ -50,10 +51,11 @@ const ReceiptParseReview: React.FC<Props> = ({
   };
 
   const retryTakePicture = () => {
-    setReviewMode(false);
     if (cameraRef) {
       cameraRef.current?.resumePreview();
     }
+    clearReceiptFoods();
+    setReviewMode(false);
   };
 
   const addReceiptToStock = () => {
@@ -186,6 +188,7 @@ const mapDispatchToProps = (dispatch: any) => bindActionCreators(
     {
       parseReceipt: stockActions.parseReceipt,
       addToStock: stockActions.addToStock,
+      clearReceiptFoods: stockActions.clearReceiptFoods,
     },
     dispatch,
   );
