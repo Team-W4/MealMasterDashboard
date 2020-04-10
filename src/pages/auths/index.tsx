@@ -6,7 +6,6 @@ import HomeNavigator from '../navigator/HomeNavigator';
 import * as navigator from '../navigator/Navigator';
 import LoadingPage from '../loading';
 import LoginPage from '../login';
-import SearchPage from '../search';
 import { RecipeDetailsPage } from '../recipes';
 import { StockDetailsPage } from '../stock';
 import RecipeEditPage from '../recipeEdit';
@@ -38,6 +37,8 @@ const AuthProvider: React.FC<Props> = ({
   isLoading,
   isLoggedOut,
 }) => {
+  console.disableYellowBox = true;
+
   useEffect(() => {
     const retoreTokenAsync = async () => restoreToken();
 
@@ -74,7 +75,6 @@ const AuthProvider: React.FC<Props> = ({
         {userToken ? (
           <>
             <AuthStack.Screen name="Home" component={ HomeNavigator } />
-            <AuthStack.Screen name="Search" component={ SearchPage } />
             <AuthStack.Screen name="RecipeDetails" component={ RecipeDetailsPage } />
             <AuthStack.Screen name="RecipeEdit" component={ RecipeEditPage } />
             <AuthStack.Screen name="StockDetails" component={ StockDetailsPage } />
