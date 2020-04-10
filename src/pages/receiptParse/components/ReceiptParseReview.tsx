@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import range from 'lodash.range';
 import { connect } from 'react-redux';
-import { Picker, ActivityIndicator, StatusBar } from 'react-native';
 import { bindActionCreators } from 'redux';
+import {
+ Picker, ActivityIndicator, StatusBar, Alert,
+} from 'react-native';
+import { useSafeArea } from 'react-native-safe-area-context';
 import { RNCamera } from 'react-native-camera';
 import { stockActions } from '../../../actions';
 import { GenericFood, StockItem } from '../../../constants/dataTypes';
@@ -11,8 +14,8 @@ import {
 } from '../../../components/Containers';
 import { DrawerCard } from '../../../components/Cards';
 import { Title, Subtitle } from '../../../components/Texts';
-import { IconButton } from '../../../components/Buttons';
-import { StockIcon, CheckIcon, CameraIcon } from '../../../components/Icons';
+import { IconButton, Button } from '../../../components/Buttons';
+import { StockIcon, CameraIcon, RetryIcon } from '../../../components/Icons';
 import { ReceiptParseNavigationProps } from '../ReceiptParseStack';
 import DataList from '../../../components/DataList';
 import FoodSearchListCard from '../../search/components/FoodSearchListCard';
@@ -26,17 +29,28 @@ export type Props = ReceiptParseNavigationProps<'ReceiptReview'> & {
 const ReceiptParseReview: React.FC<Props> = ({
   navigation, parseReceipt, receiptFoods, addToStock,
 }) => {
+  const { bottom } = useSafeArea();
   const cameraRef = React.createRef<RNCamera>();
   const [reviewMode, setReviewMode] = useState(false);
   const [foodMap, setMap] = useState(new Map<number, number>());
 
   useEffect(() => {
-    if (receiptFoods && receiptFoods.length > 0) {
+    if (receiptFoods && receiptFoods.length > 0 && receiptFoods.every((food) => !!food)) {
       receiptFoods.forEach((food) => {
         if (food) {
           foodMap.set(food.id, 1);
         }
       });
+    } else {
+      if (receiptFoods && receiptFoods.length === 0) return;
+
+      Alert.alert('', 'We could not find any food on your receipt.', [
+        {
+          text: 'Try again',
+          style: 'cancel',
+          onPress: () => setReviewMode(false),
+        },
+      ]);
     }
   }, [receiptFoods]);
 
@@ -55,6 +69,13 @@ const ReceiptParseReview: React.FC<Props> = ({
     }
   };
 
+  const retryTakePicture = () => {
+    setReviewMode(false);
+    if (cameraRef) {
+      cameraRef.current?.resumePreview();
+    }
+  };
+
   const addReceiptToStock = () => {
     if (foodMap.size > 0) {
       foodMap.forEach((quantity, id) => addToStock(id, {
@@ -67,7 +88,7 @@ const ReceiptParseReview: React.FC<Props> = ({
   };
 
   return (
-    <SafeView full side="bottom" style={{ backgroundColor: 'orange' }}>
+    <SafeView full side="bottom">
       <StatusBar barStyle="light-content" />
       <RNCamera
         ref={ cameraRef }
@@ -80,8 +101,8 @@ const ReceiptParseReview: React.FC<Props> = ({
       </RNCamera>
       <DrawerCard
         topRightOverlay={ reviewMode ? (
-          <IconButton variant="warning" onPress={ addReceiptToStock }>
-            <CheckIcon variant="inverted" />
+          <IconButton variant="warning" onPress={ retryTakePicture }>
+            <RetryIcon variant="inverted" />
           </IconButton>
         ) : (
           <IconButton variant="warning" onPress={ takePicture }>
@@ -94,7 +115,7 @@ const ReceiptParseReview: React.FC<Props> = ({
           <Title ml="m">Your Receipt</Title>
         </Grid>
         {
-          receiptFoods && receiptFoods.length > 0 ? (
+          receiptFoods && receiptFoods.length > 0 && receiptFoods.every((food) => !!food) ? (
             // @ts-ignore
             <DataList
               data={
@@ -143,6 +164,14 @@ const ReceiptParseReview: React.FC<Props> = ({
           )
         }
       </DrawerCard>
+      {
+        reviewMode && receiptFoods && receiptFoods.length > 0
+        && receiptFoods.every((food) => !!food) && (
+          <Grid position="absolute" left="0" right="0" bottom={ bottom > 0 ? bottom : 'xxxl' } px="l" justifyContent="center">
+            <Button variant="warning" title="Add to stock" onPress={ addReceiptToStock } />
+          </Grid>
+        )
+      }
     </SafeView>
   );
 };

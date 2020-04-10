@@ -48,3 +48,17 @@ export const deleteHelper = (route) => {
     .then((res) => res.json())
     .then((json) => json.body);
 };
+
+export const postHelperOctet = (route, body) => {
+  const url = HOSTNAME + route;
+  return fetch(url, {
+    credentials: 'include',
+    method: 'POST',
+    body,
+    headers: {
+      'content-type': 'application/octet-stream',
+    },
+  })
+    .then((res) => res.json())
+    .then((json) => json.body);
+};
