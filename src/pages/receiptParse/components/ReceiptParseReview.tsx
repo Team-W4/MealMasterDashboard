@@ -128,28 +128,28 @@ const ReceiptParseReview: React.FC<Props> = ({
                 })
               }
               keyExtractor={ (item: GenericFood) => ((item && item.name) || '').toString() }
-              renderItem={ (item: GenericFood) => (
+              renderItem={ ({ item }: { item: GenericFood }) => (
                 <Box key={ item.name } mx="l" my="xs">
                   <FoodSearchListCard
                     data={ item }
+                    rightOverlay={ (
+                      <Picker
+                        mode="dropdown"
+                        selectedValue={ foodMap.get(item.id) }
+                        itemStyle={{ height: 100 - 32, width: 20 }}
+                        onValueChange={ (itemValue) => {
+                          foodMap.set(item.id, itemValue);
+                          setMap(new Map(foodMap));
+                        } }
+                      >
+                        {
+                          range(1, 21).map(((i: number) => (
+                            <Picker.Item key={ i } label={ i.toString() } value={ i } />
+                          )))
+                        }
+                      </Picker>
+                    ) }
                   />
-                  <Box position="absolute" right="xl" top="0" left="80%">
-                    <Picker
-                      mode="dropdown"
-                      selectedValue={ foodMap.get(item.id) }
-                      itemStyle={{ height: 100 }}
-                      onValueChange={ (itemValue) => {
-                        foodMap.set(item.id, itemValue);
-                        setMap(new Map(foodMap));
-                      } }
-                    >
-                      {
-                        range(1, 21).map(((i: number) => (
-                          <Picker.Item key={ i } label={ i.toString() } value={ i } />
-                        )))
-                      }
-                    </Picker>
-                  </Box>
                 </Box>
               ) }
             />
