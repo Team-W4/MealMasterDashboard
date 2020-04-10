@@ -12,6 +12,8 @@ import { IconButton } from '../../components/Buttons';
 
 const MENU_HEIGHT = 100;
 
+const ANIMATION_TIMING = 400;
+
 const { width: DEVICE_WIDTH } = Dimensions.get('window');
 
 const BackgroundSemiCircle = styled(ProgressCircle).attrs(() => ({
@@ -46,26 +48,26 @@ const AddMenu: React.FC = () => {
 
   const onAddClick = () => {
     if (showOptions) {
-      Animated.stagger(200, [
+      Animated.stagger(150, [
         Animated.timing(
           foregroundRate,
           {
             toValue: 0,
-            duration: 500,
+            duration: ANIMATION_TIMING,
           },
         ),
         Animated.timing(
           midgroundRate,
           {
             toValue: 0,
-            duration: 500,
+            duration: ANIMATION_TIMING,
           },
         ),
         Animated.timing(
           backgroundRate,
           {
             toValue: 0,
-            duration: 500,
+            duration: ANIMATION_TIMING,
           },
         ),
       ]).start(() => setShow(false));
@@ -76,26 +78,26 @@ const AddMenu: React.FC = () => {
 
   useEffect(() => {
     if (showOptions) {
-      Animated.stagger(200, [
+      Animated.stagger(150, [
         Animated.timing(
           backgroundRate,
           {
             toValue: 1,
-            duration: 500,
+            duration: ANIMATION_TIMING,
           },
         ),
         Animated.timing(
           midgroundRate,
           {
             toValue: 1,
-            duration: 500,
+            duration: ANIMATION_TIMING,
           },
         ),
         Animated.timing(
           foregroundRate,
           {
             toValue: 1,
-            duration: 500,
+            duration: ANIMATION_TIMING,
             easing: Easing.linear,
           },
         ),

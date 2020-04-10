@@ -1,4 +1,3 @@
-import { Alert } from 'react-native';
 import { stockActionTypes as actionTypes } from '../constants/actionTypes';
 import { StockService } from '../services';
 
@@ -105,12 +104,6 @@ export const parseReceipt = (base64) => (dispatch) => {
         type: actionTypes.RECEIVE_RECEIPT_FOODS,
         receiptFoods,
       });
-
-      if (!receiptFoods || receiptFoods.length <= 0 || !receiptFoods.every((food) => !!food)) {
-        Alert.alert('', 'We could not find any food on your receipt. Try again', [
-          { text: 'Sure', style: 'cancel' },
-        ]);
-      }
     })
     .catch((e) => {
       console.error(e);

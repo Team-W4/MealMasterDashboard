@@ -39,7 +39,7 @@ const DrawerMark = styled.View`
   background-color: ${({ theme: { semanticColors } }) => semanticColors.shadow};
 `;
 
-const DrawerCardWrapper = styled(Card)`
+const DrawerCardWrapper = styled.View`
   flex: 1;
   overflow: hidden;
 `;
@@ -94,11 +94,13 @@ const DrawerCard: React.FC<PropsWithChildren<Props>> = ({
           width: '100%',
         }}
       >
-        <DrawerCardWrapper>
-          <DrawerMarkBox>
-            <DrawerMark />
-          </DrawerMarkBox>
-        </DrawerCardWrapper>
+        <Card flexGrow={ 1 }>
+          <DrawerCardWrapper>
+            <DrawerMarkBox>
+              <DrawerMark />
+            </DrawerMarkBox>
+          </DrawerCardWrapper>
+        </Card>
       </Animated.View>
       <ScrollView
         style={{
