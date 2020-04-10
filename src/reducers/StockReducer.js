@@ -80,6 +80,10 @@ const StockReducer = createReducer(initialState, {
     ...state,
     isFetchingReceiptFoods: false,
   }),
+  [actionTypes.CLEAR_RECEIPT_FOODS]: (state) => ({
+    ...state,
+    receiptFoods: [],
+  }),
 });
 
 export default StockReducer;

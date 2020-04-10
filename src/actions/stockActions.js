@@ -9,6 +9,11 @@ export const clearStockItemDetails = () => ({
   type: actionTypes.CLEAR_STOCK_ITEM_DETAILS,
 });
 
+export const clearReceiptFoods = () => ({
+  type: actionTypes.CLEAR_RECEIPT_FOODS,
+});
+
+
 const receiveStockItem = (stockItem) => ({
   type: actionTypes.RECEIVE_STOCK_ITEM,
   stockItem,
