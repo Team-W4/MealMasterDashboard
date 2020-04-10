@@ -8,7 +8,7 @@ import {
 import colors from '../../styled/variables/colors';
 import TitlePage from '../title';
 import HomePage from '../home';
-import DiscoverPage from '../discover';
+import SearchPage from '../search';
 import AddMenu from '../add';
 import RecipesPage from '../recipes';
 import StockPage from '../stock';
@@ -45,7 +45,7 @@ const HomeNavigator: React.FC = () => {
         />
         <HomeTab.Screen
           name="Discover"
-          component={ DiscoverPage }
+          component={ SearchPage }
           options={{
             tabBarColor: colors.orange,
             tabBarLabel: 'Discover',

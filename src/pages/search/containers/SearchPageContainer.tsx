@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { CustomLayoutSpring } from 'react-native-animation-layout';
 import { searchActions } from '../../../actions';
-import { SafeView } from '../../../components/Containers';
 import SearchTab from '../components/SearchTab';
 import SearchInput from '../components/SearchInput';
 import SearchFoodTab from './SearchFoodTab';
@@ -38,7 +37,7 @@ const SearchPage: React.FC<Props> = ({
   }, [searchTerm]);
 
   return (
-    <SafeView full>
+    <>
       <SearchInput
         focusOnMount
         value={ searchTerm }
@@ -80,7 +79,7 @@ const SearchPage: React.FC<Props> = ({
           }}
         />
       </SearchTab.Navigator>
-    </SafeView>
+    </>
   );
 };
 
