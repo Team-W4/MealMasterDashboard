@@ -44,7 +44,7 @@ const HomeNavigator: React.FC = () => {
           }}
         />
         <HomeTab.Screen
-          name="Discover"
+          name="Search"
           component={ SearchPage }
           options={{
             tabBarColor: colors.orange,
