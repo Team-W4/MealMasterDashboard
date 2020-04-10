@@ -3,8 +3,9 @@ import range from 'lodash.range';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
- Picker, ActivityIndicator, StatusBar, Alert,
+  LayoutAnimation, Picker, ActivityIndicator, StatusBar, Alert,
 } from 'react-native';
+import { CustomLayoutSpring } from 'react-native-animation-layout';
 import { useSafeArea } from 'react-native-safe-area-context';
 import { RNCamera } from 'react-native-camera';
 import { stockActions } from '../../../actions';
@@ -34,30 +35,9 @@ const ReceiptParseReview: React.FC<Props> = ({
   const [reviewMode, setReviewMode] = useState(false);
   const [foodMap, setMap] = useState(new Map<number, number>());
 
-  useEffect(() => {
-    if (receiptFoods && receiptFoods.length > 0 && receiptFoods.every((food) => !!food)) {
-      receiptFoods.forEach((food) => {
-        if (food) {
-          foodMap.set(food.id, 1);
-        }
-      });
-    } else {
-      if (receiptFoods && receiptFoods.length === 0) return;
-
-      Alert.alert('', 'We could not find any food on your receipt.', [
-        {
-          text: 'Try again',
-          style: 'cancel',
-          onPress: () => setReviewMode(false),
-        },
-      ]);
-    }
-  }, [receiptFoods]);
-
   const takePicture = async () => {
     if (cameraRef) {
       const data = await cameraRef.current?.takePictureAsync({
-        quality: 0.5,
         base64: true,
         pauseAfterCapture: true,
       });
@@ -86,6 +66,28 @@ const ReceiptParseReview: React.FC<Props> = ({
 
     navigation.push('ReceiptConfirm', { addedQuantity: receiptFoods.length });
   };
+
+  useEffect(() => {
+    if (receiptFoods && receiptFoods.length > 0 && receiptFoods.every((food) => !!food)) {
+      receiptFoods.forEach((food) => {
+        if (food) {
+          foodMap.set(food.id, 1);
+        }
+      });
+
+      LayoutAnimation.configureNext(CustomLayoutSpring(null, null, "scaleXY"));
+    } else {
+      if (receiptFoods && receiptFoods.length === 0) return;
+
+      Alert.alert('', 'We could not find any food on your receipt.', [
+        {
+          text: 'Try again',
+          style: 'cancel',
+          onPress: () => retryTakePicture(),
+        },
+      ]);
+    }
+  }, [receiptFoods]);
 
   return (
     <SafeView full side="bottom">
