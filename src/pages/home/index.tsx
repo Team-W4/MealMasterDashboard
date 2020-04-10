@@ -1,36 +1,61 @@
-import React from 'react';
-import { Button } from '../../components/Buttons';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { recipeActions } from '../../actions';
+import { Recipe } from '../../constants/dataTypes';
 import { HomeNavigationProps } from '../navigator/HomeTab';
-import { Box } from '../../components/Containers';
-import { Text, Heading } from '../../components/Texts';
+import { Box, Grid } from '../../components/Containers';
+import { Heading } from '../../components/Texts';
+import { SavedIcon } from '../../components/Icons';
 import SwipeStack from '../../components/SwipeStack';
-import ScrollList from '../../components/ScrollList';
 import RecipeRecCard from './components/RecipeRecCard';
 
-export type Props = HomeNavigationProps<'Discover'> & {
+export type Props = HomeNavigationProps<'Home'> & {
+  recipeRecs: Array<Recipe>;
+  getRecipeRecommendations: () => void;
 };
 
-const HomePage: React.FC<Props> = ({ navigation }) => (
-  <Box height="100%">
-    <Button onPress={ () => navigation.push('ReceiptParse') }>
-      <Text>+</Text>
-    </Button>
-    <ScrollList full>
-      <Box px="l" alignItems="center">
-        <Heading mb="xl">Recipe Recommendations</Heading>
-        <SwipeStack
-          data={ [0, 1, 2, 3, 4, 5] }
-          keyExtractor={ (item) => item }
-          renderItem={ (item) => (
-            <Box>
-              <Text>{item}</Text>
-              <RecipeRecCard recipeId={ (item + 42) } />
-            </Box>
-          ) }
-        />
-      </Box>
-    </ScrollList>
-  </Box>
-);
+const HomePage: React.FC<Props> = ({
+  navigation, recipeRecs, getRecipeRecommendations,
+}) => {
+  useEffect(() => getRecipeRecommendations(), []);
 
-export default HomePage;
+  return (
+    <Box px="l" flexGrow={ 1 } alignItems="center" justifyContent="center">
+      <Grid mt="l" mb="xl" alignItems="center">
+        <SavedIcon wrapperVariant="warning" />
+        <Heading ml="m">Recipes For You Today</Heading>
+      </Grid>
+      {
+        recipeRecs && recipeRecs.length > 0 && (
+          <SwipeStack
+            data={ recipeRecs }
+            keyExtractor={ (item: Recipe) => item.id.toString() }
+            renderItem={ (item: Recipe) => (
+              <RecipeRecCard
+                data={ item }
+                onPress={ () => navigation.push('RecipeDetails', { recipeId: item.id }) }
+              />
+            ) }
+          />
+        )
+      }
+    </Box>
+  );
+};
+
+const mapStateToProps = (state: any) => ({
+  recipeRecs: state.recipe.recipeRecs,
+});
+
+const mapDispatchToProps = (dispatch: any) => bindActionCreators(
+    {
+      getRecipeRecommendations: recipeActions.getRecipeRecommendations,
+    },
+    dispatch,
+  );
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(HomePage);

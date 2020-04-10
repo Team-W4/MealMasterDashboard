@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Animated, PanResponder } from 'react-native';
+import { Animated, PanResponder, LayoutChangeEvent } from 'react-native';
 import { Box } from '../Containers';
 
 const SWIPE_TRHESHOLD = 100;
@@ -17,6 +17,7 @@ const SwipeStack: React.FC<Props> = ({
   keyExtractor,
   renderItem,
 }) => {
+  const [height, setHeight] = useState(0);
   const [current, setCurrent] = useState(0);
   const [cardsPan] = useState(new Animated.ValueXY());
   const [cardStackAnimation] = useState(new Animated.Value(0));
@@ -32,7 +33,6 @@ const SwipeStack: React.FC<Props> = ({
 
   const cardsPanResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
-    onStartShouldSetPanResponderCapture: () => true,
     onMoveShouldSetPanResponder: () => true,
     onMoveShouldSetPanResponderCapture: () => true,
     onPanResponderGrant: () => {
@@ -78,13 +78,6 @@ const SwipeStack: React.FC<Props> = ({
     transform: [{
       scale: 0.9,
     }],
-    // TODO: This is more ideal, but doesn't work at the moment, will fix
-    // transform: [{
-    //   scale: cardStackAnimation.interpolate({
-    //     inputRange: [0, 1],
-    //     outputRange: [0.80, 0.90],
-    //   }),
-    // }],
     opacity: cardStackAnimation.interpolate({
       inputRange: [0, 1],
       outputRange: [0.1, 0.6],
@@ -155,11 +148,12 @@ const SwipeStack: React.FC<Props> = ({
   };
 
   return (
-    <Box width="100%" alignItems="center">
+    <Box width="100%" height={ height + 40 } alignItems="center">
       {
         data.map((item, index) => (
           <Animated.View
             { ...cardsPanResponder.panHandlers }
+            onLayout={ (e: LayoutChangeEvent) => setHeight(e.nativeEvent.layout.height) }
             key={ keyExtractor(item) }
             style={ getCardStyle(index) }
           >
@@ -167,9 +161,6 @@ const SwipeStack: React.FC<Props> = ({
           </Animated.View>
         ))
       }
-      <Box opacity={ 0 }>
-        {renderItem(data[0])}
-      </Box>
     </Box>
   );
 };

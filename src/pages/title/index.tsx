@@ -27,7 +27,7 @@ const greetingsGenerator = (): string => {
 
 const TitleBar: React.FC<Props> = ({ title }) => (
   <SafeView side="top">
-    <Grid mx="xxxl">
+    <Grid mx="xxxl" my="m">
       <Column>
         <Title mb="xxs">{title || greetingsGenerator()}</Title>
         <Subtitle>{properDateHelper(new Date())}</Subtitle>
