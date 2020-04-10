@@ -79,6 +79,7 @@ const ConsumeReview: React.FC<Props> = ({
                     <Box key={ item.name } px="l" py="xs">
                       <RecipeSearchListCard
                         data={ item }
+                        onPress={ () => {} }
                       />
                     </Box>
                   ) }
