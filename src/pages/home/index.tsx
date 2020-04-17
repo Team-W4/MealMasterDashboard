@@ -2,29 +2,30 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { recipeActions } from '../../actions';
-import { Recipe } from '../../constants/dataTypes';
+import { User, Recipe } from '../../constants/dataTypes';
 import { HomeNavigationProps } from '../navigator/HomeTab';
 import { Box, Grid } from '../../components/Containers';
-import { Heading } from '../../components/Texts';
 import { SavedIcon } from '../../components/Icons';
+import { Heading } from '../../components/Texts';
 import SwipeStack from '../../components/SwipeStack';
-import RecipeRecCard from './components/RecipeRecCard';
+import RecipeRecCard from '../discover/components/RecipeRecCard';
 
 export type Props = HomeNavigationProps<'Home'> & {
+  profile: User;
   recipeRecs: Array<Recipe>;
   getRecipeRecommendations: () => void;
 };
 
 const HomePage: React.FC<Props> = ({
-  navigation, recipeRecs, getRecipeRecommendations,
+  navigation, profile, recipeRecs, getRecipeRecommendations,
 }) => {
   useEffect(() => getRecipeRecommendations(), []);
 
   return (
-    <Box px="l" flexGrow={ 1 } alignItems="center" justifyContent="center">
+    <Box px="l" flexGrow={ 1 } alignItems="center">
       <Grid mt="l" mb="xl" alignItems="center">
         <SavedIcon wrapperVariant="warning" />
-        <Heading ml="m">Recipes For You Today</Heading>
+        <Heading ml="s">{`For You Today, ${profile.firstName}`}</Heading>
       </Grid>
       {
         recipeRecs && recipeRecs.length > 0 && (
@@ -45,6 +46,7 @@ const HomePage: React.FC<Props> = ({
 };
 
 const mapStateToProps = (state: any) => ({
+  profile: state.user.profile,
   recipeRecs: state.recipe.recipeRecs,
 });
 

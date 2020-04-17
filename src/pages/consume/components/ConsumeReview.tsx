@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { LayoutAnimation } from 'react-native';
 import { CustomLayoutSpring } from 'react-native-animation-layout';
+import debounce from 'lodash.debounce';
 import { searchActions } from '../../../actions';
 import { GenericFood, Recipe } from '../../../constants/dataTypes';
 import { DrawerCard } from '../../../components/Cards';
@@ -10,7 +11,7 @@ import {
   SafeView, Box, Grid, Column,
 } from '../../../components/Containers';
 import { IconButton } from '../../../components/Buttons';
-import { Title } from '../../../components/Texts';
+import { Title, Subtitle } from '../../../components/Texts';
 import { CheckIcon, EatIcon } from '../../../components/Icons';
 import DataList from '../../../components/DataList';
 import SearchInput from '../../search/components/SearchInput';
@@ -33,15 +34,19 @@ const ConsumeReview: React.FC<Props> = ({
   const prevSearch = useRef<string>();
   const [searchTerm, setSearchTerm] = useState('');
 
-  useEffect(() => {
+  const onSearch = debounce(() => {
     if (prevSearch.current !== searchTerm) {
       prevSearch.current = searchTerm;
+
       onSearchFood(searchTerm);
       onSearchRecipe(searchTerm);
 
       LayoutAnimation.configureNext(CustomLayoutSpring(null, null, "scaleXY"));
     }
-  }, [searchTerm]);
+  }, 300, { trailing: true });
+
+  useEffect(() => onSearch(), [searchTerm]);
+
 
   return (
     <SafeView full side="bottom">
@@ -66,6 +71,11 @@ const ConsumeReview: React.FC<Props> = ({
             } }
             onChangeText={ (e: string) => setSearchTerm(e) }
           />
+          {
+            ((!recipes || recipes.length === 0) && (!foods || foods.length === 0)) && (
+              <Subtitle pt="xxxl" mt="xxxl" textAlign="center">Banana? Ceasar Salad? Mom&#39s Spaghetti?</Subtitle>
+            )
+          }
           {
             recipes && recipes.length > 0 && (
               <>

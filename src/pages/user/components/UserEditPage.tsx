@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { useSafeArea } from 'react-native-safe-area-context';
 import styled from '../../../styled';
 import { AuthNavigationProps } from '../../auths/AuthStack';
-import { Box, Column } from '../../../components/Containers';
+import { SafeView, Box, Column } from '../../../components/Containers';
 import { Input } from '../../../components/Inputs';
 import { Button } from '../../../components/Buttons';
 import { Subtitle } from '../../../components/Texts';
@@ -17,8 +18,7 @@ export type Props = AuthNavigationProps<'UserEdit'> & {
   };
 };
 
-const UserView = styled.View`
-  flex: 1;
+const UserView = styled(SafeView)`
   align-items: center;
   justify-content: center;
 `;
@@ -54,6 +54,7 @@ const UserEditPage: React.FC<Props> = ({
     lastName: lastNameProps,
     email: emailProps,
   } = profile;
+  const { bottom } = useSafeArea();
   const [email, setEmail] = useState(emailProps);
   const [firstName, setFirstName] = useState(firstNameProps);
   const [lastName, setLastName] = useState(lastNameProps);
@@ -61,7 +62,7 @@ const UserEditPage: React.FC<Props> = ({
   const [errors] = useState(errorInitialState);
 
   return (
-    <UserView>
+    <UserView full>
       <UserProfile rounded />
       <Column mt="xxxl" px="xxxl" width="100%">
         <Column>
@@ -102,7 +103,7 @@ const UserEditPage: React.FC<Props> = ({
             </AboutTextLength>
           </Box>
         </Column>
-        <Box mb="xxxl">
+        <Box mb={ bottom > 0 ? 0 : 'xxxl' }>
           <Button
             title="Save"
             variant="warning"

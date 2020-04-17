@@ -3,6 +3,7 @@ import { LayoutAnimation } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { CustomLayoutSpring } from 'react-native-animation-layout';
+import debounce from 'lodash.debounce';
 import { searchActions } from '../../../actions';
 import SearchTab from '../components/SearchTab';
 import SearchInput from '../components/SearchInput';
@@ -24,17 +25,19 @@ const SearchPage: React.FC<Props> = ({
   const prevSearch = useRef<string>();
   const [searchTerm, setSearchTerm] = useState('');
 
-  useEffect(() => {
+  const onSearch = debounce(() => {
     if (prevSearch.current !== searchTerm) {
       prevSearch.current = searchTerm;
+
+      onSearchFood(searchTerm);
+      onSearchRecipe(searchTerm);
+      onSearchUser(searchTerm);
+
+      LayoutAnimation.configureNext(CustomLayoutSpring(null, null, "scaleXY"));
     }
+  }, 300, { trailing: true });
 
-    onSearchFood(searchTerm);
-    onSearchRecipe(searchTerm);
-    onSearchUser(searchTerm);
-
-    LayoutAnimation.configureNext(CustomLayoutSpring(null, null, "scaleXY"));
-  }, [searchTerm]);
+  useEffect(() => onSearch(), [searchTerm]);
 
   return (
     <>

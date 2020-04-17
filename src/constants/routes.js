@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // Localhost just doesn't work
 // Put in your local IP to run locally.
-const LOCAL = '';
+const LOCAL = 'http://192.168.1.188';
 const PROD = 'http://ec2-54-167-255-136.compute-1.amazonaws.com';
 
-export const HOSTNAME = `${PROD}/api`;
+export const HOSTNAME = `${LOCAL}/api`;
 
 export const SEARCH = '/search';
 export const SEARCHTERMS = 'searchTerms';

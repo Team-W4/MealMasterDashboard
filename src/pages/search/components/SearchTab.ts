@@ -14,7 +14,7 @@ export type SearchTabParamList = {
 };
 
 export type SearchNavigationProps<T extends keyof SearchTabParamList> =
-  HomeNavigationProps<'Discover'>
+  HomeNavigationProps<'Search'>
   & {
     navigation: MaterialTopTabNavigationProp<SearchTabParamList, T>;
     route: RouteProp<SearchTabParamList, T>;

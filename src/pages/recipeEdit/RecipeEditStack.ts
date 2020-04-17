@@ -1,5 +1,6 @@
 import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
+import { HomeNavigationProps } from '../navigator/HomeTab';
 
 export type RecipeEditStackParamList = {
   Name: undefined;
@@ -11,7 +12,8 @@ export type RecipeEditStackParamList = {
   AllSet: undefined;
 };
 
-export type RecipeEditNavigationProps<T extends keyof RecipeEditStackParamList> = {
+export type RecipeEditNavigationProps<T extends keyof RecipeEditStackParamList> =
+  HomeNavigationProps<'Home'> & {
   navigation: StackNavigationProp<RecipeEditStackParamList, T>;
   route: RouteProp<RecipeEditStackParamList, T>;
 };

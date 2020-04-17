@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from '../../../styled';
 import { titleHelper } from '../../../utils';
+import { Recipe } from '../../../constants/dataTypes';
 import { Box, Grid, Row } from '../../../components/Containers';
-import { Card } from '../../../components/Cards';
+import { Card, CardProps } from '../../../components/Cards';
 import { Heading, Subtitle, Text } from '../../../components/Texts';
-import Rating from '../../../components/Rating';
 import { ClockIcon, QuantityIcon, UtensilsIcon } from '../../../components/Icons';
+import Rating from '../../../components/Rating';
 
 const RecipeRecImage = styled.Image`
   width: 350px;
@@ -13,18 +14,31 @@ const RecipeRecImage = styled.Image`
   border-radius: 10px;
 `;
 
-const RecipeRecCard: React.FC = () => (
-  <Box>
+export type Props = CardProps & {
+  data: Recipe;
+};
+
+const RecipeRecCard: React.FC<Props> = ({
+  data: {
+    name,
+    tags,
+    cookTime,
+    image,
+    yield: quantity,
+  },
+  ...props
+}) => (
+  <Card variant="transparent" { ...props }>
     <RecipeRecImage
       source={{
-        uri: 'https://www.sugarandsoul.co/wp-content/uploads/2017/12/Apple-Granola-0846.jpg',
+        uri: image || '',
       }}
     />
     <Box width="100%" height="100px" alignItems="center">
       <Box position="absolute" top="-80px" width="320px">
         <Card p="m">
-          <Subtitle mb="xs">HEALTHY</Subtitle>
-          <Heading mb="s">{titleHelper('granola bowl & peanut butter')}</Heading>
+          <Subtitle mb="xs">{tags && tags[0]}</Subtitle>
+          <Heading mb="s">{titleHelper(name)}</Heading>
           <Grid mb="m" alignItems="center">
             <Row>
               <Rating value={ 4.3 } />
@@ -37,7 +51,7 @@ const RecipeRecCard: React.FC = () => (
             <Row>
               <ClockIcon mr="xs" size="small" variant="tertiary" />
               <Subtitle>
-                {`${1 || 0} min${
+                {`${cookTime || 0} min${
                   Number(1) > 1 ? 's' : ''
                 }`}
               </Subtitle>
@@ -49,7 +63,7 @@ const RecipeRecCard: React.FC = () => (
             <Row>
               <UtensilsIcon mr="xs" size="small" variant="tertiary" />
               <Subtitle>
-                {`${3 || 0} serving${
+                {`${quantity || 0} serving${
                   Number(3) > 1 ? 's' : ''
                 }`}
               </Subtitle>
@@ -58,7 +72,7 @@ const RecipeRecCard: React.FC = () => (
         </Card>
       </Box>
     </Box>
-  </Box>
+  </Card>
 );
 
 export default RecipeRecCard;

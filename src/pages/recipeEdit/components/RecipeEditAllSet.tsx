@@ -8,17 +8,22 @@ import {
 import { RichTextInput } from '../../../components/Inputs';
 import { Heading, Title } from '../../../components/Texts';
 import { IconButton } from '../../../components/Buttons';
-import { SavedIcon, NextIcon } from '../../../components/Icons';
+import { SavedIcon, CheckIcon } from '../../../components/Icons';
 import Tag from '../../../components/Tag';
+import { RecipeEditNavigationProps } from '../RecipeEditStack';
+
+export type Props = RecipeEditNavigationProps<'AllSet'>;
 
 const TagList = styled.ScrollView`
   flex-grow: 0;
   flex-shrink: 0;
-  padding-left: ${({ theme: { space } }) => space.l};
+  padding-left: ${({ theme: { space } }) => space.xxxl};
   margin-bottom: ${({ theme: { space } }) => space.l};
 `;
 
-const RecipeEditAllSet: React.FC = () => {
+const RecipeEditAllSet: React.FC<Props> = ({
+  navigation,
+}) => {
   const {
     state: {
       name,
@@ -29,25 +34,15 @@ const RecipeEditAllSet: React.FC = () => {
   } = useContext(RecipeEditContext);
 
   const onSubmit = () => {
+    navigation.navigate('Recipes');
   };
 
   return (
     <SafeView full>
       <ScrollView>
-        <Box px="l">
-          <Box justifyContent="flex-end">
-            <Box
-              mb="l"
-              width={ 50 }
-              height={ 50 }
-              borderRadius={ 25 }
-              borderWidth={ 5 }
-              borderColor="neoncarrot"
-              alignItems="center"
-              justifyContent="center"
-            >
-              <SavedIcon />
-            </Box>
+        <Box px="xxxl">
+          <Box my="xxl">
+            <SavedIcon wrapperVariant="warning" />
           </Box>
           <Heading mb="s">Congratulations!</Heading>
           <Title mb="s">{name}</Title>
@@ -63,13 +58,13 @@ const RecipeEditAllSet: React.FC = () => {
             <Box width="48px" />
           </TagList>
         )}
-        <Column>
+        <Column px="l">
           <RichTextInput editable={ false } initialContent={ instructions } />
         </Column>
       </ScrollView>
       <Box position="absolute" bottom="xxxl" right="xxxl">
-        <IconButton onPress={ onSubmit }>
-          <NextIcon variant="warning" />
+        <IconButton variant="warning" onPress={ onSubmit }>
+          <CheckIcon variant="inverted" />
         </IconButton>
       </Box>
     </SafeView>
