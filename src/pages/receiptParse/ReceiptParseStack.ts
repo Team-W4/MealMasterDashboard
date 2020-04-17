@@ -9,7 +9,7 @@ export type ReceiptParseStackParamList = {
 };
 
 export type ReceiptParseNavigationProps<T extends keyof ReceiptParseStackParamList> =
-  HomeNavigationProps<'Stocks'>
+  HomeNavigationProps<'Home'>
   & {
     navigation: StackNavigationProp<ReceiptParseStackParamList, T>;
     route: RouteProp<ReceiptParseStackParamList, T>;

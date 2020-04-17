@@ -4,15 +4,14 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { CustomLayoutSpring } from 'react-native-animation-layout';
 import { HomeNavigationProps } from '../../navigator/HomeTab';
-import { AuthNavigationProps } from '../../auths/AuthStack';
 import { recipeActions } from '../../../actions';
 import { Recipe } from '../../../constants/dataTypes';
 import { Box } from '../../../components/Containers';
+import { Subtitle } from '../../../components/Texts';
 import ScrollList from '../../../components/ScrollList';
 import RecipeCard from '../components/RecipeCard';
 
 export type Props = HomeNavigationProps<'Recipes'>
-  & AuthNavigationProps<'Home'>
   & {
   userId: number;
   recipes: Array<Recipe>;
@@ -31,16 +30,22 @@ class RecipeListPage extends React.Component<Props> {
     const { recipes, navigation } = this.props;
 
     return (
-      <ScrollList>
-        {(recipes || []).map((item: Recipe) => (
-          <Box key={ item.id } px="l" mb="xl">
-            <RecipeCard
-              data={ item }
-              onPress={ () => navigation.push('RecipeDetails', { recipeId: item.id }) }
-            />
-          </Box>
-        ))}
-      </ScrollList>
+      recipes && recipes.length > 0 ? (
+        <ScrollList>
+          {(recipes || []).map((item: Recipe) => (
+            <Box key={ item.id } px="l" mb="xl">
+              <RecipeCard
+                data={ item }
+                onPress={ () => navigation.push('RecipeDetails', { recipeId: item.id }) }
+              />
+            </Box>
+          ))}
+        </ScrollList>
+      ) : (
+        <Box width="100%" height="100%" alignItems="center" justifyContent="center">
+          <Subtitle textAlign="center" mt="xxxl">Save your favorite recipes here</Subtitle>
+        </Box>
+      )
     );
   }
 }

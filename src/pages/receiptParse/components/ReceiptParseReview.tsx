@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import range from 'lodash.range';
 import { connect } from 'react-redux';
-import { Picker, ActivityIndicator, StatusBar } from 'react-native';
 import { bindActionCreators } from 'redux';
+import {
+  LayoutAnimation, Picker, ActivityIndicator, StatusBar, Alert,
+} from 'react-native';
+import { CustomLayoutSpring } from 'react-native-animation-layout';
+import { useSafeArea } from 'react-native-safe-area-context';
 import { RNCamera } from 'react-native-camera';
 import { stockActions } from '../../../actions';
 import { GenericFood, StockItem } from '../../../constants/dataTypes';
@@ -11,8 +15,8 @@ import {
 } from '../../../components/Containers';
 import { DrawerCard } from '../../../components/Cards';
 import { Title, Subtitle } from '../../../components/Texts';
-import { IconButton } from '../../../components/Buttons';
-import { StockIcon, CheckIcon, CameraIcon } from '../../../components/Icons';
+import { IconButton, Button } from '../../../components/Buttons';
+import { StockIcon, CameraIcon, RetryIcon } from '../../../components/Icons';
 import { ReceiptParseNavigationProps } from '../ReceiptParseStack';
 import DataList from '../../../components/DataList';
 import FoodSearchListCard from '../../search/components/FoodSearchListCard';
@@ -21,29 +25,20 @@ export type Props = ReceiptParseNavigationProps<'ReceiptReview'> & {
   receiptFoods: Array<GenericFood>;
   parseReceipt: (base64?: string) => void;
   addToStock: (id: number, amount: Omit<StockItem, 'id'>) => void;
+  clearReceiptFoods: () => void;
 };
 
 const ReceiptParseReview: React.FC<Props> = ({
-  navigation, parseReceipt, receiptFoods, addToStock,
+  navigation, parseReceipt, receiptFoods, addToStock, clearReceiptFoods,
 }) => {
+  const { bottom } = useSafeArea();
   const cameraRef = React.createRef<RNCamera>();
   const [reviewMode, setReviewMode] = useState(false);
   const [foodMap, setMap] = useState(new Map<number, number>());
 
-  useEffect(() => {
-    if (receiptFoods && receiptFoods.length > 0) {
-      receiptFoods.forEach((food) => {
-        if (food) {
-          foodMap.set(food.id, 1);
-        }
-      });
-    }
-  }, [receiptFoods]);
-
   const takePicture = async () => {
     if (cameraRef) {
       const data = await cameraRef.current?.takePictureAsync({
-        quality: 0.5,
         base64: true,
         pauseAfterCapture: true,
       });
@@ -53,6 +48,14 @@ const ReceiptParseReview: React.FC<Props> = ({
         parseReceipt(data.base64);
       }
     }
+  };
+
+  const retryTakePicture = () => {
+    if (cameraRef) {
+      cameraRef.current?.resumePreview();
+    }
+    clearReceiptFoods();
+    setReviewMode(false);
   };
 
   const addReceiptToStock = () => {
@@ -66,8 +69,30 @@ const ReceiptParseReview: React.FC<Props> = ({
     navigation.push('ReceiptConfirm', { addedQuantity: receiptFoods.length });
   };
 
+  useEffect(() => {
+    if (receiptFoods && receiptFoods.length > 0 && receiptFoods.every((food) => !!food)) {
+      receiptFoods.forEach((food) => {
+        if (food) {
+          foodMap.set(food.id, 1);
+        }
+      });
+
+      LayoutAnimation.configureNext(CustomLayoutSpring(null, null, "scaleXY"));
+    } else {
+      if (receiptFoods && receiptFoods.length === 0) return;
+
+      Alert.alert('', 'We could not find any food on your receipt.', [
+        {
+          text: 'Try again',
+          style: 'cancel',
+          onPress: () => retryTakePicture(),
+        },
+      ]);
+    }
+  }, [receiptFoods]);
+
   return (
-    <SafeView full side="bottom" style={{ backgroundColor: 'orange' }}>
+    <SafeView full side="bottom">
       <StatusBar barStyle="light-content" />
       <RNCamera
         ref={ cameraRef }
@@ -80,8 +105,8 @@ const ReceiptParseReview: React.FC<Props> = ({
       </RNCamera>
       <DrawerCard
         topRightOverlay={ reviewMode ? (
-          <IconButton variant="warning" onPress={ addReceiptToStock }>
-            <CheckIcon variant="inverted" />
+          <IconButton variant="warning" onPress={ retryTakePicture }>
+            <RetryIcon variant="inverted" />
           </IconButton>
         ) : (
           <IconButton variant="warning" onPress={ takePicture }>
@@ -94,7 +119,7 @@ const ReceiptParseReview: React.FC<Props> = ({
           <Title ml="m">Your Receipt</Title>
         </Grid>
         {
-          receiptFoods && receiptFoods.length > 0 ? (
+          receiptFoods && receiptFoods.length > 0 && receiptFoods.every((food) => !!food) ? (
             // @ts-ignore
             <DataList
               data={
@@ -105,29 +130,28 @@ const ReceiptParseReview: React.FC<Props> = ({
                 })
               }
               keyExtractor={ (item: GenericFood) => ((item && item.name) || '').toString() }
-              renderItem={ ({ item: { id, name } }: { item: GenericFood }) => (
-                <Box key={ name } mx="l" my="xs">
+              renderItem={ ({ item }: { item: GenericFood }) => (
+                <Box key={ item.name } mx="l" my="xs">
                   <FoodSearchListCard
-                    title={ name }
-                    subtitle="produce"
+                    data={ item }
+                    rightOverlay={ (
+                      <Picker
+                        mode="dropdown"
+                        selectedValue={ foodMap.get(item.id) }
+                        itemStyle={{ height: 100 - 32, width: 20 }}
+                        onValueChange={ (itemValue) => {
+                          foodMap.set(item.id, itemValue);
+                          setMap(new Map(foodMap));
+                        } }
+                      >
+                        {
+                          range(1, 21).map(((i: number) => (
+                            <Picker.Item key={ i } label={ i.toString() } value={ i } />
+                          )))
+                        }
+                      </Picker>
+                    ) }
                   />
-                  <Box position="absolute" right="xl" top="0" left="80%">
-                    <Picker
-                      mode="dropdown"
-                      selectedValue={ foodMap.get(id) }
-                      itemStyle={{ height: 100 }}
-                      onValueChange={ (itemValue) => {
-                        foodMap.set(id, itemValue);
-                        setMap(new Map(foodMap));
-                      } }
-                    >
-                      {
-                        range(1, 21).map(((i: number) => (
-                          <Picker.Item key={ i } label={ i.toString() } value={ i } />
-                        )))
-                      }
-                    </Picker>
-                  </Box>
                 </Box>
               ) }
             />
@@ -144,6 +168,14 @@ const ReceiptParseReview: React.FC<Props> = ({
           )
         }
       </DrawerCard>
+      {
+        reviewMode && receiptFoods && receiptFoods.length > 0
+        && receiptFoods.every((food) => !!food) && (
+          <Grid position="absolute" left="0" right="0" bottom={ bottom > 0 ? bottom : 'xxxl' } px="l" justifyContent="center">
+            <Button variant="warning" title="Add to stock" onPress={ addReceiptToStock } />
+          </Grid>
+        )
+      }
     </SafeView>
   );
 };
@@ -156,6 +188,7 @@ const mapDispatchToProps = (dispatch: any) => bindActionCreators(
     {
       parseReceipt: stockActions.parseReceipt,
       addToStock: stockActions.addToStock,
+      clearReceiptFoods: stockActions.clearReceiptFoods,
     },
     dispatch,
   );

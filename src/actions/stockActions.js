@@ -9,6 +9,11 @@ export const clearStockItemDetails = () => ({
   type: actionTypes.CLEAR_STOCK_ITEM_DETAILS,
 });
 
+export const clearReceiptFoods = () => ({
+  type: actionTypes.CLEAR_RECEIPT_FOODS,
+});
+
+
 const receiveStockItem = (stockItem) => ({
   type: actionTypes.RECEIVE_STOCK_ITEM,
   stockItem,
@@ -99,10 +104,11 @@ export const deleteStockItem = (stockItemId) => (dispatch) => {
 export const parseReceipt = (base64) => (dispatch) => {
   dispatch({ type: actionTypes.FETCH_RECEIPT_FOODS });
   StockService.parseReceipt(base64)
-    .then((parsedFoods) => {
-      if (parsedFoods) {
-        dispatch({ type: actionTypes.RECEIVE_RECEIPT_FOODS, parsedFoods });
-      }
+    .then((receiptFoods) => {
+      dispatch({
+        type: actionTypes.RECEIVE_RECEIPT_FOODS,
+        receiptFoods,
+      });
     })
     .catch((e) => {
       console.error(e);

@@ -4,9 +4,9 @@ import {
   MaterialTopTabBarProps,
 } from '@react-navigation/material-top-tabs';
 import { RouteProp } from '@react-navigation/native';
-import { AuthStackParamList, AuthNavigationProps } from '../../auths/AuthStack';
+import { HomeNavigationProps } from '../../navigator/HomeTab';
 
-export type SearchTabParamList = AuthStackParamList & {
+export type SearchTabParamList = {
   SearchFoods: undefined;
   SearchRecipes: undefined;
   SearchUsers: undefined;
@@ -14,7 +14,7 @@ export type SearchTabParamList = AuthStackParamList & {
 };
 
 export type SearchNavigationProps<T extends keyof SearchTabParamList> =
-  AuthNavigationProps<'Search'>
+  HomeNavigationProps<'Discover'>
   & {
     navigation: MaterialTopTabNavigationProp<SearchTabParamList, T>;
     route: RouteProp<SearchTabParamList, T>;

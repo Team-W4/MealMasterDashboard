@@ -6,14 +6,13 @@ import { CustomLayoutSpring } from 'react-native-animation-layout';
 import { dateParser } from '../../../utils';
 import { stockActions } from '../../../actions';
 import { HomeNavigationProps } from '../../navigator/HomeTab';
-import { AuthNavigationProps } from '../../auths/AuthStack';
 import { Stock } from '../../../constants/dataTypes';
 import { Box } from '../../../components/Containers';
+import { Subtitle } from '../../../components/Texts';
 import StockListCard from '../components/StockListCard';
 import ScrollList from '../../../components/ScrollList';
 
 export type Props = HomeNavigationProps<'Stocks'>
-  & AuthNavigationProps<'Home'>
   & {
     foodStocks: Array<Stock>;
     getAllStock: () => void;
@@ -52,21 +51,28 @@ class StockListPage extends React.Component<Props> {
     const { foodStocks, navigation } = this.props;
 
     return (
-      <ScrollList>
-        {(foodStocks || [])
-          .sort(
-            (a, b) => dateParser(a.nextExpiration).getTime()
-              - dateParser(b.nextExpiration).getTime(),
-          )
-          .map((item: Stock) => (
-            <Box key={ item.id } px="l" mb="xl">
-              <StockListCard
-                data={ item }
-                onPress={ () => navigation.push('StockDetails', { stockId: item.id }) }
-              />
-            </Box>
-          ))}
-      </ScrollList>
+      foodStocks && foodStocks.length > 0 ? (
+        <ScrollList>
+          {
+            foodStocks.sort(
+              (a, b) => dateParser(a.nextExpiration).getTime()
+                - dateParser(b.nextExpiration).getTime(),
+            )
+            .map((item: Stock) => (
+              <Box key={ item.id } px="l" mb="xl">
+                <StockListCard
+                  data={ item }
+                  onPress={ () => navigation.push('StockDetails', { stockId: item.id }) }
+                />
+              </Box>
+            ))
+        }
+        </ScrollList>
+      ) : (
+        <Box width="100%" height="100%" alignItems="center" justifyContent="center">
+          <Subtitle textAlign="center" mt="xxxl">Add your first stock items</Subtitle>
+        </Box>
+      )
     );
   }
 }

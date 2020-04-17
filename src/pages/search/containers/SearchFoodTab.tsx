@@ -18,8 +18,7 @@ const SearchFoodTab: React.FC<Props> = ({ navigation, data }) => (
     renderItem={ ({ item }: { item: GenericFood }) => (
       <Box key={ item.name } px="l" py="xs">
         <FoodSearchListCard
-          title={ item.name }
-          subtitle="produce"
+          data={ item }
           onPress={ () => navigation.push('FoodDetails', { foodId: item.id }) }
         />
       </Box>

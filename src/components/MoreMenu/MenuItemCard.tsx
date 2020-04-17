@@ -27,7 +27,7 @@ const MenuItemCard: React.FC<Props> = ({
     <MenuItemCardWrapper
       onPress={ onPress }
     >
-      <Grid px="l" pt="xl" pb={ last ? bottom : 'xl' }>
+      <Grid px="l" pt="xl" pb={ last && bottom > 0 ? bottom : 'xl' }>
         <Box width="50px" justifyContent="center" alignItems="center">
           {icon}
         </Box>

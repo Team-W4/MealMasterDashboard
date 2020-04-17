@@ -71,14 +71,18 @@ const StockReducer = createReducer(initialState, {
     ...state,
     isFetchingReceiptFoods: true,
   }),
-  [actionTypes.RECEIVE_RECEIPT_FOODS]: (state, { parsedFoods }) => ({
+  [actionTypes.RECEIVE_RECEIPT_FOODS]: (state, { receiptFoods }) => ({
     ...state,
+    receiptFoods,
     isFetchingReceiptFoods: false,
-    receiptFoods: parsedFoods,
   }),
   [actionTypes.FETCH_RECEIPT_FOODS_FAIL]: (state) => ({
     ...state,
     isFetchingReceiptFoods: false,
+  }),
+  [actionTypes.CLEAR_RECEIPT_FOODS]: (state) => ({
+    ...state,
+    receiptFoods: [],
   }),
 });
 

@@ -38,6 +38,11 @@ class RecipeService {
     const route = `${routes.RECIPE}/${routes.LIKE}/${recipeId}`;
     return deleteHelper(route);
   }
+
+  createRecipe = (recipe) => {
+    const route = `${routes.RECIPE}`;
+    return postHelper(route, recipe);
+  }
 }
 
 const singleton = new RecipeService();

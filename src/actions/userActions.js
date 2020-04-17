@@ -56,9 +56,15 @@ export const logOut = () => (dispatch) => {
 
 // TODO: adds response && errors here
 export const register = (email, password) => (dispatch) => {
-  UserService.register(email, password).then(
-    (profile) => storeToken(dispatch, profile, email, password),
-  );
+  dispatch({ type: actionTypes.REGISTER });
+
+  UserService.register(email, password).then(() => {
+    dispatch({ type: actionTypes.LOGIN });
+
+    UserService.login(email, password).then(
+      (profile) => storeToken(dispatch, profile, email, password),
+    );
+  });
 };
 
 export const restoreToken = () => async (dispatch) => {

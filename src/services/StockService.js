@@ -4,6 +4,7 @@ import {
   getHelper,
   postHelper,
   putHelper,
+  postHelperOctet,
 } from '../utils/fetchHelper';
 
 class StockService {
@@ -36,8 +37,7 @@ class StockService {
 
   deleteStockItem = (stockItemId) => deleteHelper(`${routes.STOCK_ITEM}/${stockItemId}`);
 
-  // TODO: accept image has param
-  parseReceipt = (base64) => postHelper(routes.AZURE, base64);
+  parseReceipt = (base64) => postHelperOctet(routes.AZURE, base64);
 }
 
 const singleton = new StockService();

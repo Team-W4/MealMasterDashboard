@@ -5,7 +5,6 @@ export type AuthStackParamList = {
   Login: undefined;
   Loading: undefined;
   Home: undefined;
-  Search: undefined;
   RecipeDetails: { recipeId: number };
   RecipeEdit: undefined;
   StockDetails: { stockId?: number, foodId?: number };
@@ -13,6 +12,7 @@ export type AuthStackParamList = {
   UserDetails: undefined;
   UserEdit: undefined;
   ReceiptParse: undefined;
+  Consume: undefined;
 };
 
 export type AuthNavigationProps<T extends keyof AuthStackParamList> = {
