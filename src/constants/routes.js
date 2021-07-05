@@ -34,3 +34,5 @@ export const CONSUME = '/consume';
 
 // Azure Routes
 export const AZURE = '/azure';
+
+export const BULLSHIT = '/bullshit';
